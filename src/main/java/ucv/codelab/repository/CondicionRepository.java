@@ -1,5 +1,6 @@
 package ucv.codelab.repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,8 @@ import ucv.codelab.model.Condicion;
 
 public class CondicionRepository extends BaseRepository<Condicion> {
 
-    public CondicionRepository() throws SQLException {
-        super();
+    public CondicionRepository(Connection conexion) throws SQLException {
+        super(conexion);
     }
 
     @Override

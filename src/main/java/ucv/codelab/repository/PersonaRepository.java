@@ -1,5 +1,6 @@
 package ucv.codelab.repository;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +11,8 @@ import ucv.codelab.model.Persona;
 
 public class PersonaRepository extends BaseRepository<Persona> {
 
-    public PersonaRepository() throws SQLException {
-        super();
+    public PersonaRepository(Connection conexion) throws SQLException {
+        super(conexion);
     }
 
     @Override
@@ -63,12 +64,12 @@ public class PersonaRepository extends BaseRepository<Persona> {
         stmt.setString(6, persona.getDireccion());
         stmt.setString(7, persona.getTelefono());
         // El ID va al final para el WHERE
-        stmt.setInt(8, persona.getId());
+        stmt.setInt(8, persona.getIdPersona());
     }
 
     @Override
     protected void actualizarEntidadConIdGenerado(Persona persona, ResultSet generatedKeys) throws SQLException {
-        persona.setId(generatedKeys.getInt(1));
+        persona.setIdPersona(generatedKeys.getInt(1));
     }
 
     public Optional<Persona> buscarPorDni(String dni) {

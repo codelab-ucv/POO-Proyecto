@@ -3,28 +3,32 @@ package ucv.codelab.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paciente {
+public class Paciente extends Persona {
 
     private int id;
-    private int idPersona;
     private String tipoSangre;
     private String antecedentes;
-
-    private Persona persona;
 
     private List<Condicion> condiciones = new ArrayList<>();
 
     public Paciente(int id, int idPersona, String tipoSangre, String antecedentes) {
+        super();
+        // Establece el ID de la persona en bdd
+        setIdPersona(idPersona);
+        // Establece los parámetros del paciente
         this.id = id;
-        this.idPersona = idPersona;
         this.tipoSangre = tipoSangre;
         this.antecedentes = antecedentes;
     }
 
     public Paciente(int id, String tipoSangre, String antecedentes, Persona persona) {
-        this(id, persona.getId(), tipoSangre, antecedentes);
-        // Configura el objeto
-        this.persona = persona;
+        // Inicia con todos los datos del constructor colocados
+        super(persona.getIdPersona(), persona.getNombre(), persona.getApellido(), persona.getDni(),
+                persona.getFechaNacimiento(), persona.getSexo(), persona.getDireccion(), persona.getTelefono());
+        // Establece los parámetros del médico
+        this.id = id;
+        this.tipoSangre = tipoSangre;
+        this.antecedentes = antecedentes;
     }
 
     public int getId() {
@@ -33,14 +37,6 @@ public class Paciente {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
     }
 
     public String getTipoSangre() {
@@ -57,14 +53,6 @@ public class Paciente {
 
     public void setAntecedentes(String antecedentes) {
         this.antecedentes = antecedentes;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
 
     public void addCondicion(Condicion condicion) {

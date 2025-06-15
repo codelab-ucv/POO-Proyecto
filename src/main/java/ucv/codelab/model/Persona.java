@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Persona {
 
-    private int id;
+    private int idPersona;
     private String nombre;
     private String apellido;
     private String dni;
@@ -14,9 +14,14 @@ public class Persona {
     private String direccion;
     private String telefono;
 
-    public Persona(int id, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String sexo,
+    // Inicializa con Id -1 para indicar que no tiene valores
+    protected Persona() {
+        idPersona = -1;
+    }
+
+    public Persona(int idPersona, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String sexo,
             String direccion, String telefono) {
-        this.id = id;
+        this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -26,12 +31,12 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public int getId() {
-        return id;
+    public int getIdPersona() {
+        return idPersona;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public String getNombre() {
@@ -100,7 +105,7 @@ public class Persona {
         }
         Persona p = (Persona) obj;
 
-        return p.getId() == this.id &&
+        return p.getIdPersona() == this.idPersona &&
                 Objects.equals(p.getNombre(), this.nombre) &&
                 Objects.equals(p.getApellido(), this.apellido) &&
                 Objects.equals(p.getDni(), this.dni) &&
@@ -110,4 +115,45 @@ public class Persona {
                 Objects.equals(p.getTelefono(), this.telefono);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPersona, nombre, apellido, dni, fechaNacimiento, sexo, direccion, telefono);
+    }
+
+    public void modificarDatosPersona(Persona persona) {
+        this.idPersona = persona.getIdPersona();
+        this.nombre = persona.getNombre();
+        this.apellido = persona.getApellido();
+        this.dni = persona.getDni();
+        this.fechaNacimiento = persona.getFechaNacimiento();
+        this.sexo = persona.getSexo();
+        this.direccion = persona.getDireccion();
+        this.telefono = persona.getTelefono();
+    }
+
+    public boolean datosPersonaValidos() {
+        // Si el ID de la persona no es -1 y los datos obligatorios no son nulos
+        if (idPersona != -1 && validarDatosObligatorios(nombre, apellido, dni, fechaNacimiento, sexo)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Persona getPersona() {
+        return this;
+    }
+
+    protected boolean validarDatosObligatorios(Object... datos) {
+        for (Object o : datos) {
+            // Si es nulo
+            if (Objects.isNull(o)) {
+                return false;
+            }
+            // Si es un String vacio
+            if (o instanceof String && ((String) o).trim().equals("")) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package ucv.codelab.repository;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,8 +9,8 @@ import ucv.codelab.model.Cita;
 
 public class CitaRepository extends BaseRepository<Cita> {
 
-    public CitaRepository() throws SQLException {
-        super();
+    public CitaRepository(Connection conexion) throws SQLException {
+        super(conexion);
     }
 
     @Override

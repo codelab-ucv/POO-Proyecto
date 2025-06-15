@@ -1,5 +1,6 @@
 package ucv.codelab.repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +10,8 @@ import ucv.codelab.model.Paciente;
 
 public class PacienteRepository extends BaseRepository<Paciente> {
 
-    public PacienteRepository() throws SQLException {
-        super();
+    public PacienteRepository(Connection conexion) throws SQLException {
+        super(conexion);
     }
 
     @Override

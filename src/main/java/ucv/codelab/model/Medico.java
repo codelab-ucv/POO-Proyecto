@@ -1,9 +1,8 @@
 package ucv.codelab.model;
 
-public class Medico {
+public class Medico extends Persona {
 
     private int id;
-    private int idPersona;
     private String area;
     private String email;
     private Integer experiencia;
@@ -11,12 +10,13 @@ public class Medico {
     private String universidad;
     private String grado;
 
-    private Persona persona;
-
     public Medico(int id, int idPersona, String area, String email, Integer experiencia, String colegiatura,
             String universidad, String grado) {
+        super();
+        // Establece el ID de la persona en bdd
+        setIdPersona(idPersona);
+        // Establece los parámetros del médico
         this.id = id;
-        this.idPersona = idPersona;
         this.area = area;
         this.email = email;
         this.experiencia = experiencia;
@@ -27,9 +27,17 @@ public class Medico {
 
     public Medico(int id, String area, String email, Integer experiencia, String colegiatura,
             String universidad, String grado, Persona persona) {
-        this(id, persona.getId(), area, email, experiencia, colegiatura, universidad, grado);
-        // Configura el objeto
-        this.persona = persona;
+        // Inicia con todos los datos del constructor colocados
+        super(persona.getIdPersona(), persona.getNombre(), persona.getApellido(), persona.getDni(),
+                persona.getFechaNacimiento(), persona.getSexo(), persona.getDireccion(), persona.getTelefono());
+        // Establece los parámetros del médico
+        this.id = id;
+        this.area = area;
+        this.email = email;
+        this.experiencia = experiencia;
+        this.colegiatura = colegiatura;
+        this.universidad = universidad;
+        this.grado = grado;
     }
 
     public int getId() {
@@ -38,14 +46,6 @@ public class Medico {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
     }
 
     public String getArea() {
@@ -64,11 +64,11 @@ public class Medico {
         this.email = email;
     }
 
-    public int getExperiencia() {
+    public Integer getExperiencia() {
         return experiencia;
     }
 
-    public void setExperiencia(int experiencia) {
+    public void setExperiencia(Integer experiencia) {
         this.experiencia = experiencia;
     }
 
@@ -96,11 +96,5 @@ public class Medico {
         this.grado = grado;
     }
 
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
+    
 }

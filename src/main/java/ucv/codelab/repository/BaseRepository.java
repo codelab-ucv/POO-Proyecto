@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import ucv.codelab.util.MySQLConexion;
-
 /**
  * Repositorio base abstracto para todas las entidades.
  * Esta clase proporciona la implementación común para operaciones CRUD,
@@ -29,13 +27,12 @@ public abstract class BaseRepository<T> {
     protected Connection connection;
 
     /**
-     * Constructor que inicializa la conexión a la base de datos.
+     * Constructor que recibe la conexión a la base de datos
      * 
-     * @throws SQLException si ocurre un error al establecer la conexión con la base
-     *                      de datos
+     * @param connection Conexión activa a la base de datos MySQL
      */
-    public BaseRepository() throws SQLException {
-        this.connection = MySQLConexion.getInstance().getConexion();
+    public BaseRepository(Connection connection) {
+        this.connection = connection;
     }
 
     /**
