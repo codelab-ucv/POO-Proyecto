@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import ucv.codelab.enumerados.TipoSangre;
 import ucv.codelab.model.Paciente;
 
 public class PacienteRepository extends BaseRepository<Paciente> {
@@ -24,7 +25,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         return new Paciente(
                 rs.getInt("id"),
                 rs.getInt("id_persona"),
-                rs.getString("tipo_sangre"),
+                TipoSangre.fromString(rs.getString("tipo_sangre")),
                 rs.getString("antecedentes"));
     }
 
@@ -36,7 +37,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     @Override
     protected void establecerParametrosInsertar(PreparedStatement stmt, Paciente paciente) throws SQLException {
         stmt.setInt(1, paciente.getIdPersona());
-        stmt.setString(2, paciente.getTipoSangre());
+        stmt.setString(2, paciente.getTipoSangre().getValor());
         stmt.setString(3, paciente.getAntecedentes());
     }
 
@@ -48,7 +49,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     @Override
     protected void establecerParametrosActualizar(PreparedStatement stmt, Paciente paciente) throws SQLException {
         stmt.setInt(1, paciente.getIdPersona());
-        stmt.setString(2, paciente.getTipoSangre());
+        stmt.setString(2, paciente.getTipoSangre().getValor());
         stmt.setString(3, paciente.getAntecedentes());
         // El ID va al final para el WHERE
         stmt.setInt(4, paciente.getId());

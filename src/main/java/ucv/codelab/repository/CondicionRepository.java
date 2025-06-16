@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import ucv.codelab.enumerados.Gravedad;
 import ucv.codelab.model.Condicion;
 
 public class CondicionRepository extends BaseRepository<Condicion> {
@@ -27,7 +28,7 @@ public class CondicionRepository extends BaseRepository<Condicion> {
                 rs.getInt("id"),
                 rs.getString("tipo"),
                 rs.getString("condicion"),
-                rs.getString("gravedad"));
+                Gravedad.fromString(rs.getString("gravedad")));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class CondicionRepository extends BaseRepository<Condicion> {
     protected void establecerParametrosInsertar(PreparedStatement stmt, Condicion condicion) throws SQLException {
         stmt.setString(1, condicion.getTipo());
         stmt.setString(2, condicion.getCondicion());
-        stmt.setString(3, condicion.getGravedad());
+        stmt.setString(3, condicion.getGravedad().getValor());
     }
 
     @Override
@@ -51,7 +52,7 @@ public class CondicionRepository extends BaseRepository<Condicion> {
     protected void establecerParametrosActualizar(PreparedStatement stmt, Condicion condicion) throws SQLException {
         stmt.setString(1, condicion.getTipo());
         stmt.setString(2, condicion.getCondicion());
-        stmt.setString(3, condicion.getGravedad());
+        stmt.setString(3, condicion.getGravedad().getValor());
         // El ID va al final para el WHERE
         stmt.setInt(4, condicion.getId());
     }

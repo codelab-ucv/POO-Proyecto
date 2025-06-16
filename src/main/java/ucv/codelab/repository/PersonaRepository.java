@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.model.Persona;
 
 public class PersonaRepository extends BaseRepository<Persona> {
@@ -28,7 +29,7 @@ public class PersonaRepository extends BaseRepository<Persona> {
                 rs.getString("apellido"),
                 rs.getString("dni"),
                 rs.getDate("fecha_nacimiento").toLocalDate(),
-                rs.getString("sexo"),
+                Sexo.fromString(rs.getString("sexo")),
                 rs.getString("direccion"),
                 rs.getString("telefono"));
     }
@@ -44,7 +45,7 @@ public class PersonaRepository extends BaseRepository<Persona> {
         stmt.setString(2, persona.getApellido());
         stmt.setString(3, persona.getDni());
         stmt.setDate(4, Date.valueOf(persona.getFechaNacimiento()));
-        stmt.setString(5, persona.getSexo());
+        stmt.setString(5, persona.getSexo().getValor());
         stmt.setString(6, persona.getDireccion());
         stmt.setString(7, persona.getTelefono());
     }
@@ -60,7 +61,7 @@ public class PersonaRepository extends BaseRepository<Persona> {
         stmt.setString(2, persona.getApellido());
         stmt.setString(3, persona.getDni());
         stmt.setDate(4, Date.valueOf(persona.getFechaNacimiento()));
-        stmt.setString(5, persona.getSexo());
+        stmt.setString(5, persona.getSexo().getValor());
         stmt.setString(6, persona.getDireccion());
         stmt.setString(7, persona.getTelefono());
         // El ID va al final para el WHERE

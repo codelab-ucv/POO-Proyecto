@@ -142,7 +142,7 @@ public class PacienteService {
                 Optional<Condicion> condicionExistente = condicionRepo.buscarPorCondicion(
                         condicion.getTipo(),
                         condicion.getCondicion(),
-                        condicion.getGravedad());
+                        condicion.getGravedad().getValor());
 
                 if (condicionExistente.isPresent()) {
                     // La condición ya existe, usar su ID

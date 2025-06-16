@@ -3,6 +3,8 @@ package ucv.codelab.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import ucv.codelab.enumerados.Sexo;
+
 public class Persona {
 
     private int idPersona;
@@ -10,7 +12,7 @@ public class Persona {
     private String apellido;
     private String dni;
     private LocalDate fechaNacimiento;
-    private String sexo;
+    private Sexo sexo;
     private String direccion;
     private String telefono;
 
@@ -19,7 +21,7 @@ public class Persona {
         idPersona = -1;
     }
 
-    public Persona(int idPersona, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String sexo,
+    public Persona(int idPersona, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Sexo sexo,
             String direccion, String telefono) {
         this.idPersona = idPersona;
         this.nombre = nombre;
@@ -71,11 +73,11 @@ public class Persona {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 

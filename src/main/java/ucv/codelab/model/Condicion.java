@@ -1,13 +1,15 @@
 package ucv.codelab.model;
 
+import ucv.codelab.enumerados.Gravedad;
+
 public class Condicion {
 
     private int id;
     private String tipo;
     private String condicion;
-    private String gravedad;
+    private Gravedad gravedad;
 
-    public Condicion(int id, String tipo, String condicion, String gravedad) {
+    public Condicion(int id, String tipo, String condicion, Gravedad gravedad) {
         this.id = id;
         this.tipo = tipo;
         this.condicion = condicion;
@@ -38,11 +40,11 @@ public class Condicion {
         this.condicion = condicion;
     }
 
-    public String getGravedad() {
+    public Gravedad getGravedad() {
         return gravedad;
     }
 
-    public void setGravedad(String gravedad) {
+    public void setGravedad(Gravedad gravedad) {
         this.gravedad = gravedad;
     }
 

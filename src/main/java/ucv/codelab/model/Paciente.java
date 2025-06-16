@@ -3,15 +3,17 @@ package ucv.codelab.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import ucv.codelab.enumerados.TipoSangre;
+
 public class Paciente extends Persona {
 
     private int id;
-    private String tipoSangre;
+    private TipoSangre tipoSangre;
     private String antecedentes;
 
     private List<Condicion> condiciones = new ArrayList<>();
 
-    public Paciente(int id, int idPersona, String tipoSangre, String antecedentes) {
+    public Paciente(int id, int idPersona, TipoSangre tipoSangre, String antecedentes) {
         super();
         // Establece el ID de la persona en bdd
         setIdPersona(idPersona);
@@ -21,7 +23,7 @@ public class Paciente extends Persona {
         this.antecedentes = antecedentes;
     }
 
-    public Paciente(int id, String tipoSangre, String antecedentes, Persona persona) {
+    public Paciente(int id, TipoSangre tipoSangre, String antecedentes, Persona persona) {
         // Inicia con todos los datos del constructor colocados
         super(persona.getIdPersona(), persona.getNombre(), persona.getApellido(), persona.getDni(),
                 persona.getFechaNacimiento(), persona.getSexo(), persona.getDireccion(), persona.getTelefono());
@@ -39,11 +41,11 @@ public class Paciente extends Persona {
         this.id = id;
     }
 
-    public String getTipoSangre() {
+    public TipoSangre getTipoSangre() {
         return tipoSangre;
     }
 
-    public void setTipoSangre(String tipoSangre) {
+    public void setTipoSangre(TipoSangre tipoSangre) {
         this.tipoSangre = tipoSangre;
     }
 
