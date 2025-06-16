@@ -83,7 +83,7 @@ public class CitaRepository extends BaseRepository<Cita> {
     }
 
     // Se valida previamente que almenos el dni del paciente o del medico esté lleno
-    public List<Cita> buscarCitaPorPacienteMedico(String dniPaciente, String dniMedico) {
+    public List<Cita> buscarCitaPorDni(String dniPaciente, String dniMedico) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.* FROM cita c ");
 
@@ -114,6 +114,46 @@ public class CitaRepository extends BaseRepository<Cita> {
             }
             sql.append("p_med.dni = ?");
             parametros.add(dniMedico);
+        }
+
+        sql.append(" ORDER BY fecha_atencion DESC");
+
+        return ejecutarConsulta(sql.toString(), parametros.toArray());
+    }
+
+    public List<Cita> buscarCitaPorNombre(String nombrePaciente, String nombreMedico) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c.* FROM cita c ");
+
+        List<Object> parametros = new ArrayList<>();
+
+        if (nombrePaciente != null) {
+            sql.append("JOIN paciente pac ON pac.id = c.id_paciente ");
+            sql.append("JOIN persona p_pac ON p_pac.id = pac.id_persona ");
+        }
+
+        if (nombreMedico != null) {
+            sql.append("JOIN medico med ON med.id = c.id_medico ");
+            sql.append("JOIN persona p_med ON p_med.id = med.id_persona ");
+        }
+
+        sql.append("WHERE ");
+        boolean primeraCondicion = true;
+
+        if (nombrePaciente != null) {
+            // Buscar por nombre completo (nombre + apellido) del paciente
+            sql.append("CONCAT(p_pac.nombre, ' ', p_pac.apellido) LIKE ?");
+            parametros.add("%" + nombrePaciente + "%");
+            primeraCondicion = false;
+        }
+
+        if (nombreMedico != null) {
+            if (!primeraCondicion) {
+                sql.append(" AND ");
+            }
+            // Buscar por nombre completo (nombre + apellido) del médico
+            sql.append("CONCAT(p_med.nombre, ' ', p_med.apellido) LIKE ?");
+            parametros.add("%" + nombreMedico + "%");
         }
 
         sql.append(" ORDER BY fecha_atencion DESC");

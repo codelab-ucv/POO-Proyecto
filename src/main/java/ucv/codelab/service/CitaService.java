@@ -11,7 +11,7 @@ import ucv.codelab.util.MySQLConexion;
 
 public class CitaService {
 
-    public static List<Cita> buscar(String dniPaciente, String dniMedico) {
+    public static List<Cita> buscarPorDni(String dniPaciente, String dniMedico) {
         // Quita los espacios y si se vuelve vacio lo cambia a null
         if (dniPaciente != null) {
             dniPaciente = dniPaciente.trim();
@@ -29,9 +29,34 @@ public class CitaService {
         }
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             CitaRepository citaRepo = new CitaRepository(conn);
-            return citaRepo.buscarCitaPorPacienteMedico(dniPaciente, dniMedico);
+            return citaRepo.buscarCitaPorDni(dniPaciente, dniMedico);
         } catch (SQLException e) {
+            Mensajes.errorConexion();
+            return null;
+        }
+    }
 
+    // Nombre en formato nombre + apellido
+    public static List<Cita> buscarPorNombre(String nombrePaciente, String nombreMedico) {
+        // Quita los espacios y si se vuelve vacio lo cambia a null
+        if (nombrePaciente != null) {
+            nombrePaciente = nombrePaciente.trim();
+            if (nombrePaciente.isEmpty())
+                nombrePaciente = null;
+        }
+        if (nombreMedico != null) {
+            nombreMedico = nombreMedico.trim();
+            if (nombreMedico.isEmpty())
+                nombreMedico = null;
+        }
+        // Si no está ninguno retorna null
+        if (nombrePaciente == null && nombreMedico == null) {
+            return null;
+        }
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            CitaRepository citaRepo = new CitaRepository(conn);
+            return citaRepo.buscarCitaPorNombre(nombrePaciente, nombreMedico);
+        } catch (SQLException e) {
             Mensajes.errorConexion();
             return null;
         }
