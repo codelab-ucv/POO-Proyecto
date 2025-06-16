@@ -23,7 +23,7 @@ CREATE TABLE
         `tipo` varchar(50) NOT NULL,
         `condicion` varchar(100) NOT NULL,
         `gravedad` enum ('LEVE', 'MODERADA', 'SEVERA') DEFAULT 'LEVE',
-        UNIQUE KEY `unique_tipo_condicion` (`tipo`, `condicion`)
+        UNIQUE KEY `unique_tipo_condicion` (`tipo`, `condicion`, `gravedad`)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 -- Tabla medico (depende de persona)

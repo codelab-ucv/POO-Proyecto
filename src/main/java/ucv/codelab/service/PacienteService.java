@@ -2,6 +2,7 @@ package ucv.codelab.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,8 +86,8 @@ public class PacienteService {
                 pacienteRepo.crear(paciente);
             }
 
-            // Hace upsert con los datos de las condiciones
-            upsertCondiciones(paciente, condicionRepo);
+            // Actualiza todos los datos de las condiciones
+            validarCondiciones(paciente, condicionRepo);
 
             // Aplica los cambios y rehabilita el autoCommit
             conn.commit();
@@ -124,7 +125,73 @@ public class PacienteService {
         }
     }
 
-    private static void upsertCondiciones(Paciente paciente, CondicionRepository condicionRepo) {
-        // TODO codigo para hacer el upsert
+    private static void validarCondiciones(Paciente paciente, CondicionRepository condicionRepo) throws SQLException {
+        // Obtener las condiciones actuales del paciente en la base de datos
+        List<Integer> condicionesActualesIds = condicionRepo.obtenerIdsCondicionesPorPaciente(paciente.getId());
+
+        // Lista para almacenar los IDs de las condiciones que deben estar asociadas
+        List<Integer> condicionesDeseadasIds = new ArrayList<>();
+
+        // Procesar cada condición del paciente (solo inserts, no updates)
+        List<Condicion> condicionesLocal = paciente.getCondiciones();
+        for (Condicion condicion : condicionesLocal) {
+            int idCondicion;
+
+            if (condicion.getId() == -1 || condicionRepo.buscarPorId(condicion.getId()).isEmpty()) {
+                // La condición no tiene ID, verificar si ya existe en la base de datos
+                Optional<Condicion> condicionExistente = condicionRepo.buscarPorCondicion(
+                        condicion.getTipo(),
+                        condicion.getCondicion(),
+                        condicion.getGravedad());
+
+                if (condicionExistente.isPresent()) {
+                    // La condición ya existe, usar su ID
+                    idCondicion = condicionExistente.get().getId();
+                    // Actualiza el objeto local
+                    condicion.setId(idCondicion);
+                } else {
+                    // La condición no existe, crearla
+                    condicionRepo.crear(condicion);
+                    // Usa el ID asignado automáticamente en crear()
+                    idCondicion = condicion.getId();
+                }
+            } else {
+                // La condición ya tiene ID, simplemente usarlo
+                idCondicion = condicion.getId();
+            }
+
+            condicionesDeseadasIds.add(idCondicion);
+        }
+
+        // Sincronizar las asociaciones en paciente_condicion
+        sincronizarAsociacionesCondiciones(paciente.getId(), condicionesActualesIds, condicionesDeseadasIds,
+                condicionRepo);
+    }
+
+    /**
+     * Sincroniza las asociaciones entre paciente y condiciones
+     */
+    private static void sincronizarAsociacionesCondiciones(int idPaciente,
+            List<Integer> condicionesActuales,
+            List<Integer> condicionesDeseadas,
+            CondicionRepository condicionRepo) throws SQLException {
+
+        // Condiciones a agregar (están en deseadas pero no en actuales)
+        List<Integer> condicionesParaAgregar = new ArrayList<>(condicionesDeseadas);
+        condicionesParaAgregar.removeAll(condicionesActuales);
+
+        // Condiciones a eliminar (están en actuales pero no en deseadas)
+        List<Integer> condicionesParaEliminar = new ArrayList<>(condicionesActuales);
+        condicionesParaEliminar.removeAll(condicionesDeseadas);
+
+        // Agregar nuevas asociaciones
+        for (Integer idCondicion : condicionesParaAgregar) {
+            condicionRepo.asociarCondicionConPaciente(idPaciente, idCondicion);
+        }
+
+        // Eliminar asociaciones que ya no deben existir
+        for (Integer idCondicion : condicionesParaEliminar) {
+            condicionRepo.desasociarCondicionDePaciente(idPaciente, idCondicion);
+        }
     }
 }
