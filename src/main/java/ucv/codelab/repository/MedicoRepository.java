@@ -10,7 +10,7 @@ import ucv.codelab.model.Medico;
 
 public class MedicoRepository extends BaseRepository<Medico> {
 
-    public MedicoRepository(Connection conexion) throws SQLException {
+    public MedicoRepository(Connection conexion) {
         super(conexion);
     }
 

@@ -11,7 +11,7 @@ import ucv.codelab.model.Paciente;
 
 public class PacienteRepository extends BaseRepository<Paciente> {
 
-    public PacienteRepository(Connection conexion) throws SQLException {
+    public PacienteRepository(Connection conexion) {
         super(conexion);
     }
 

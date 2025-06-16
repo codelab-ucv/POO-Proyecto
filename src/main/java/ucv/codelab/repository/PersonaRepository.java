@@ -12,7 +12,7 @@ import ucv.codelab.model.Persona;
 
 public class PersonaRepository extends BaseRepository<Persona> {
 
-    public PersonaRepository(Connection conexion) throws SQLException {
+    public PersonaRepository(Connection conexion) {
         super(conexion);
     }
 

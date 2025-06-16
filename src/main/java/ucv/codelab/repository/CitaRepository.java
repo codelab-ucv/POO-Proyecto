@@ -12,7 +12,7 @@ import ucv.codelab.model.Cita;
 
 public class CitaRepository extends BaseRepository<Cita> {
 
-    public CitaRepository(Connection conexion) throws SQLException {
+    public CitaRepository(Connection conexion) {
         super(conexion);
     }
 

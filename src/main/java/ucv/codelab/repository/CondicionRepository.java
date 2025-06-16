@@ -13,7 +13,7 @@ import ucv.codelab.model.Condicion;
 
 public class CondicionRepository extends BaseRepository<Condicion> {
 
-    public CondicionRepository(Connection conexion) throws SQLException {
+    public CondicionRepository(Connection conexion) {
         super(conexion);
     }
 
