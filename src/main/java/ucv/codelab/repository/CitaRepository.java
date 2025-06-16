@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import ucv.codelab.model.Cita;
 
 public class CitaRepository extends BaseRepository<Cita> {
@@ -77,5 +80,44 @@ public class CitaRepository extends BaseRepository<Cita> {
     @Override
     protected void actualizarEntidadConIdGenerado(Cita cita, ResultSet generatedKeys) throws SQLException {
         cita.setId(generatedKeys.getInt(1));
+    }
+
+    // Se valida previamente que almenos el dni del paciente o del medico esté lleno
+    public List<Cita> buscarCitaPorPacienteMedico(String dniPaciente, String dniMedico) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c.* FROM cita c ");
+
+        List<Object> parametros = new ArrayList<>();
+
+        if (dniPaciente != null) {
+            sql.append("JOIN paciente pac ON pac.id = c.id_paciente ");
+            sql.append("JOIN persona p_pac ON p_pac.id = pac.id_persona ");
+        }
+
+        if (dniMedico != null) {
+            sql.append("JOIN medico med ON med.id = c.id_medico ");
+            sql.append("JOIN persona p_med ON p_med.id = med.id_persona ");
+        }
+
+        sql.append("WHERE ");
+        boolean primeraCondicion = true;
+
+        if (dniPaciente != null) {
+            sql.append("p_pac.dni = ?");
+            parametros.add(dniPaciente);
+            primeraCondicion = false;
+        }
+
+        if (dniMedico != null) {
+            if (!primeraCondicion) {
+                sql.append(" AND ");
+            }
+            sql.append("p_med.dni = ?");
+            parametros.add(dniMedico);
+        }
+
+        sql.append(" ORDER BY fecha_atencion DESC");
+
+        return ejecutarConsulta(sql.toString(), parametros.toArray());
     }
 }

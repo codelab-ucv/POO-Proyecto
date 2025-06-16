@@ -15,7 +15,13 @@ public class MedicoService {
 
     // Busca un medico por su DNI, si no se encuentra retorna null
     public static Medico buscar(String dni) {
-        if (dni == null || dni.trim().isEmpty()) {
+        // Quita los espacios y si se vuelve vacio lo cambia a null
+        if (dni != null) {
+            dni = dni.trim();
+            if (dni.isEmpty())
+                dni = null;
+        }
+        if (dni == null) {
             return null;
         }
         Connection conn;
