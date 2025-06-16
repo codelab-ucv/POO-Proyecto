@@ -96,5 +96,13 @@ public class Medico extends Persona {
         this.grado = grado;
     }
 
-    
+    @Override
+    public boolean datosValidos() {
+        // Si los datos obligatorios no son nulos
+        if (super.datosValidos() &&
+                validarDatosObligatorios(area, email, experiencia, colegiatura, universidad, grado)) {
+            return true;
+        }
+        return false;
+    }
 }

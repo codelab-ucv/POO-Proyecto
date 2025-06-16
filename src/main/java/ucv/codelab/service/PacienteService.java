@@ -2,10 +2,13 @@ package ucv.codelab.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
+import ucv.codelab.model.Condicion;
 import ucv.codelab.model.Paciente;
 import ucv.codelab.model.Persona;
+import ucv.codelab.repository.CondicionRepository;
 import ucv.codelab.repository.PacienteRepository;
 import ucv.codelab.repository.PersonaRepository;
 import ucv.codelab.util.Mensajes;
@@ -14,7 +17,7 @@ import ucv.codelab.util.MySQLConexion;
 public class PacienteService {
 
     // Busca un paciente por su DNI, si no se encuentra retorna null
-    public static Paciente buscarPaciente(String dni) {
+    public static Paciente buscar(String dni) {
         if (dni == null || dni.trim().isEmpty()) {
             return null;
         }
@@ -23,18 +26,25 @@ public class PacienteService {
             conn = MySQLConexion.getInstance().getConexion();
 
             PersonaRepository personaRepo = new PersonaRepository(conn);
-            Optional<Persona> p = personaRepo.buscarPorDni(dni);
-            if (p.isEmpty()) {
+            Optional<Persona> personaExistente = personaRepo.buscarPorDni(dni);
+            if (personaExistente.isEmpty()) {
                 return null;
             }
 
             PacienteRepository pacienteRepo = new PacienteRepository(conn);
-            Optional<Paciente> m = pacienteRepo.buscarPorPersona(p.get().getIdPersona());
-            if (m.isEmpty()) {
+            Optional<Paciente> pacienteExistente = pacienteRepo.buscarPorPersona(personaExistente.get().getIdPersona());
+            if (pacienteExistente.isEmpty()) {
                 return null;
             }
-            Paciente paciente = m.get();
-            paciente.modificarDatosPersona(p.get());
+            // Actualiza el paciente y los datos de la persona
+            Paciente paciente = pacienteExistente.get();
+            paciente.modificarDatosPersona(personaExistente.get());
+
+            CondicionRepository condicionRepo = new CondicionRepository(conn);
+            List<Condicion> condiciones = condicionRepo.buscarPorPaciente(paciente.getId());
+
+            // Actualiza las condiciones del paciente
+            paciente.setCondiciones(condiciones);
             return paciente;
         } catch (SQLException e) {
             Mensajes.errorConexion();
@@ -43,9 +53,9 @@ public class PacienteService {
     }
 
     // Requiere que los datos de la Persona dentro de paciente sean válidos
-    public static boolean upsertPaciente(Paciente paciente) {
+    public static boolean upsert(Paciente paciente) {
         // Si no se cuenta con los datos de Persona
-        if (!paciente.datosPersonaValidos()) {
+        if (!paciente.datosValidos()) {
             return false;
         }
         Connection conn = null;
@@ -57,6 +67,7 @@ public class PacienteService {
             // Inicializa los repositorios
             PersonaRepository personaRepo = new PersonaRepository(conn);
             PacienteRepository pacienteRepo = new PacienteRepository(conn);
+            CondicionRepository condicionRepo = new CondicionRepository(conn);
 
             // Hace upsert con los datos de la persona
             upsertPersona(paciente, personaRepo);
@@ -67,12 +78,15 @@ public class PacienteService {
             if (pacienteExiste.isPresent()) {
                 // Actualiza el id del paciente con el registrado en la bdd
                 paciente.setId(pacienteExiste.get().getId());
-                // Se hace Update
+                // Se hace Update en la tabla paciente
                 pacienteRepo.actualizar(paciente);
             } else {
                 // Hace Insert
                 pacienteRepo.crear(paciente);
             }
+
+            // Hace upsert con los datos de las condiciones
+            upsertCondiciones(paciente, condicionRepo);
 
             // Aplica los cambios y rehabilita el autoCommit
             conn.commit();
@@ -108,5 +122,9 @@ public class PacienteService {
             // Hace insert de la persona
             personaRepo.crear(paciente.getPersona());
         }
+    }
+
+    private static void upsertCondiciones(Paciente paciente, CondicionRepository condicionRepo) {
+        // TODO codigo para hacer el upsert
     }
 }

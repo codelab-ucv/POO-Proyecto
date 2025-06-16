@@ -131,9 +131,9 @@ public class Persona {
         this.telefono = persona.getTelefono();
     }
 
-    public boolean datosPersonaValidos() {
-        // Si el ID de la persona no es -1 y los datos obligatorios no son nulos
-        if (idPersona != -1 && validarDatosObligatorios(nombre, apellido, dni, fechaNacimiento, sexo)) {
+    public boolean datosValidos() {
+        // Si los datos obligatorios no son nulos
+        if (validarDatosObligatorios(nombre, apellido, dni, fechaNacimiento, sexo)) {
             return true;
         }
         return false;

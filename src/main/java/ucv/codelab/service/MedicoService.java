@@ -14,7 +14,7 @@ import ucv.codelab.util.MySQLConexion;
 public class MedicoService {
 
     // Busca un medico por su DNI, si no se encuentra retorna null
-    public static Medico buscarMedico(String dni) {
+    public static Medico buscar(String dni) {
         if (dni == null || dni.trim().isEmpty()) {
             return null;
         }
@@ -43,9 +43,9 @@ public class MedicoService {
     }
 
     // Requiere que los datos de la Persona dentro de medico sean válidos
-    public static boolean upsertMedico(Medico medico) {
+    public static boolean upsert(Medico medico) {
         // Si no se cuenta con los datos de Persona
-        if (!medico.datosPersonaValidos()) {
+        if (!medico.datosValidos()) {
             return false;
         }
         Connection conn = null;

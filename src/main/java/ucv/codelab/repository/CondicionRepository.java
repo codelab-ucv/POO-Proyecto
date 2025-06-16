@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import ucv.codelab.model.Condicion;
 
@@ -56,5 +57,13 @@ public class CondicionRepository extends BaseRepository<Condicion> {
     @Override
     protected void actualizarEntidadConIdGenerado(Condicion condicion, ResultSet generatedKeys) throws SQLException {
         condicion.setId(generatedKeys.getInt(1));
+    }
+
+    public List<Condicion> buscarPorPaciente(int idPaciente) {
+        String sql = "SELECT c.id, c.tipo, c.condicion, c.gravedad " +
+                "FROM condicion c " +
+                "JOIN paciente_condicion pc ON c.id = pc.id_condicion " +
+                "WHERE pc.id_paciente = ?";
+        return ejecutarConsulta(sql, idPaciente);
     }
 }

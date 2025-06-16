@@ -67,7 +67,20 @@ public class Paciente extends Persona {
         return condiciones;
     }
 
+    public void setCondiciones(List<Condicion> condiciones) {
+        this.condiciones = condiciones;
+    }
+
     public void clearCondiciones() {
         condiciones.clear();
+    }
+
+    @Override
+    public boolean datosValidos() {
+        // Si los datos obligatorios no son nulos
+        if (super.datosValidos() && validarDatosObligatorios(tipoSangre)) {
+            return true;
+        }
+        return false;
     }
 }
