@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import ucv.codelab.model.Medico;
 import ucv.codelab.model.Persona;
+import ucv.codelab.model.Usuario;
 import ucv.codelab.repository.MedicoRepository;
 import ucv.codelab.repository.PersonaRepository;
+import ucv.codelab.repository.UsuarioRepository;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
 
@@ -24,10 +26,7 @@ public class MedicoService {
         if (dni == null) {
             return null;
         }
-        Connection conn;
-        try {
-            conn = MySQLConexion.getInstance().getConexion();
-
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             PersonaRepository personaRepo = new PersonaRepository(conn);
             Optional<Persona> p = personaRepo.buscarPorDni(dni);
             if (p.isEmpty()) {
@@ -113,6 +112,40 @@ public class MedicoService {
         } else {
             // Hace insert de la persona
             personaRepo.crear(medico.getPersona());
+        }
+    }
+
+    public static Medico obtenerSesion(String username, String password) {
+        if (username == null || password == null) {
+            return null;
+        }
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            UsuarioRepository usuarioRepo = new UsuarioRepository(conn);
+            Optional<Usuario> u = usuarioRepo.validarUsuario(username, password);
+            // Si no encuentra valores retorna null
+            if (u.isEmpty()) {
+                return null;
+            }
+
+            // Obtiene los datos de Medico de la base de datos
+            MedicoRepository medicoRepo = new MedicoRepository(conn);
+            Optional<Medico> m = medicoRepo.buscarPorId(u.get().getIdMedico());
+
+            // No requiere verificar si existe gracias a las restricciones de la bdd
+            Medico medico = m.get();
+
+            // Obtiene los datos de la Persona del medico
+            PersonaRepository personaRepo = new PersonaRepository(conn);
+            Optional<Persona> p = personaRepo.buscarPorId(medico.getIdPersona());
+
+            // Actualiza los datos segun la bdd
+            medico.modificarDatosPersona(p.get());
+
+            // Retorna el médico con todas las verificaciones realizadas
+            return medico;
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+            return null;
         }
     }
 }
