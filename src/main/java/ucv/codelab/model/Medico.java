@@ -1,75 +1,55 @@
 package ucv.codelab.model;
 
-public class Medico extends Persona {
-
-    private int id;
-    private String area;
-    private String email;
-    private Integer experiencia;
+public class Medico {
+    private int idMedico;
+    private String nombre;
+    private String apellido;
     private String colegiatura;
-    private String universidad;
-    private String grado;
+    private String especialidad;
+    private String telefono;
 
-    public Medico(int id, int idPersona, String area, String email, Integer experiencia, String colegiatura,
-            String universidad, String grado) {
-        super();
-        // Establece el ID de la persona en bdd
-        setIdPersona(idPersona);
-        // Establece los parámetros del médico
-        this.id = id;
-        this.area = area;
-        this.email = email;
-        this.experiencia = experiencia;
+    // Constructor vacío
+    public Medico() {
+    }
+
+    // Constructor esencial (campos NOT NULL)
+    public Medico(String nombre, String apellido, String colegiatura) {
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.colegiatura = colegiatura;
-        this.universidad = universidad;
-        this.grado = grado;
     }
 
-    public Medico(int id, String area, String email, Integer experiencia, String colegiatura,
-            String universidad, String grado, Persona persona) {
-        // Inicia con todos los datos del constructor colocados
-        super(persona.getIdPersona(), persona.getNombre(), persona.getApellido(), persona.getDni(),
-                persona.getFechaNacimiento(), persona.getSexo(), persona.getDireccion(), persona.getTelefono());
-        // Establece los parámetros del médico
-        this.id = id;
-        this.area = area;
-        this.email = email;
-        this.experiencia = experiencia;
-        this.colegiatura = colegiatura;
-        this.universidad = universidad;
-        this.grado = grado;
+    // Constructor completo (todos los campos)
+    public Medico(int idMedico, String nombre, String apellido, String colegiatura,
+            String especialidad, String telefono) {
+        this(nombre, apellido, colegiatura);
+        this.idMedico = idMedico;
+        this.especialidad = especialidad;
+        this.telefono = telefono;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMedico() {
+        return idMedico;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
 
-    public String getArea() {
-        return area;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(Integer experiencia) {
-        this.experiencia = experiencia;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getColegiatura() {
@@ -80,29 +60,19 @@ public class Medico extends Persona {
         this.colegiatura = colegiatura;
     }
 
-    public String getUniversidad() {
-        return universidad;
+    public String getEspecialidad() {
+        return especialidad;
     }
 
-    public void setUniversidad(String universidad) {
-        this.universidad = universidad;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
-    public String getGrado() {
-        return grado;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setGrado(String grado) {
-        this.grado = grado;
-    }
-
-    @Override
-    public boolean datosValidos() {
-        // Si los datos obligatorios no son nulos
-        if (super.datosValidos() &&
-                validarDatosObligatorios(area, email, experiencia, colegiatura, universidad, grado)) {
-            return true;
-        }
-        return false;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

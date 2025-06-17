@@ -1,99 +1,71 @@
-START TRANSACTION;
+-- Tabla de Médicos
+CREATE TABLE medico (
+    id_medico INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    colegiatura VARCHAR(50) NOT NULL UNIQUE,
+    especialidad VARCHAR(100),
+    telefono VARCHAR(20)
+);
 
--- ============================================
--- CREACIÓN DE TABLAS CON TODAS LAS RESTRICCIONES
--- ============================================
--- Tabla persona (tabla base, sin dependencias)
-CREATE TABLE
-    IF NOT EXISTS `persona` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `nombre` varchar(100) NOT NULL,
-        `apellido` varchar(100) NOT NULL,
-        `dni` varchar(12) NOT NULL UNIQUE,
-        `fecha_nacimiento` date NOT NULL,
-        `sexo` enum ('M', 'F', 'O') NOT NULL,
-        `direccion` varchar(100) DEFAULT NULL,
-        `telefono` varchar(9) DEFAULT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+-- Tabla de Pacientes
+CREATE TABLE paciente (
+    id_paciente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) UNIQUE NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    sexo ENUM('masculino', 'femenino') NOT NULL,
+    direccion TEXT,
+    telefono VARCHAR(20),
+    tipo_sangre enum ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-') NOT NULL,
+    INDEX idx_dni (dni),
+    INDEX idx_nombre_apellido (nombre, apellido)
+);
 
--- Tabla condicion (para alergias y enfermedades cronicas)
-CREATE TABLE
-    IF NOT EXISTS `condicion` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `tipo` varchar(50) NOT NULL,
-        `condicion` varchar(100) NOT NULL,
-        `gravedad` enum ('LEVE', 'MODERADA', 'SEVERA') DEFAULT 'LEVE',
-        UNIQUE KEY `unique_tipo_condicion` (`tipo`, `condicion`, `gravedad`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+-- Tabla Principal de Historias Clínicas (depende de paciente y medico)
+CREATE TABLE historia_clinica (
+    id_historia INT PRIMARY KEY AUTO_INCREMENT,
+    id_paciente INT NOT NULL,
+    id_medico INT NOT NULL,
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    motivo_consulta TEXT NOT NULL,
+    antecedentes TEXT,
+    tiempo_enfermedad VARCHAR(100),
+    observaciones TEXT,
+    FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente) ON DELETE RESTRICT,
+    FOREIGN KEY (id_medico) REFERENCES medico(id_medico) ON DELETE RESTRICT,
+    INDEX idx_paciente (id_paciente)
+);
 
--- Tabla medico (depende de persona)
-CREATE TABLE
-    IF NOT EXISTS `medico` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `id_persona` int (11) NOT NULL UNIQUE,
-        `area` varchar(255) NOT NULL,
-        `email` varchar(255) NOT NULL UNIQUE,
-        `experiencia` int (11) NOT NULL,
-        `colegiatura` varchar(20) NOT NULL UNIQUE,
-        `universidad` varchar(255) NOT NULL,
-        `grado` varchar(20) NOT NULL,
-        FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+-- Tabla de Exámenes Físicos (depende de historia clinica)
+CREATE TABLE examen_fisico (
+    id_examen INT PRIMARY KEY AUTO_INCREMENT,
+    id_historia INT NOT NULL,
+    peso DECIMAL(5,2),
+    talla DECIMAL(5,2),
+    presion_arterial VARCHAR(20),
+    temperatura DECIMAL(4,2),
+    frecuencia_cardiaca INT,
+    frecuencia_respiratoria INT,
+    FOREIGN KEY (id_historia) REFERENCES historia_clinica(id_historia) ON DELETE CASCADE
+);
 
--- Tabla paciente (depende de persona)
-CREATE TABLE
-    IF NOT EXISTS `paciente` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `id_persona` int (11) NOT NULL UNIQUE,
-        `tipo_sangre` enum ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-') NOT NULL,
-        `antecedentes` varchar(255) DEFAULT NULL,
-        FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+-- Tabla de Diagnósticos (depende de historia clinica)
+CREATE TABLE diagnostico (
+    id_diagnostico INT PRIMARY KEY AUTO_INCREMENT,
+    id_historia INT NOT NULL,
+    tipo ENUM('presuntivo', 'definitivo', 'diferencial'),
+    descripcion TEXT,
+    codigo_cie10 VARCHAR(20),
+    FOREIGN KEY (id_historia) REFERENCES historia_clinica(id_historia) ON DELETE CASCADE
+);
 
--- Tabla paciente_condicion (tabla de relación muchos a muchos)
-CREATE TABLE
-    IF NOT EXISTS `paciente_condicion` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `id_paciente` int (11) NOT NULL,
-        `id_condicion` int (11) NOT NULL,
-        UNIQUE KEY (`id_paciente`, `id_condicion`),
-        FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (`id_condicion`) REFERENCES `condicion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
--- Tabla cita (depende de paciente y medico)
-CREATE TABLE
-    IF NOT EXISTS `cita` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `id_paciente` int (11) NOT NULL,
-        `id_medico` int (11) NOT NULL,
-        `talla` decimal(3, 2) DEFAULT NULL,
-        `peso` decimal(5, 2) DEFAULT NULL,
-        `fecha_atencion` date NOT NULL,
-        `estado_paciente` varchar(50) DEFAULT NULL,
-        `sintomas` text DEFAULT NULL,
-        `diagnostico` text DEFAULT NULL,
-        `tratamiento` text DEFAULT NULL,
-        `observacion` text DEFAULT NULL,
-        FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
---Tabla usuario
-CREATE TABLE
-    IF NOT EXISTS `usuario` (
-        `id` int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `id_medico` int (11) NOT NULL UNIQUE,
-        `username` varchar(20) NOT NULL UNIQUE,
-        `password` varchar(255) NOT NULL,
-        FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
--- Índices para mejor rendimiento
-CREATE INDEX IF NOT EXISTS `idx_persona_dni` ON `persona` (`dni`);
-
-CREATE INDEX IF NOT EXISTS `idx_cita_fecha` ON `cita` (`fecha_atencion`);
-
-CREATE INDEX IF NOT EXISTS `idx_cita_paciente` ON `cita` (`id_paciente`);
-
-COMMIT;
+-- Tabla de Tratamientos (depende de historia clinica)
+CREATE TABLE tratamiento (
+    id_tratamiento INT PRIMARY KEY AUTO_INCREMENT,
+    id_historia INT NOT NULL,
+    descripcion TEXT,
+    indicaciones TEXT,
+    FOREIGN KEY (id_historia) REFERENCES historia_clinica(id_historia) ON DELETE CASCADE
+);

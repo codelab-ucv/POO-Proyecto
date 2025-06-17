@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.sql.Types;
 
 import ucv.codelab.model.Medico;
 
 public class MedicoRepository extends BaseRepository<Medico> {
 
-    public MedicoRepository(Connection conexion) {
-        super(conexion);
+    public MedicoRepository(Connection connection) {
+        super(connection);
     }
 
     @Override
@@ -20,59 +20,76 @@ public class MedicoRepository extends BaseRepository<Medico> {
     }
 
     @Override
+    protected String getIdColumnName() {
+        return "id_medico";
+    }
+
+    @Override
     protected Medico convertirResultSetEnEntidad(ResultSet rs) throws SQLException {
-        return new Medico(
-                rs.getInt("id"),
-                rs.getInt("id_persona"),
-                rs.getString("area"),
-                rs.getString("email"),
-                rs.getInt("experiencia"),
-                rs.getString("colegiatura"),
-                rs.getString("universidad"),
-                rs.getString("grado"));
+        Medico medico = new Medico();
+        medico.setIdMedico(rs.getInt("id_medico"));
+        medico.setNombre(rs.getString("nombre"));
+        medico.setApellido(rs.getString("apellido"));
+        medico.setColegiatura(rs.getString("colegiatura"));
+        medico.setEspecialidad(rs.getString("especialidad"));
+        medico.setTelefono(rs.getString("telefono"));
+        return medico;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO medico(id_persona, area, email, experiencia, colegiatura, universidad, grado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO medico (nombre, apellido, colegiatura, especialidad, telefono) " +
+                "VALUES (?, ?, ?, ?, ?)";
     }
 
     @Override
-    protected void establecerParametrosInsertar(PreparedStatement stmt, Medico medico) throws SQLException {
-        stmt.setInt(1, medico.getIdPersona());
-        stmt.setString(2, medico.getArea());
-        stmt.setString(3, medico.getEmail());
-        stmt.setInt(4, medico.getExperiencia());
-        stmt.setString(5, medico.getColegiatura());
-        stmt.setString(6, medico.getUniversidad());
-        stmt.setString(7, medico.getGrado());
+    protected void establecerParametrosInsertar(PreparedStatement stmt, Medico entity) throws SQLException {
+        stmt.setString(1, entity.getNombre());
+        stmt.setString(2, entity.getApellido());
+        stmt.setString(3, entity.getColegiatura());
+
+        if (entity.getEspecialidad() != null) {
+            stmt.setString(4, entity.getEspecialidad());
+        } else {
+            stmt.setNull(4, Types.VARCHAR);
+        }
+
+        if (entity.getTelefono() != null) {
+            stmt.setString(5, entity.getTelefono());
+        } else {
+            stmt.setNull(5, Types.VARCHAR);
+        }
     }
 
     @Override
     protected String buildUpdateSQL() {
-        return "UPDATE medico SET id_persona = ?, area = ?, email = ?, experiencia = ?, colegiatura = ?, universidad = ?, grado = ? WHERE id = ?";
+        return "UPDATE medico SET nombre = ?, apellido = ?, colegiatura = ?, " +
+                "especialidad = ?, telefono = ? WHERE id_medico = ?";
     }
 
     @Override
-    protected void establecerParametrosActualizar(PreparedStatement stmt, Medico medico) throws SQLException {
-        stmt.setInt(1, medico.getIdPersona());
-        stmt.setString(2, medico.getArea());
-        stmt.setString(3, medico.getEmail());
-        stmt.setInt(4, medico.getExperiencia());
-        stmt.setString(5, medico.getColegiatura());
-        stmt.setString(6, medico.getUniversidad());
-        stmt.setString(7, medico.getGrado());
-        // El ID va al final para el WHERE
-        stmt.setInt(8, medico.getId());
+    protected void establecerParametrosActualizar(PreparedStatement stmt, Medico entity) throws SQLException {
+        stmt.setString(1, entity.getNombre());
+        stmt.setString(2, entity.getApellido());
+        stmt.setString(3, entity.getColegiatura());
+
+        if (entity.getEspecialidad() != null) {
+            stmt.setString(4, entity.getEspecialidad());
+        } else {
+            stmt.setNull(4, Types.VARCHAR);
+        }
+
+        if (entity.getTelefono() != null) {
+            stmt.setString(5, entity.getTelefono());
+        } else {
+            stmt.setNull(5, Types.VARCHAR);
+        }
+
+        stmt.setInt(6, entity.getIdMedico());
     }
 
     @Override
-    protected void actualizarEntidadConIdGenerado(Medico medico, ResultSet generatedKeys) throws SQLException {
-        medico.setId(generatedKeys.getInt(1));
-    }
-
-    public Optional<Medico> buscarPorPersona(int idPersona) {
-        String sql = "SELECT * FROM medico WHERE id_persona = ?";
-        return ejecutarConsultaSoloUnResultado(sql, idPersona);
+    protected void actualizarEntidadConIdGenerado(Medico entity, ResultSet generatedKeys) throws SQLException {
+        entity.setIdMedico(generatedKeys.getInt(1));
     }
 }

@@ -1,9 +1,8 @@
 package ucv.codelab.enumerados;
 
 public enum Sexo {
-    MASCULINO("M"),
-    FEMENINO("F"),
-    OTRO("O");
+    MASCULINO("masculino"),
+    FEMENINO("femenino");
 
     private final String valor;
 
