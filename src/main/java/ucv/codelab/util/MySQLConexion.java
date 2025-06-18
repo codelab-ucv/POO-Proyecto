@@ -22,7 +22,7 @@ public class MySQLConexion {
 
     private boolean conectar() {
         // Ingresa los datos de pruebas
-        String url = "jdbc:mysql://localhost:3306/poo?allowMultiQueries=true&useSSL=false&serverTimezone=America/Lima";
+        String url = "jdbc:mysql://localhost:3306/poo";
         String user = "root";
         String password = "";
 

@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -28,10 +30,11 @@ import java.util.stream.Collectors;
  * <li>Ejecución de sentencias DDL para crear la estructura de BD</li>
  * <li>Manejo de errores durante la inicialización</li>
  * <li>Codificación UTF-8 para soporte completo de caracteres</li>
+ * <li>Procesamiento de múltiples sentencias SQL</li>
  * </ul>
  * 
  * <p>
- * <strong>Archivo SQL requerido:</strong> {@code ucv/codelab/sql/gdi.sql}
+ * <strong>Archivo SQL requerido:</strong> {@code ucv/codelab/sql/poo.sql}
  * </p>
  * 
  * @see MySQLConexion
@@ -59,7 +62,8 @@ public class DatabaseInitializer {
      * <ul>
      * <li>Obtención de la conexión a la base de datos</li>
      * <li>Carga del archivo SQL desde recursos</li>
-     * <li>Ejecución del script completo</li>
+     * <li>Separación de sentencias SQL individuales</li>
+     * <li>Ejecución de cada sentencia por separado</li>
      * <li>Manejo de errores y logging</li>
      * </ul>
      * 
@@ -79,9 +83,30 @@ public class DatabaseInitializer {
                 return false;
             }
 
-            // Ejecutar el script SQL
+            // Separar y ejecutar las sentencias SQL
+            List<String> sqlStatements = parseSQLStatements(sqlScript);
+            
+            if (sqlStatements.isEmpty()) {
+                System.err.println("No se encontraron sentencias SQL válidas");
+                return false;
+            }
+
             Statement statement = conexion.createStatement();
-            statement.executeUpdate(sqlScript);
+            
+            // Ejecutar cada sentencia por separado
+            for (String sql : sqlStatements) {
+                if (!sql.trim().isEmpty()) {
+                    try {
+                        statement.executeUpdate(sql);
+                        System.out.println("Ejecutada: " + sql.substring(0, Math.min(50, sql.length())) + "...");
+                    } catch (SQLException e) {
+                        System.err.println("Error al ejecutar sentencia SQL: " + sql);
+                        System.err.println("Error: " + e.getMessage());
+                        // Continuar con las siguientes sentencias en lugar de fallar completamente
+                    }
+                }
+            }
+            
             statement.close();
 
             System.out.println("Base de datos inicializada correctamente.");
@@ -91,6 +116,73 @@ public class DatabaseInitializer {
             System.err.println("Error al inicializar la base de datos: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Separa un script SQL en sentencias individuales.
+     * 
+     * <p>
+     * Procesa el script SQL completo y lo divide en sentencias individuales
+     * que pueden ser ejecutadas por separado. Filtra comentarios y líneas vacías.
+     * </p>
+     * 
+     * @param sqlScript El script SQL completo como string
+     * @return Lista de sentencias SQL individuales listas para ejecutar
+     */
+    private static List<String> parseSQLStatements(String sqlScript) {
+        List<String> statements = new ArrayList<>();
+        
+        // Dividir por punto y coma, pero mantener el contexto
+        String[] parts = sqlScript.split(";");
+        
+        for (String part : parts) {
+            String cleanedPart = cleanSQLStatement(part.trim());
+            if (!cleanedPart.isEmpty() && 
+                !cleanedPart.equalsIgnoreCase("START TRANSACTION") && 
+                !cleanedPart.equalsIgnoreCase("COMMIT") &&
+                !cleanedPart.equalsIgnoreCase("ROLLBACK")) {
+                statements.add(cleanedPart);
+            }
+        }
+        
+        return statements;
+    }
+
+    /**
+     * Limpia una sentencia SQL eliminando comentarios y espacios innecesarios.
+     * 
+     * @param sqlStatement La sentencia SQL a limpiar
+     * @return La sentencia SQL limpia
+     */
+    private static String cleanSQLStatement(String sqlStatement) {
+        if (sqlStatement == null || sqlStatement.trim().isEmpty()) {
+            return "";
+        }
+
+        StringBuilder cleaned = new StringBuilder();
+        String[] lines = sqlStatement.split("\n");
+        
+        for (String line : lines) {
+            String trimmedLine = line.trim();
+            
+            // Omitir líneas vacías y comentarios
+            if (!trimmedLine.isEmpty() && !trimmedLine.startsWith("--")) {
+                // Remover comentarios inline
+                int commentIndex = trimmedLine.indexOf("--");
+                if (commentIndex != -1) {
+                    trimmedLine = trimmedLine.substring(0, commentIndex).trim();
+                }
+                
+                if (!trimmedLine.isEmpty()) {
+                    if (cleaned.length() > 0) {
+                        cleaned.append(" ");
+                    }
+                    cleaned.append(trimmedLine);
+                }
+            }
+        }
+        
+        return cleaned.toString();
     }
 
     /**
