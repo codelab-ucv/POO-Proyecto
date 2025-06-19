@@ -5,13 +5,14 @@ public class Usuario {
     private int idMedico;
     private String username;
     private transient String password;
+    private boolean estado;
 
     // Constructor vacío
     public Usuario() {
     }
 
     // Constructor esencial (todos los campos son NOT NULL)
-    public Usuario(int idUsuario, int idMedico, String username, String password) {
+    public Usuario(int idUsuario, int idMedico, String username, String password, boolean estado) {
         this.idUsuario = idUsuario;
         this.idMedico = idMedico;
         this.username = username;
@@ -48,5 +49,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

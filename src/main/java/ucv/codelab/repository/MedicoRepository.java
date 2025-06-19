@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
+import java.util.Optional;
 
 import ucv.codelab.model.Medico;
 
@@ -33,13 +35,14 @@ public class MedicoRepository extends BaseRepository<Medico> {
         medico.setColegiatura(rs.getString("colegiatura"));
         medico.setEspecialidad(rs.getString("especialidad"));
         medico.setTelefono(rs.getString("telefono"));
+        medico.setEstado(rs.getBoolean("estado"));
         return medico;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO medico (nombre, apellido, colegiatura, especialidad, telefono) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        return "INSERT INTO medico (nombre, apellido, colegiatura, especialidad, telefono, estado) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -59,12 +62,14 @@ public class MedicoRepository extends BaseRepository<Medico> {
         } else {
             stmt.setNull(5, Types.VARCHAR);
         }
+
+        stmt.setBoolean(6, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
         return "UPDATE medico SET nombre = ?, apellido = ?, colegiatura = ?, " +
-                "especialidad = ?, telefono = ? WHERE id_medico = ?";
+                "especialidad = ?, telefono = ?, estado = ? WHERE id_medico = ?";
     }
 
     @Override
@@ -85,11 +90,33 @@ public class MedicoRepository extends BaseRepository<Medico> {
             stmt.setNull(5, Types.VARCHAR);
         }
 
-        stmt.setInt(6, entity.getIdMedico());
+        stmt.setBoolean(6, entity.isEstado());
+        stmt.setInt(7, entity.getIdMedico());
     }
 
     @Override
     protected void actualizarEntidadConIdGenerado(Medico entity, ResultSet generatedKeys) throws SQLException {
         entity.setIdMedico(generatedKeys.getInt(1));
+    }
+
+    // Métodos adicionales específicos para Medico
+    public Optional<Medico> buscarPorColegiatura(String colegiatura) {
+        String sql = "SELECT * FROM medico WHERE colegiatura = ?";
+        return ejecutarConsultaSoloUnResultado(sql, colegiatura);
+    }
+
+    public List<Medico> buscarPorEspecialidad(String especialidad) {
+        String sql = "SELECT * FROM medico WHERE especialidad LIKE ?";
+        return ejecutarConsulta(sql, "%" + especialidad + "%");
+    }
+
+    public List<Medico> buscarActivos() {
+        String sql = "SELECT * FROM medico WHERE estado = true";
+        return ejecutarConsulta(sql);
+    }
+
+    public List<Medico> buscarInactivos() {
+        String sql = "SELECT * FROM medico WHERE estado = false";
+        return ejecutarConsulta(sql);
     }
 }

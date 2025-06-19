@@ -31,12 +31,13 @@ public class UsuarioRepository extends BaseRepository<Usuario> {
         usuario.setIdMedico(rs.getInt("id_medico"));
         usuario.setUsername(rs.getString("username"));
         usuario.setPassword(rs.getString("password"));
+        usuario.setEstado(rs.getBoolean("estado"));
         return usuario;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO usuario (id_medico, username, password) VALUES (?, ?, ?)";
+        return "INSERT INTO usuario (id_medico, username, password, estado) VALUES (?, ?, ?, ?)";
     }
 
     @Override
@@ -44,11 +45,12 @@ public class UsuarioRepository extends BaseRepository<Usuario> {
         stmt.setInt(1, entity.getIdMedico());
         stmt.setString(2, entity.getUsername());
         stmt.setString(3, entity.getPassword());
+        stmt.setBoolean(4, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
-        return "UPDATE usuario SET id_medico = ?, username = ?, password = ? WHERE id_usuario = ?";
+        return "UPDATE usuario SET id_medico = ?, username = ?, password = ?, estado = ? WHERE id_usuario = ?";
     }
 
     @Override
@@ -56,6 +58,7 @@ public class UsuarioRepository extends BaseRepository<Usuario> {
         stmt.setInt(1, entity.getIdMedico());
         stmt.setString(2, entity.getUsername());
         stmt.setString(3, entity.getPassword());
+        stmt.setBoolean(4, entity.isEstado());
         stmt.setInt(4, entity.getIdUsuario());
     }
 

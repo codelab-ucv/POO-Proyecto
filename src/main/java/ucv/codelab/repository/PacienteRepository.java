@@ -41,14 +41,15 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         paciente.setDireccion(rs.getString("direccion"));
         paciente.setTelefono(rs.getString("telefono"));
         paciente.setTipoSangre(TipoSangre.fromString(rs.getString("tipo_sangre")));
+        paciente.setEstado(rs.getBoolean("estado"));
         return paciente;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO paciente (nombre, apellido, dni, fecha_nacimiento, sexo, direccion, telefono, tipo_sangre) "
+        return "INSERT INTO paciente (nombre, apellido, dni, fecha_nacimiento, sexo, direccion, telefono, tipo_sangre, estado) "
                 +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -72,12 +73,13 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         }
 
         stmt.setString(8, entity.getTipoSangre().getValor());
+        stmt.setBoolean(9, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
         return "UPDATE paciente SET nombre = ?, apellido = ?, dni = ?, fecha_nacimiento = ?, " +
-                "sexo = ?, direccion = ?, telefono = ?, tipo_sangre = ? WHERE id_paciente = ?";
+                "sexo = ?, direccion = ?, telefono = ?, tipo_sangre = ?, estado = ? WHERE id_paciente = ?";
     }
 
     @Override
@@ -101,7 +103,8 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         }
 
         stmt.setString(8, entity.getTipoSangre().getValor());
-        stmt.setInt(9, entity.getIdPaciente());
+        stmt.setBoolean(9, entity.isEstado());
+        stmt.setInt(10, entity.getIdPaciente());
     }
 
     @Override
@@ -109,6 +112,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         entity.setIdPaciente(generatedKeys.getInt(1));
     }
 
+    // Métodos adicionales específicos para Paciente
     public Optional<Paciente> buscarPorDni(String dni) {
         String sql = "SELECT * FROM paciente WHERE dni = ?";
         return ejecutarConsultaSoloUnResultado(sql, dni);
@@ -117,5 +121,15 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     public List<Paciente> buscarPorNombreApellido(String nombre, String apellido) {
         String sql = "SELECT * FROM paciente WHERE nombre LIKE ? AND apellido LIKE ?";
         return ejecutarConsulta(sql, "%" + nombre + "%", "%" + apellido + "%");
+    }
+
+    public List<Paciente> buscarActivos() {
+        String sql = "SELECT * FROM paciente WHERE estado = true";
+        return ejecutarConsulta(sql);
+    }
+
+    public List<Paciente> buscarInactivos() {
+        String sql = "SELECT * FROM paciente WHERE estado = false";
+        return ejecutarConsulta(sql);
     }
 }

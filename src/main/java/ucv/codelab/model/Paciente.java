@@ -15,6 +15,7 @@ public class Paciente {
     private String direccion;
     private String telefono;
     private TipoSangre tipoSangre;
+    private boolean estado;
 
     // Constructor vacío
     public Paciente() {
@@ -22,20 +23,21 @@ public class Paciente {
 
     // Constructor esencial (campos NOT NULL)
     public Paciente(String nombre, String apellido, String dni,
-            LocalDate fechaNacimiento, Sexo sexo, TipoSangre tipoSangre) {
+            LocalDate fechaNacimiento, Sexo sexo, TipoSangre tipoSangre, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.tipoSangre = tipoSangre;
+        this.estado = estado;
     }
 
     // Constructor completo (todos los campos)
     public Paciente(int idPaciente, String nombre, String apellido, String dni,
             LocalDate fechaNacimiento, Sexo sexo, String direccion,
-            String telefono, TipoSangre tipoSangre) {
-        this(nombre, apellido, dni, fechaNacimiento, sexo, tipoSangre);
+            String telefono, TipoSangre tipoSangre, boolean estado) {
+        this(nombre, apellido, dni, fechaNacimiento, sexo, tipoSangre, estado);
         this.idPaciente = idPaciente;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -111,5 +113,13 @@ public class Paciente {
 
     public void setTipoSangre(TipoSangre tipoSangre) {
         this.tipoSangre = tipoSangre;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

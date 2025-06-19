@@ -8,7 +8,8 @@ CREATE TABLE
         apellido VARCHAR(100) NOT NULL,
         colegiatura VARCHAR(50) NOT NULL UNIQUE,
         especialidad VARCHAR(100),
-        telefono VARCHAR(20)
+        telefono VARCHAR(20),
+        estado BOOLEAN NOT NULL DEFAULT TRUE
     );
 
 -- Tabla de Pacientes
@@ -23,6 +24,7 @@ CREATE TABLE
         direccion TEXT,
         telefono VARCHAR(20),
         tipo_sangre enum ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-') NOT NULL,
+        estado BOOLEAN NOT NULL DEFAULT TRUE,
         INDEX idx_dni (dni),
         INDEX idx_nombre_apellido (nombre, apellido)
     );
@@ -85,6 +87,7 @@ CREATE TABLE
         id_medico INT NOT NULL UNIQUE,
         username VARCHAR(20) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
+        estado BOOLEAN NOT NULL DEFAULT TRUE,
         FOREIGN KEY (id_medico) REFERENCES medico (id_medico) ON DELETE CASCADE
     );
 

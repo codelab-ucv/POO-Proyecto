@@ -7,22 +7,24 @@ public class Medico {
     private String colegiatura;
     private String especialidad;
     private String telefono;
+    private boolean estado;
 
     // Constructor vacío
     public Medico() {
     }
 
     // Constructor esencial (campos NOT NULL)
-    public Medico(String nombre, String apellido, String colegiatura) {
+    public Medico(String nombre, String apellido, String colegiatura, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.colegiatura = colegiatura;
+        this.estado = estado;
     }
 
     // Constructor completo (todos los campos)
     public Medico(int idMedico, String nombre, String apellido, String colegiatura,
-            String especialidad, String telefono) {
-        this(nombre, apellido, colegiatura);
+            String especialidad, String telefono, boolean estado) {
+        this(nombre, apellido, colegiatura, estado);
         this.idMedico = idMedico;
         this.especialidad = especialidad;
         this.telefono = telefono;
@@ -74,5 +76,13 @@ public class Medico {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }
