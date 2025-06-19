@@ -71,4 +71,18 @@ public class UsuarioRepository extends BaseRepository<Usuario> {
         String sql = "SELECT * FROM usuario WHERE username = ? AND password = ?";
         return ejecutarConsultaSoloUnResultado(sql, username, password);
     }
+
+    public void desactivar(int id) {
+        String sql = "UPDATE usuario SET estado = ? WHERE id_usuario = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa el usuario
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar el usuario con ID: " + id + " de " + getTableName(), e);
+        }
+    }
 }

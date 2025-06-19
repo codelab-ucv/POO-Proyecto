@@ -132,4 +132,18 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         String sql = "SELECT * FROM paciente WHERE estado = false";
         return ejecutarConsulta(sql);
     }
+
+    public void desactivar(int id) {
+        String sql = "UPDATE paciente SET estado = ? WHERE id_paciente = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa el paciente
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar el paciente con ID: " + id + " de " + getTableName(), e);
+        }
+    }
 }

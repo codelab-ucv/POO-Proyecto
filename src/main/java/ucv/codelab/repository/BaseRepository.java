@@ -210,25 +210,6 @@ public abstract class BaseRepository<T> {
     }
 
     /**
-     * Elimina una entidad de la base de datos por su ID.
-     * 
-     * @param id el ID de la entidad a eliminar
-     * @throws RuntimeException si ocurre un error durante la operación de
-     *                          eliminación
-     */
-    public void borrar(int id) {
-        String sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() + " = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al eliminar entidad con ID: " + id + " de " + getTableName(), e);
-        }
-    }
-
-    /**
      * Ejecuta una consulta personalizada
      * 
      * @param sql        Sentencia SQL a ejecutar

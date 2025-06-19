@@ -119,4 +119,18 @@ public class MedicoRepository extends BaseRepository<Medico> {
         String sql = "SELECT * FROM medico WHERE estado = false";
         return ejecutarConsulta(sql);
     }
+
+    public void desactivar(int id) {
+        String sql = "UPDATE medico SET estado = ? WHERE id_medico = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa el medico
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar el medico con ID: " + id + " de " + getTableName(), e);
+        }
+    }
 }
