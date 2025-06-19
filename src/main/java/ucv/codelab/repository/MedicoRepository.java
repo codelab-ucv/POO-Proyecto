@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ucv.codelab.model.Medico;
+import ucv.codelab.util.Mensajes;
 
 public class MedicoRepository extends BaseRepository<Medico> {
 
@@ -30,32 +31,32 @@ public class MedicoRepository extends BaseRepository<Medico> {
     protected Medico convertirResultSetEnEntidad(ResultSet rs) throws SQLException {
         Medico medico = new Medico();
         medico.setIdMedico(rs.getInt("id_medico"));
+        medico.setIdEspecialidad(rs.getInt("id_especialidad"));
         medico.setNombre(rs.getString("nombre"));
         medico.setApellido(rs.getString("apellido"));
         medico.setColegiatura(rs.getString("colegiatura"));
-        medico.setEspecialidad(rs.getString("especialidad"));
-        medico.setTelefono(rs.getString("telefono"));
+
+        // El campo telefono puede ser NULL
+        if (rs.getString("telefono") != null) {
+            medico.setTelefono(rs.getString("telefono"));
+        }
+
         medico.setEstado(rs.getBoolean("estado"));
         return medico;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO medico (nombre, apellido, colegiatura, especialidad, telefono, estado) " +
+        return "INSERT INTO medico (id_especialidad, nombre, apellido, colegiatura, telefono, estado) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     @Override
     protected void establecerParametrosInsertar(PreparedStatement stmt, Medico entity) throws SQLException {
-        stmt.setString(1, entity.getNombre());
-        stmt.setString(2, entity.getApellido());
-        stmt.setString(3, entity.getColegiatura());
-
-        if (entity.getEspecialidad() != null) {
-            stmt.setString(4, entity.getEspecialidad());
-        } else {
-            stmt.setNull(4, Types.VARCHAR);
-        }
+        stmt.setInt(1, entity.getIdEspecialidad());
+        stmt.setString(2, entity.getNombre());
+        stmt.setString(3, entity.getApellido());
+        stmt.setString(4, entity.getColegiatura());
 
         if (entity.getTelefono() != null) {
             stmt.setString(5, entity.getTelefono());
@@ -68,21 +69,16 @@ public class MedicoRepository extends BaseRepository<Medico> {
 
     @Override
     protected String buildUpdateSQL() {
-        return "UPDATE medico SET nombre = ?, apellido = ?, colegiatura = ?, " +
-                "especialidad = ?, telefono = ?, estado = ? WHERE id_medico = ?";
+        return "UPDATE medico SET id_especialidad = ?, nombre = ?, apellido = ?, " +
+                "colegiatura = ?, telefono = ?, estado = ? WHERE id_medico = ?";
     }
 
     @Override
     protected void establecerParametrosActualizar(PreparedStatement stmt, Medico entity) throws SQLException {
-        stmt.setString(1, entity.getNombre());
-        stmt.setString(2, entity.getApellido());
-        stmt.setString(3, entity.getColegiatura());
-
-        if (entity.getEspecialidad() != null) {
-            stmt.setString(4, entity.getEspecialidad());
-        } else {
-            stmt.setNull(4, Types.VARCHAR);
-        }
+        stmt.setInt(1, entity.getIdEspecialidad());
+        stmt.setString(2, entity.getNombre());
+        stmt.setString(3, entity.getApellido());
+        stmt.setString(4, entity.getColegiatura());
 
         if (entity.getTelefono() != null) {
             stmt.setString(5, entity.getTelefono());
@@ -105,9 +101,9 @@ public class MedicoRepository extends BaseRepository<Medico> {
         return ejecutarConsultaSoloUnResultado(sql, colegiatura);
     }
 
-    public List<Medico> buscarPorEspecialidad(String especialidad) {
-        String sql = "SELECT * FROM medico WHERE especialidad LIKE ?";
-        return ejecutarConsulta(sql, "%" + especialidad + "%");
+    public List<Medico> buscarPorEspecialidad(int idEspecialidad) {
+        String sql = "SELECT * FROM medico WHERE id_especialidad = ?";
+        return ejecutarConsulta(sql, idEspecialidad);
     }
 
     public List<Medico> buscarActivos() {
@@ -130,7 +126,7 @@ public class MedicoRepository extends BaseRepository<Medico> {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al eliminar el medico con ID: " + id + " de " + getTableName(), e);
+            Mensajes.errorConexion("Error al eliminar el medico con ID: " + id + " de " + getTableName());
         }
     }
 }

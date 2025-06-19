@@ -12,6 +12,7 @@ import java.util.Optional;
 import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.enumerados.TipoSangre;
 import ucv.codelab.model.Paciente;
+import ucv.codelab.util.Mensajes;
 
 public class PacienteRepository extends BaseRepository<Paciente> {
 
@@ -143,7 +144,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al eliminar el paciente con ID: " + id + " de " + getTableName(), e);
+            Mensajes.errorConexion("Error al eliminar el paciente con ID: " + id + " de " + getTableName());
         }
     }
 }

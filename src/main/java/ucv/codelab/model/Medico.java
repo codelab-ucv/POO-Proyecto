@@ -2,19 +2,24 @@ package ucv.codelab.model;
 
 public class Medico {
     private int idMedico;
+    private int idEspecialidad;
     private String nombre;
     private String apellido;
     private String colegiatura;
-    private String especialidad;
     private String telefono;
     private boolean estado;
+
+    // Objetos relacionados al Médico, si están vacíos se mantienen null
+    private Especialidad especialidad = null;
 
     // Constructor vacío
     public Medico() {
     }
 
     // Constructor esencial (campos NOT NULL)
-    public Medico(String nombre, String apellido, String colegiatura, boolean estado) {
+    public Medico(int idEspecialidad, String nombre, String apellido,
+            String colegiatura, boolean estado) {
+        this.idEspecialidad = idEspecialidad;
         this.nombre = nombre;
         this.apellido = apellido;
         this.colegiatura = colegiatura;
@@ -22,20 +27,29 @@ public class Medico {
     }
 
     // Constructor completo (todos los campos)
-    public Medico(int idMedico, String nombre, String apellido, String colegiatura,
-            String especialidad, String telefono, boolean estado) {
-        this(nombre, apellido, colegiatura, estado);
+    public Medico(int idMedico, int idEspecialidad, String nombre,
+            String apellido, String colegiatura, String telefono,
+            boolean estado) {
+        this(idEspecialidad, nombre, apellido, colegiatura, estado);
         this.idMedico = idMedico;
-        this.especialidad = especialidad;
         this.telefono = telefono;
     }
 
+    // Getters y Setters
     public int getIdMedico() {
         return idMedico;
     }
 
     public void setIdMedico(int idMedico) {
         this.idMedico = idMedico;
+    }
+
+    public int getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(int idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
     }
 
     public String getNombre() {
@@ -62,14 +76,6 @@ public class Medico {
         this.colegiatura = colegiatura;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
     public String getTelefono() {
         return telefono;
     }
@@ -84,5 +90,13 @@ public class Medico {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 }

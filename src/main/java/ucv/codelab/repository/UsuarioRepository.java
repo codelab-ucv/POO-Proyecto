@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import ucv.codelab.model.Usuario;
+import ucv.codelab.util.Mensajes;
 
 public class UsuarioRepository extends BaseRepository<Usuario> {
 
@@ -82,7 +83,7 @@ public class UsuarioRepository extends BaseRepository<Usuario> {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al eliminar el usuario con ID: " + id + " de " + getTableName(), e);
+            Mensajes.errorConexion("Error al eliminar el usuario con ID: " + id + " de " + getTableName());
         }
     }
 }
