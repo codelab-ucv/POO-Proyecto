@@ -1,6 +1,7 @@
 package ucv.codelab.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class HistoriaClinica {
     private int idHistoria;
@@ -11,6 +12,11 @@ public class HistoriaClinica {
     private String antecedentes;
     private String tiempoEnfermedad;
     private String observaciones;
+
+    // Objetos relacionados a la Historia Clínica, si estan vacios se mantienen null
+    private List<Diagnostico> diagnostico = null;
+    private ExamenFisico examenFisico = null;
+    private List<Tratamiento> tratamiento = null;
 
     // Constructor vacío
     public HistoriaClinica() {
@@ -100,5 +106,29 @@ public class HistoriaClinica {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public List<Diagnostico> getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(List<Diagnostico> diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public ExamenFisico getExamenFisico() {
+        return examenFisico;
+    }
+
+    public void setExamenFisico(ExamenFisico examenFisico) {
+        this.examenFisico = examenFisico;
+    }
+
+    public List<Tratamiento> getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(List<Tratamiento> tratamiento) {
+        this.tratamiento = tratamiento;
     }
 }
