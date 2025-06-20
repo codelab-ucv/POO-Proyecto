@@ -8,18 +8,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-public class FrmAtencionesEsp extends PanelBase {
+public class FrmAtencionesDia extends PanelBase {
 
-    public FrmAtencionesEsp() {
+    public FrmAtencionesDia() {
         initComponents();
     }
 
     private void initComponents() {
-        setupPanel("ATENCIÓN POR ESPECIALIDAD", new Dimension(900, 700));
+        setupPanel("ATENCIÓN POR MÉDICO", new Dimension(900, 700));
 
-        txtEspecialidad = createTextField("ESPECIALIDAD");
-        txtFechaInicio = createTextField("FECHA INICIO");
-        txtFechaFin = createTextField("FECHA FIN");
+        txtApellidoNombre = createTextField("APELLIDOS Y NOMBRES MÉDICO");
+        txtFecha = createTextField("FECHA");
 
         btnBuscar = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR",
                 e -> onBuscarClick(e));
@@ -29,10 +28,9 @@ public class FrmAtencionesEsp extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtEspecialidad, 0, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
-        addComponent(txtFechaInicio, 1, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
-        addComponent(txtFechaFin, 2, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
-        addComponent(btnBuscar, 3, 0, 1, GridBagConstraints.NONE, 32, 0, 0, 0);
+        addComponent(txtApellidoNombre, 0, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
+        addComponent(txtFecha, 1, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
+        addComponent(btnBuscar, 3, 0, 1, GridBagConstraints.NONE, 32, 0, 0.0, 1.0);
         addComponent(scrollResultados, 0, 1, 4, GridBagConstraints.BOTH, 1000, 500, 1.0, 1.0);
     }
 
@@ -41,8 +39,7 @@ public class FrmAtencionesEsp extends PanelBase {
 
     private JScrollPane scrollResultados;
     private JTable tblResultados;
-    private JTextField txtEspecialidad;
-    private JTextField txtFechaFin;
-    private JTextField txtFechaInicio;
+    private JTextField txtApellidoNombre;
+    private JTextField txtFecha;
     private JToggleButton btnBuscar;
 }

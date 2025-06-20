@@ -1,23 +1,18 @@
 package ucv.codelab.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
@@ -136,7 +131,7 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        Fondo.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/FondoLogin (1) (1).jpg")));
+        Fondo.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/FondoLogin.jpg")));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -156,32 +151,6 @@ public class FrmLogin extends JFrame {
 
     private void jTextField2ActionPerformed(ActionEvent evt) {
 
-    }
-
-    public static void main(String args[]) {
-
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmLogin().setVisible(true);
-            }
-        });
     }
 
     private JLabel Fondo;
