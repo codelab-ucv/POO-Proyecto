@@ -1,318 +1,266 @@
 package ucv.codelab.view;
 
-import javax.swing.JInternalFrame;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import javax.swing.WindowConstants;
 
-public class FrmMenu extends javax.swing.JFrame {
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.EventQueue;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.awt.event.ActionEvent;
+
+public class FrmMenu extends JFrame {
 
     public FrmMenu() {
         initComponents();
-         setExtendedState(MAXIMIZED_BOTH); // Maximiza la ventana al iniciar
+        setExtendedState(MAXIMIZED_BOTH);
     }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
+        Escritorio = new JPanel();
+        jMenuBar1 = new JMenuBar();
+        jMenu1 = new JMenu();
+        opRegistrarPacientes = new JMenuItem();
+        opMantenimientoPacientes = new JMenuItem();
+        jMenu2 = new JMenu();
+        poRegistrarDoctor = new JMenuItem();
+        opMantenimientoDoctores = new JMenuItem();
+        opRegistrarEspecialidad = new JMenu();
+        opRegistroEspecialidad = new JMenuItem();
+        opMantenimientoEspecialidades = new JMenuItem();
+        jMenu4 = new JMenu();
+        opRegistrarHistoriaClinica = new JMenuItem();
+        opBusquedaMantenimiento = new JMenuItem();
+        opAtencionesDia = new JMenuItem();
+        opAtencionEspecialidad = new JMenuItem();
+        opExportarHistoriaC = new JMenu();
+        opExportarHistoria = new JMenuItem();
 
-        Escritorio = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        opRegistrarPacientes = new javax.swing.JMenuItem();
-        opMantenimientoPacientes = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        poRegistrarDoctor = new javax.swing.JMenuItem();
-        opMantenimientoDoctores = new javax.swing.JMenuItem();
-        opRegistrarEspecialidad = new javax.swing.JMenu();
-        opRegistroEspecialidad = new javax.swing.JMenuItem();
-        opMantenimientoEspecialidades = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        opRegistrarHistoriaClinica = new javax.swing.JMenuItem();
-        opBusquedaMantenimiento = new javax.swing.JMenuItem();
-        opAtencionesDia = new javax.swing.JMenuItem();
-        opAtencionEspecialidad = new javax.swing.JMenuItem();
-        opExportarHistoriaC = new javax.swing.JMenu();
-        opExportarHistoria = new javax.swing.JMenuItem();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        Escritorio.setBackground(new Color(0, 102, 102));
+        Escritorio.setForeground(new Color(0, 0, 0));
 
-        Escritorio.setBackground(new java.awt.Color(0, 102, 102));
-        Escritorio.setForeground(new java.awt.Color(0, 0, 0));
+        Escritorio.setLayout(new BorderLayout());
 
-        javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
-        Escritorio.setLayout(EscritorioLayout);
-        EscritorioLayout.setHorizontalGroup(
-            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1022, Short.MAX_VALUE)
-        );
-        EscritorioLayout.setVerticalGroup(
-            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoPaciente.png"))); // NOI18N
+        jMenu1.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoPaciente.png")));
         jMenu1.setText("Pacientes");
-        jMenu1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jMenu1.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        opRegistrarPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RegistrarPa.png"))); // NOI18N
+        opRegistrarPacientes.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarPa.png")));
         opRegistrarPacientes.setText("Registrar Pacientes");
-        opRegistrarPacientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opRegistrarPacientesActionPerformed(evt);
-            }
-        });
+        opRegistrarPacientes.addActionListener(evt -> opRegistrarPacientesActionPerformed(evt));
         jMenu1.add(opRegistrarPacientes);
 
-        opMantenimientoPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ManteniminetoPa.png"))); // NOI18N
-        opMantenimientoPacientes.setText("Mantenimiento de  Pacientes");
-        opMantenimientoPacientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opMantenimientoPacientesActionPerformed(evt);
-            }
-        });
+        opMantenimientoPacientes
+                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoPa.png")));
+        opMantenimientoPacientes.setText("Mantenimiento de Pacientes");
+        opMantenimientoPacientes.addActionListener(evt -> opMantenimientoPacientesActionPerformed(evt));
         jMenu1.add(opMantenimientoPacientes);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoDoctor.png"))); // NOI18N
+        jMenu2.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoDoctor.png")));
         jMenu2.setText("Doctores");
-        jMenu2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jMenu2.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        poRegistrarDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RegistrarDo.png"))); // NOI18N
+        poRegistrarDoctor.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarDo.png")));
         poRegistrarDoctor.setText("Registrar Doctor");
-        poRegistrarDoctor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                poRegistrarDoctorActionPerformed(evt);
-            }
-        });
+        poRegistrarDoctor.addActionListener(evt -> poRegistrarDoctorActionPerformed(evt));
         jMenu2.add(poRegistrarDoctor);
 
-        opMantenimientoDoctores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ManteniminetoDoc.png"))); // NOI18N
+        opMantenimientoDoctores
+                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoDoc.png")));
         opMantenimientoDoctores.setText("Mantenimiento de Doctores");
-        opMantenimientoDoctores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opMantenimientoDoctoresActionPerformed(evt);
-            }
-        });
+        opMantenimientoDoctores.addActionListener(evt -> opMantenimientoDoctoresActionPerformed(evt));
         jMenu2.add(opMantenimientoDoctores);
 
         jMenuBar1.add(jMenu2);
 
-        opRegistrarEspecialidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoEspecia..png"))); // NOI18N
+        opRegistrarEspecialidad.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoEspecia..png")));
         opRegistrarEspecialidad.setText("Especialidades");
-        opRegistrarEspecialidad.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        opRegistrarEspecialidad.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        opRegistroEspecialidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RegistrarEs.png"))); // NOI18N
+        opRegistroEspecialidad.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarEs.png")));
         opRegistroEspecialidad.setText("Registrar Especialidad");
-        opRegistroEspecialidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opRegistroEspecialidadActionPerformed(evt);
-            }
-        });
+        opRegistroEspecialidad.addActionListener(evt -> opRegistroEspecialidadActionPerformed(evt));
         opRegistrarEspecialidad.add(opRegistroEspecialidad);
 
-        opMantenimientoEspecialidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ManteniminetoEs.png"))); // NOI18N
+        opMantenimientoEspecialidades
+                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoEs.png")));
         opMantenimientoEspecialidades.setText("Mantenimiento de Especialidades");
-        opMantenimientoEspecialidades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opMantenimientoEspecialidadesActionPerformed(evt);
-            }
-        });
+        opMantenimientoEspecialidades.addActionListener(evt -> opMantenimientoEspecialidadesActionPerformed(evt));
         opRegistrarEspecialidad.add(opMantenimientoEspecialidades);
 
         jMenuBar1.add(opRegistrarEspecialidad);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoHistorialC..png"))); // NOI18N
+        jMenu4.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoHistorialC..png")));
         jMenu4.setText("Historias Clinicas");
-        jMenu4.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jMenu4.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        opRegistrarHistoriaClinica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RegistrarHistoriaC.png"))); // NOI18N
+        opRegistrarHistoriaClinica
+                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarHistoriaC.png")));
         opRegistrarHistoriaClinica.setText("Registrar Historia C.");
-        opRegistrarHistoriaClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opRegistrarHistoriaClinicaActionPerformed(evt);
-            }
-        });
+        opRegistrarHistoriaClinica.addActionListener(evt -> opRegistrarHistoriaClinicaActionPerformed(evt));
         jMenu4.add(opRegistrarHistoriaClinica);
 
-        opBusquedaMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BuscarMante.png"))); // NOI18N
+        opBusquedaMantenimiento.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/BuscarMante.png")));
         opBusquedaMantenimiento.setText("Busqueda y Mantenimiento");
-        opBusquedaMantenimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opBusquedaMantenimientoActionPerformed(evt);
-            }
-        });
+        opBusquedaMantenimiento.addActionListener(evt -> opBusquedaMantenimientoActionPerformed(evt));
         jMenu4.add(opBusquedaMantenimiento);
 
-        opAtencionesDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AtencionDia.png"))); // NOI18N
+        opAtencionesDia.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/AtencionDia.png")));
         opAtencionesDia.setText("Atenciones del Día por Medico");
-        opAtencionesDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opAtencionesDiaActionPerformed(evt);
-            }
-        });
+        opAtencionesDia.addActionListener(evt -> opAtencionesDiaActionPerformed(evt));
         jMenu4.add(opAtencionesDia);
 
-        opAtencionEspecialidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AtencionXespecialidad.png"))); // NOI18N
+        opAtencionEspecialidad
+                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/AtencionXespecialidad.png")));
         opAtencionEspecialidad.setText("Atenciones por Especialidad");
-        opAtencionEspecialidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opAtencionEspecialidadActionPerformed(evt);
-            }
-        });
+        opAtencionEspecialidad.addActionListener(evt -> opAtencionEspecialidadActionPerformed(evt));
         jMenu4.add(opAtencionEspecialidad);
 
         jMenuBar1.add(jMenu4);
 
-        opExportarHistoriaC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoExpo.PDF.png"))); // NOI18N
+        opExportarHistoriaC.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoExpo.PDF.png")));
         opExportarHistoriaC.setText("Exportar PDF");
-        opExportarHistoriaC.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        opExportarHistoriaC.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        opExportarHistoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ExportarPDF.png"))); // NOI18N
+        opExportarHistoria.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ExportarPDF.png")));
         opExportarHistoria.setText("Exportar Historia Clinica");
-        opExportarHistoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opExportarHistoriaActionPerformed(evt);
-            }
-        });
+        opExportarHistoria.addActionListener(evt -> opExportarHistoriaActionPerformed(evt));
         opExportarHistoriaC.add(opExportarHistoria);
 
         jMenuBar1.add(opExportarHistoriaC);
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(Escritorio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(Escritorio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void opRegistrarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistrarPacientesActionPerformed
-        FrmRegistroPa frm = new FrmRegistroPa();  
-        Escritorio.add(frm);  
-        frm.setVisible(true);                               
-    }//GEN-LAST:event_opRegistrarPacientesActionPerformed
+    private void opRegistrarPacientesActionPerformed(ActionEvent evt) {
+        FrmRegistroPa frm = new FrmRegistroPa();
+        Escritorio.removeAll();
+        Escritorio.add(frm, BorderLayout.CENTER);
+    }
 
-    private void opMantenimientoPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opMantenimientoPacientesActionPerformed
-        FrmMantenimientoPa frm2 = new FrmMantenimientoPa(); 
-        Escritorio.add(frm2);                
-        frm2.setVisible(true);
-    }//GEN-LAST:event_opMantenimientoPacientesActionPerformed
+    private void opMantenimientoPacientesActionPerformed(ActionEvent evt) {
+        FrmMantenimientoPa frm2 = new FrmMantenimientoPa();
+        Escritorio.removeAll();
+        Escritorio.add(frm2, BorderLayout.CENTER);
+    }
 
-    private void opAtencionEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opAtencionEspecialidadActionPerformed
-        FrmAtencionesEsp frm3 = new FrmAtencionesEsp(); 
-        Escritorio.add(frm3);                
-        frm3.setVisible(true);
-    }//GEN-LAST:event_opAtencionEspecialidadActionPerformed
+    private void opAtencionEspecialidadActionPerformed(ActionEvent evt) {
+        FrmAtencionesEsp frm3 = new FrmAtencionesEsp();
+        Escritorio.removeAll();
+        Escritorio.add(frm3, BorderLayout.CENTER);
+    }
 
-    private void poRegistrarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poRegistrarDoctorActionPerformed
-        FrmRegistroDoc frm4 = new FrmRegistroDoc(); 
-        Escritorio.add(frm4);                
-        frm4.setVisible(true);  
-    }//GEN-LAST:event_poRegistrarDoctorActionPerformed
+    private void poRegistrarDoctorActionPerformed(ActionEvent evt) {
+        FrmRegistroDoc frm4 = new FrmRegistroDoc();
+        Escritorio.removeAll();
+        Escritorio.add(frm4, BorderLayout.CENTER);
+    }
 
-    private void opMantenimientoDoctoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opMantenimientoDoctoresActionPerformed
-        FrmMantenimientoDoc frm5 = new FrmMantenimientoDoc(); // Tu JInternalFrame
-        Escritorio.add(frm5);                // Lo agregas al DesktopPane
-        frm5.setVisible(true);
-    }//GEN-LAST:event_opMantenimientoDoctoresActionPerformed
+    private void opMantenimientoDoctoresActionPerformed(ActionEvent evt) {
+        FrmMantenimientoDoc frm5 = new FrmMantenimientoDoc();
+        Escritorio.removeAll();
+        Escritorio.add(frm5, BorderLayout.CENTER);
+    }
 
-    private void opRegistroEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistroEspecialidadActionPerformed
-        FrmRegistroEsp frm6 = new FrmRegistroEsp(); 
-        Escritorio.add(frm6);              
-        frm6.setVisible(true);  
-    }//GEN-LAST:event_opRegistroEspecialidadActionPerformed
+    private void opRegistroEspecialidadActionPerformed(ActionEvent evt) {
+        FrmRegistroEsp frm6 = new FrmRegistroEsp();
+        Escritorio.removeAll();
+        Escritorio.add(frm6, BorderLayout.CENTER);
+    }
 
-    private void opMantenimientoEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opMantenimientoEspecialidadesActionPerformed
+    private void opMantenimientoEspecialidadesActionPerformed(ActionEvent evt) {
         FrmMantenimientoEspe frm7 = new FrmMantenimientoEspe();
-        Escritorio.add(frm7);              
-        frm7.setVisible(true);
-    }//GEN-LAST:event_opMantenimientoEspecialidadesActionPerformed
+        Escritorio.removeAll();
+        Escritorio.add(frm7, BorderLayout.CENTER);
+    }
 
-    private void opRegistrarHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistrarHistoriaClinicaActionPerformed
-        FrmRegistroHistoriaC frm8 = new FrmRegistroHistoriaC(); 
-        Escritorio.add(frm8);                
-        frm8.setVisible(true); 
-    }//GEN-LAST:event_opRegistrarHistoriaClinicaActionPerformed
+    private void opRegistrarHistoriaClinicaActionPerformed(ActionEvent evt) {
+        FrmRegistroHistoriaC frm8 = new FrmRegistroHistoriaC();
+        Escritorio.removeAll();
+        Escritorio.add(frm8, BorderLayout.CENTER);
+    }
 
-    private void opBusquedaMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opBusquedaMantenimientoActionPerformed
-        FrmBusquedaMante frm9 = new FrmBusquedaMante(); 
-        Escritorio.add(frm9);                
-        frm9.setVisible(true); 
-    }//GEN-LAST:event_opBusquedaMantenimientoActionPerformed
+    private void opBusquedaMantenimientoActionPerformed(ActionEvent evt) {
+        FrmBusquedaMante frm9 = new FrmBusquedaMante();
+        Escritorio.removeAll();
+        Escritorio.add(frm9, BorderLayout.CENTER);
+    }
 
-    private void opAtencionesDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opAtencionesDiaActionPerformed
-        FrmAtencionesXDia frm10 = new FrmAtencionesXDia(); 
-        Escritorio.add(frm10);                
-        frm10.setVisible(true);
-    }//GEN-LAST:event_opAtencionesDiaActionPerformed
+    private void opAtencionesDiaActionPerformed(ActionEvent evt) {
+        FrmAtencionesXDia frm10 = new FrmAtencionesXDia();
+        Escritorio.removeAll();
+        Escritorio.add(frm10, BorderLayout.CENTER);
+    }
 
-    private void opExportarHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opExportarHistoriaActionPerformed
-        FrmExportarHisC frm11 = new FrmExportarHisC(); 
-        Escritorio.add(frm11);                
-        frm11.setVisible(true);
-    }//GEN-LAST:event_opExportarHistoriaActionPerformed
+    private void opExportarHistoriaActionPerformed(ActionEvent evt) {
+        FrmExportarHisC frm11 = new FrmExportarHisC();
+        Escritorio.removeAll();
+        Escritorio.add(frm11, BorderLayout.CENTER);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmMenu().setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            new FrmMenu().setVisible(true);
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Escritorio;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem opAtencionEspecialidad;
-    private javax.swing.JMenuItem opAtencionesDia;
-    private javax.swing.JMenuItem opBusquedaMantenimiento;
-    private javax.swing.JMenuItem opExportarHistoria;
-    private javax.swing.JMenu opExportarHistoriaC;
-    private javax.swing.JMenuItem opMantenimientoDoctores;
-    private javax.swing.JMenuItem opMantenimientoEspecialidades;
-    private javax.swing.JMenuItem opMantenimientoPacientes;
-    private javax.swing.JMenu opRegistrarEspecialidad;
-    private javax.swing.JMenuItem opRegistrarHistoriaClinica;
-    private javax.swing.JMenuItem opRegistrarPacientes;
-    private javax.swing.JMenuItem opRegistroEspecialidad;
-    private javax.swing.JMenuItem poRegistrarDoctor;
-    // End of variables declaration//GEN-END:variables
+    private JPanel Escritorio;
+    private JMenu jMenu1;
+    private JMenu jMenu2;
+    private JMenu jMenu4;
+    private JMenuBar jMenuBar1;
+    private JMenuItem opAtencionEspecialidad;
+    private JMenuItem opAtencionesDia;
+    private JMenuItem opBusquedaMantenimiento;
+    private JMenuItem opExportarHistoria;
+    private JMenu opExportarHistoriaC;
+    private JMenuItem opMantenimientoDoctores;
+    private JMenuItem opMantenimientoEspecialidades;
+    private JMenuItem opMantenimientoPacientes;
+    private JMenu opRegistrarEspecialidad;
+    private JMenuItem opRegistrarHistoriaClinica;
+    private JMenuItem opRegistrarPacientes;
+    private JMenuItem opRegistroEspecialidad;
+    private JMenuItem poRegistrarDoctor;
 }
