@@ -4,7 +4,8 @@ START TRANSACTION;
 CREATE TABLE
     IF NOT EXISTS especialidad (
         id_especialidad INT PRIMARY KEY AUTO_INCREMENT,
-        especialidad VARCHAR(100) NOT NULL
+        especialidad VARCHAR(100) NOT NULL,
+        descripcion TEXT
     );
 
 -- Tabla de Médicos (incluye especialidad)
@@ -14,8 +15,14 @@ CREATE TABLE
         id_especialidad INT NOT NULL,
         nombre VARCHAR(100) NOT NULL,
         apellido VARCHAR(100) NOT NULL,
-        colegiatura VARCHAR(50) NOT NULL UNIQUE,
+        dni VARCHAR(20) UNIQUE NOT NULL,
+        fecha_nacimiento DATE NOT NULL,
+        sexo ENUM ('masculino', 'femenino') NOT NULL,
         telefono VARCHAR(20),
+        email VARCHAR(100),
+        colegiatura VARCHAR(50) NOT NULL UNIQUE,
+        grado_academico VARCHAR(50) NOT NULL,
+        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         estado BOOLEAN NOT NULL DEFAULT TRUE,
         FOREIGN KEY (id_especialidad) REFERENCES especialidad (id_especialidad) ON DELETE RESTRICT
     );
