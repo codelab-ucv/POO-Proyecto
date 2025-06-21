@@ -39,7 +39,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
         scrollPanePrincipal.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         // Usar setupPanel Sobrescrito para configurar el panel
-        setupPanel("REGISTRO HISTORIA CLINICA", new Dimension(100, 1547));
+        setupPanel("REGISTRO HISTORIA CLINICA");
 
         // Crear labels de sección
         lblDatosPaciente = createTitulos("DATOS DEL PACIENTE");
@@ -144,7 +144,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
     // Usa metodos personalizados ya que los componentes se añaden en el panel
     // interno del scroll
     @Override
-    public void setupPanel(String titulo, Dimension dimension) {
+    public void setupPanel(String titulo) {
         panelContenido.setBackground(BACKGROUND_COLOR);
         panelContenido.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER_COLOR),
@@ -153,7 +153,6 @@ public class FrmRegistroHistoriaC extends PanelBase {
                 TitledBorder.DEFAULT_POSITION,
                 new Font("Dubai", 1, 36),
                 new Color(0, 51, 102)));
-        panelContenido.setPreferredSize(dimension);
         panelContenido.setLayout(new GridBagLayout());
     }
 

@@ -2,7 +2,6 @@ package ucv.codelab.view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -82,7 +81,7 @@ public class PanelBase extends JPanel {
         return label;
     }
 
-    public void setupPanel(String titulo, Dimension dimension) {
+    public void setupPanel(String titulo) {
         setBackground(BACKGROUND_COLOR);
         setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER_COLOR),
@@ -91,7 +90,6 @@ public class PanelBase extends JPanel {
                 TitledBorder.DEFAULT_POSITION,
                 new Font("Dubai", 1, 36),
                 new Color(0, 51, 102)));
-        setPreferredSize(dimension);
         setLayout(new GridBagLayout());
     }
 

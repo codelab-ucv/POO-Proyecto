@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -15,7 +14,7 @@ public class FrmRegistroPa extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("REGISTRO PACIENTE", new Dimension(640, 480));
+        setupPanel("REGISTRO PACIENTE");
 
         txtNombres = createTextField("NOMBRES");
         txtApellidos = createTextField("APELLIDOS");

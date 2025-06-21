@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -13,7 +12,7 @@ public class FrmExportarHisC extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("EXPORTAR HISTORIA CLINICA", new Dimension(700, 500));
+        setupPanel("EXPORTAR HISTORIA CLINICA");
 
         txtDniPaciente = createTextField("DNI PACIENTE");
         txtNombresApellidos = createTextField("NOMBRES Y APELLIDOS");

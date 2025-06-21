@@ -1,7 +1,6 @@
 package ucv.codelab.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,7 @@ public class FrmRegistroEsp extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("REGISTRAR ESPECIALIDAD", new Dimension(800, 600));
+        setupPanel("REGISTRAR ESPECIALIDAD");
 
         txtNombreEspecialidad = createTextField("NOMBRE ESPECIALIDAD");
 

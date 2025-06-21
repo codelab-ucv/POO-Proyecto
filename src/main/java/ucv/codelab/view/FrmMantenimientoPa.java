@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -15,7 +14,7 @@ public class FrmMantenimientoPa extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("MANTENIMIENTO PACIENTE", new Dimension(950, 714));
+        setupPanel("MANTENIMIENTO PACIENTE");
 
         txtNombresApellidos = createTextField("NOMBRES Y APELLIDOS");
 
