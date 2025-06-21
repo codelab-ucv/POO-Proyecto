@@ -6,7 +6,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
-import javax.swing.GroupLayout;
 import javax.swing.WindowConstants;
 
 import java.awt.BorderLayout;
@@ -20,6 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FrmMenu extends JFrame {
 
@@ -31,247 +31,183 @@ public class FrmMenu extends JFrame {
     private void initComponents() {
         setMinimumSize(new Dimension(1280, 720));
 
-        escritorio = new JPanel();
-        barraMenu = new JMenuBar();
-        menuPaciente = new JMenu();
-        opRegistrarPacientes = new JMenuItem();
-        opMantenimientoPacientes = new JMenuItem();
-        menuMedico = new JMenu();
-        poRegistrarDoctor = new JMenuItem();
-        opMantenimientoDoctores = new JMenuItem();
-        menuEspecialidad = new JMenu();
-        opRegistroEspecialidad = new JMenuItem();
-        opMantenimientoEspecialidades = new JMenuItem();
-        menuHistoriaClinica = new JMenu();
-        opRegistrarHistoriaClinica = new JMenuItem();
-        opBusquedaMantenimiento = new JMenuItem();
-        opAtencionesDia = new JMenuItem();
-        opAtencionEspecialidad = new JMenuItem();
-        menuExportar = new JMenu();
-        opExportarHistoria = new JMenuItem();
+        panelEscritorio = new JPanel();
+        menuBarPrincipal = new JMenuBar();
+
+        // Menús principales
+        menuPacientes = new JMenu();
+        menuDoctores = new JMenu();
+        menuEspecialidades = new JMenu();
+        menuHistoriasClinicas = new JMenu();
+        menuExportarPdf = new JMenu();
+
+        // MenuItems de Pacientes
+        menuItemRegistrarPaciente = new JMenuItem();
+        menuItemMantenimientoPacientes = new JMenuItem();
+
+        // MenuItems de Doctores
+        menuItemRegistrarDoctor = new JMenuItem();
+        menuItemMantenimientoDoctores = new JMenuItem();
+
+        // MenuItems de Especialidades
+        menuItemRegistrarEspecialidad = new JMenuItem();
+        menuItemMantenimientoEspecialidades = new JMenuItem();
+
+        // MenuItems de Historias Clínicas
+        menuItemRegistrarHistoriaClinica = new JMenuItem();
+        menuItemBusquedaMantenimientoHistorias = new JMenuItem();
+        menuItemAtencionesPorDia = new JMenuItem();
+        menuItemAtencionesPorEspecialidad = new JMenuItem();
+
+        // MenuItems de Exportar
+        menuItemExportarHistoriaClinica = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        escritorio.setBackground(new Color(0, 102, 102));
-        escritorio.setForeground(new Color(0, 0, 0));
+        panelEscritorio.setBackground(new Color(0, 102, 102));
+        panelEscritorio.setLayout(new BorderLayout());
 
-        escritorio.setLayout(new BorderLayout());
+        // Configuración del menú Pacientes
+        configurarMenu(menuPacientes, "Pacientes", "/ucv/codelab/images/IconoPaciente.png");
+        configurarMenuItem(menuItemRegistrarPaciente, menuPacientes, "Registrar Pacientes",
+                "/ucv/codelab/images/RegistrarPa.png",
+                evt -> menuItemRegistrarPacienteActionPerformed(evt));
+        configurarMenuItem(menuItemMantenimientoPacientes, menuPacientes, "Mantenimiento de Pacientes",
+                "/ucv/codelab/images/ManteniminetoPa.png",
+                evt -> menuItemMantenimientoPacientesActionPerformed(evt));
+        menuBarPrincipal.add(menuPacientes);
 
-        menuPaciente.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoPaciente.png")));
-        menuPaciente.setText("Pacientes");
-        menuPaciente.setFont(new Font("Dialog", Font.BOLD, 16));
+        // Configuración del menú Doctores
+        configurarMenu(menuDoctores, "Doctores", "/ucv/codelab/images/IconoDoctor.png");
+        configurarMenuItem(menuItemRegistrarDoctor, menuDoctores, "Registrar Doctor",
+                "/ucv/codelab/images/RegistrarDo.png",
+                evt -> menuItemRegistrarDoctorActionPerformed(evt));
+        configurarMenuItem(menuItemMantenimientoDoctores, menuDoctores, "Mantenimiento de Doctores",
+                "/ucv/codelab/images/ManteniminetoDoc.png",
+                evt -> menuItemMantenimientoDoctoresActionPerformed(evt));
+        menuBarPrincipal.add(menuDoctores);
 
-        opRegistrarPacientes.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarPa.png")));
-        opRegistrarPacientes.setText("Registrar Pacientes");
-        opRegistrarPacientes.addActionListener(evt -> opRegistrarPacientesActionPerformed(evt));
-        menuPaciente.add(opRegistrarPacientes);
+        // Configuración del menú Especialidades
+        configurarMenu(menuEspecialidades, "Especialidades", "/ucv/codelab/images/IconoEspecia..png");
+        configurarMenuItem(menuItemRegistrarEspecialidad, menuEspecialidades, "Registrar Especialidad",
+                "/ucv/codelab/images/RegistrarEs.png",
+                evt -> menuItemRegistrarEspecialidadActionPerformed(evt));
+        configurarMenuItem(menuItemMantenimientoEspecialidades, menuEspecialidades, "Mantenimiento de Especialidades",
+                "/ucv/codelab/images/ManteniminetoEs.png",
+                evt -> menuItemMantenimientoEspecialidadesActionPerformed(evt));
+        menuBarPrincipal.add(menuEspecialidades);
 
-        opMantenimientoPacientes
-                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoPa.png")));
-        opMantenimientoPacientes.setText("Mantenimiento de Pacientes");
-        opMantenimientoPacientes.addActionListener(evt -> opMantenimientoPacientesActionPerformed(evt));
-        menuPaciente.add(opMantenimientoPacientes);
+        // Configuración del menú Historias Clínicas
+        configurarMenu(menuHistoriasClinicas, "Historias Clínicas", "/ucv/codelab/images/IconoHistorialC..png");
+        configurarMenuItem(menuItemRegistrarHistoriaClinica, menuHistoriasClinicas, "Registrar Historia C.",
+                "/ucv/codelab/images/RegistrarHistoriaC.png",
+                evt -> menuItemRegistrarHistoriaClinicaActionPerformed(evt));
+        configurarMenuItem(menuItemBusquedaMantenimientoHistorias, menuHistoriasClinicas, "Búsqueda y Mantenimiento",
+                "/ucv/codelab/images/BuscarMante.png",
+                evt -> menuItemBusquedaMantenimientoHistoriasActionPerformed(evt));
+        configurarMenuItem(menuItemAtencionesPorDia, menuHistoriasClinicas, "Atenciones del Día por Médico",
+                "/ucv/codelab/images/AtencionDia.png",
+                evt -> menuItemAtencionesPorDiaActionPerformed(evt));
+        configurarMenuItem(menuItemAtencionesPorEspecialidad, menuHistoriasClinicas, "Atenciones por Especialidad",
+                "/ucv/codelab/images/AtencionXespecialidad.png",
+                evt -> menuItemAtencionesPorEspecialidadActionPerformed(evt));
+        menuBarPrincipal.add(menuHistoriasClinicas);
 
-        barraMenu.add(menuPaciente);
+        // Configuración del menú Exportar PDF
+        configurarMenu(menuExportarPdf, "Exportar PDF", "/ucv/codelab/images/IconoExpo.PDF.png");
+        configurarMenuItem(menuItemExportarHistoriaClinica, menuExportarPdf, "Exportar Historia Clínica",
+                "/ucv/codelab/images/ExportarPDF.png",
+                evt -> menuItemExportarHistoriaClinicaActionPerformed(evt));
+        menuBarPrincipal.add(menuExportarPdf);
 
-        menuMedico.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoDoctor.png")));
-        menuMedico.setText("Doctores");
-        menuMedico.setFont(new Font("Dialog", Font.BOLD, 16));
+        setJMenuBar(menuBarPrincipal);
 
-        poRegistrarDoctor.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarDo.png")));
-        poRegistrarDoctor.setText("Registrar Doctor");
-        poRegistrarDoctor.addActionListener(evt -> poRegistrarDoctorActionPerformed(evt));
-        menuMedico.add(poRegistrarDoctor);
-
-        opMantenimientoDoctores
-                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoDoc.png")));
-        opMantenimientoDoctores.setText("Mantenimiento de Doctores");
-        opMantenimientoDoctores.addActionListener(evt -> opMantenimientoDoctoresActionPerformed(evt));
-        menuMedico.add(opMantenimientoDoctores);
-
-        barraMenu.add(menuMedico);
-
-        menuEspecialidad.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoEspecia..png")));
-        menuEspecialidad.setText("Especialidades");
-        menuEspecialidad.setFont(new Font("Dialog", Font.BOLD, 16));
-
-        opRegistroEspecialidad.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarEs.png")));
-        opRegistroEspecialidad.setText("Registrar Especialidad");
-        opRegistroEspecialidad.addActionListener(evt -> opRegistroEspecialidadActionPerformed(evt));
-        menuEspecialidad.add(opRegistroEspecialidad);
-
-        opMantenimientoEspecialidades
-                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ManteniminetoEs.png")));
-        opMantenimientoEspecialidades.setText("Mantenimiento de Especialidades");
-        opMantenimientoEspecialidades.addActionListener(evt -> opMantenimientoEspecialidadesActionPerformed(evt));
-        menuEspecialidad.add(opMantenimientoEspecialidades);
-
-        barraMenu.add(menuEspecialidad);
-
-        menuHistoriaClinica.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoHistorialC..png")));
-        menuHistoriaClinica.setText("Historias Clinicas");
-        menuHistoriaClinica.setFont(new Font("Dialog", Font.BOLD, 16));
-
-        opRegistrarHistoriaClinica
-                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/RegistrarHistoriaC.png")));
-        opRegistrarHistoriaClinica.setText("Registrar Historia C.");
-        opRegistrarHistoriaClinica.addActionListener(evt -> opRegistrarHistoriaClinicaActionPerformed(evt));
-        menuHistoriaClinica.add(opRegistrarHistoriaClinica);
-
-        opBusquedaMantenimiento.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/BuscarMante.png")));
-        opBusquedaMantenimiento.setText("Busqueda y Mantenimiento");
-        opBusquedaMantenimiento.addActionListener(evt -> opBusquedaMantenimientoActionPerformed(evt));
-        menuHistoriaClinica.add(opBusquedaMantenimiento);
-
-        opAtencionesDia.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/AtencionDia.png")));
-        opAtencionesDia.setText("Atenciones del Día por Medico");
-        opAtencionesDia.addActionListener(evt -> opAtencionesDiaActionPerformed(evt));
-        menuHistoriaClinica.add(opAtencionesDia);
-
-        opAtencionEspecialidad
-                .setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/AtencionXespecialidad.png")));
-        opAtencionEspecialidad.setText("Atenciones por Especialidad");
-        opAtencionEspecialidad.addActionListener(evt -> opAtencionEspecialidadActionPerformed(evt));
-        menuHistoriaClinica.add(opAtencionEspecialidad);
-
-        barraMenu.add(menuHistoriaClinica);
-
-        menuExportar.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoExpo.PDF.png")));
-        menuExportar.setText("Exportar PDF");
-        menuExportar.setFont(new Font("Dialog", Font.BOLD, 16));
-
-        opExportarHistoria.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/ExportarPDF.png")));
-        opExportarHistoria.setText("Exportar Historia Clinica");
-        opExportarHistoria.addActionListener(evt -> opExportarHistoriaActionPerformed(evt));
-        menuExportar.add(opExportarHistoria);
-
-        barraMenu.add(menuExportar, BorderLayout.NORTH);
-
-        setJMenuBar(barraMenu);
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(escritorio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(escritorio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+        add(panelEscritorio);
 
         pack();
     }
 
-    private void opRegistrarPacientesActionPerformed(ActionEvent evt) {
+    private void configurarMenu(JMenu menu, String titulo, String imagePath) {
+        menu.setIcon(new ImageIcon(getClass().getResource(imagePath)));
+        menu.setText(titulo);
+        menu.setFont(new Font("Dialog", Font.BOLD, 16));
+    }
+
+    private void configurarMenuItem(JMenuItem menuItem, JMenu menu, String titulo, String imagePath,
+            ActionListener accion) {
+        menuItem.setIcon(new ImageIcon(getClass().getResource(imagePath)));
+        menuItem.setText(titulo);
+        menuItem.addActionListener(accion);
+        menu.add(menuItem);
+    }
+
+    private void abrirFormularioEnEscritorio(JPanel formulario) {
+        panelEscritorio.removeAll();
+        panelEscritorio.add(formulario, BorderLayout.CENTER);
+        panelEscritorio.revalidate();
+        panelEscritorio.repaint();
+        this.revalidate();
+        this.repaint();
+    }
+
+    // Event handlers para Pacientes
+    private void menuItemRegistrarPacienteActionPerformed(ActionEvent evt) {
         FrmRegistroPa frm = new FrmRegistroPa();
-        escritorio.removeAll();
-        escritorio.add(frm, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opMantenimientoPacientesActionPerformed(ActionEvent evt) {
-        FrmMantenimientoPa frm2 = new FrmMantenimientoPa();
-        escritorio.removeAll();
-        escritorio.add(frm2, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemMantenimientoPacientesActionPerformed(ActionEvent evt) {
+        FrmMantenimientoPa frm = new FrmMantenimientoPa();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opAtencionEspecialidadActionPerformed(ActionEvent evt) {
-        FrmAtencionesEsp frm3 = new FrmAtencionesEsp();
-        escritorio.removeAll();
-        escritorio.add(frm3, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    // Event handlers para Doctores
+    private void menuItemRegistrarDoctorActionPerformed(ActionEvent evt) {
+        FrmRegistroDoc frm = new FrmRegistroDoc();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void poRegistrarDoctorActionPerformed(ActionEvent evt) {
-        FrmRegistroDoc frm4 = new FrmRegistroDoc();
-        escritorio.removeAll();
-        escritorio.add(frm4, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemMantenimientoDoctoresActionPerformed(ActionEvent evt) {
+        FrmMantenimientoDoc frm = new FrmMantenimientoDoc();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opMantenimientoDoctoresActionPerformed(ActionEvent evt) {
-        FrmMantenimientoDoc frm5 = new FrmMantenimientoDoc();
-        escritorio.removeAll();
-        escritorio.add(frm5, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    // Event handlers para Especialidades
+    private void menuItemRegistrarEspecialidadActionPerformed(ActionEvent evt) {
+        FrmRegistroEsp frm = new FrmRegistroEsp();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opRegistroEspecialidadActionPerformed(ActionEvent evt) {
-        FrmRegistroEsp frm6 = new FrmRegistroEsp();
-        escritorio.removeAll();
-        escritorio.add(frm6, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemMantenimientoEspecialidadesActionPerformed(ActionEvent evt) {
+        FrmMantenimientoEspe frm = new FrmMantenimientoEspe();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opMantenimientoEspecialidadesActionPerformed(ActionEvent evt) {
-        FrmMantenimientoEspe frm7 = new FrmMantenimientoEspe();
-        escritorio.removeAll();
-        escritorio.add(frm7, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    // Event handlers para Historias Clínicas
+    private void menuItemRegistrarHistoriaClinicaActionPerformed(ActionEvent evt) {
+        FrmRegistroHistoriaC frm = new FrmRegistroHistoriaC();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opRegistrarHistoriaClinicaActionPerformed(ActionEvent evt) {
-        FrmRegistroHistoriaC frm8 = new FrmRegistroHistoriaC();
-        escritorio.removeAll();
-        escritorio.add(frm8, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemBusquedaMantenimientoHistoriasActionPerformed(ActionEvent evt) {
+        FrmBusquedaMante frm = new FrmBusquedaMante();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opBusquedaMantenimientoActionPerformed(ActionEvent evt) {
-        FrmBusquedaMante frm9 = new FrmBusquedaMante();
-        escritorio.removeAll();
-        escritorio.add(frm9, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemAtencionesPorDiaActionPerformed(ActionEvent evt) {
+        FrmAtencionesDia frm = new FrmAtencionesDia();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opAtencionesDiaActionPerformed(ActionEvent evt) {
-        FrmAtencionesDia frm10 = new FrmAtencionesDia();
-        escritorio.removeAll();
-        escritorio.add(frm10, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    private void menuItemAtencionesPorEspecialidadActionPerformed(ActionEvent evt) {
+        FrmAtencionesEsp frm = new FrmAtencionesEsp();
+        abrirFormularioEnEscritorio(frm);
     }
 
-    private void opExportarHistoriaActionPerformed(ActionEvent evt) {
-        FrmExportarHisC frm11 = new FrmExportarHisC();
-        escritorio.removeAll();
-        escritorio.add(frm11, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
-        this.revalidate();
-        this.repaint();
+    // Event handler para Exportar
+    private void menuItemExportarHistoriaClinicaActionPerformed(ActionEvent evt) {
+        FrmExportarHisC frm = new FrmExportarHisC();
+        abrirFormularioEnEscritorio(frm);
     }
 
     public static void main(String args[]) {
@@ -292,22 +228,35 @@ public class FrmMenu extends JFrame {
         });
     }
 
-    private JPanel escritorio;
-    private JMenu menuPaciente;
-    private JMenu menuMedico;
-    private JMenu menuHistoriaClinica;
-    private JMenuBar barraMenu;
-    private JMenuItem opAtencionEspecialidad;
-    private JMenuItem opAtencionesDia;
-    private JMenuItem opBusquedaMantenimiento;
-    private JMenuItem opExportarHistoria;
-    private JMenu menuExportar;
-    private JMenuItem opMantenimientoDoctores;
-    private JMenuItem opMantenimientoEspecialidades;
-    private JMenuItem opMantenimientoPacientes;
-    private JMenu menuEspecialidad;
-    private JMenuItem opRegistrarHistoriaClinica;
-    private JMenuItem opRegistrarPacientes;
-    private JMenuItem opRegistroEspecialidad;
-    private JMenuItem poRegistrarDoctor;
+    // Variables de componentes con nombres descriptivos y estandarizados
+    private JPanel panelEscritorio;
+    private JMenuBar menuBarPrincipal;
+
+    // Menús principales
+    private JMenu menuPacientes;
+    private JMenu menuDoctores;
+    private JMenu menuEspecialidades;
+    private JMenu menuHistoriasClinicas;
+    private JMenu menuExportarPdf;
+
+    // MenuItems de Pacientes
+    private JMenuItem menuItemRegistrarPaciente;
+    private JMenuItem menuItemMantenimientoPacientes;
+
+    // MenuItems de Doctores
+    private JMenuItem menuItemRegistrarDoctor;
+    private JMenuItem menuItemMantenimientoDoctores;
+
+    // MenuItems de Especialidades
+    private JMenuItem menuItemRegistrarEspecialidad;
+    private JMenuItem menuItemMantenimientoEspecialidades;
+
+    // MenuItems de Historias Clínicas
+    private JMenuItem menuItemRegistrarHistoriaClinica;
+    private JMenuItem menuItemBusquedaMantenimientoHistorias;
+    private JMenuItem menuItemAtencionesPorDia;
+    private JMenuItem menuItemAtencionesPorEspecialidad;
+
+    // MenuItems de Exportar
+    private JMenuItem menuItemExportarHistoriaClinica;
 }
