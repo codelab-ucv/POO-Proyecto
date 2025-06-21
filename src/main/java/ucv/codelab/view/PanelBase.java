@@ -104,7 +104,7 @@ public class PanelBase extends JPanel {
         gbc.ipady = ipady;
         gbc.weightx = weightx;
         gbc.weighty = weighty;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
         add(comp, gbc);
     }
 

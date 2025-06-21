@@ -12,12 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.EventQueue;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -208,24 +202,6 @@ public class FrmMenu extends JFrame {
     private void menuItemExportarHistoriaClinicaActionPerformed(ActionEvent evt) {
         FrmExportarHisC frm = new FrmExportarHisC();
         abrirFormularioEnEscritorio(frm);
-    }
-
-    public static void main(String args[]) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(() -> {
-            new FrmMenu().setVisible(true);
-        });
     }
 
     // Variables de componentes con nombres descriptivos y estandarizados
