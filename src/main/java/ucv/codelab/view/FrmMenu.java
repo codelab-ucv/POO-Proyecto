@@ -12,8 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FrmMenu extends JFrame {
 
@@ -64,54 +62,43 @@ public class FrmMenu extends JFrame {
         // Configuración del menú Pacientes
         configurarMenu(menuPacientes, "Pacientes", "/ucv/codelab/images/IconoPaciente.png");
         configurarMenuItem(menuItemRegistrarPaciente, menuPacientes, "Registrar Pacientes",
-                "/ucv/codelab/images/RegistrarPa.png",
-                evt -> menuItemRegistrarPacienteActionPerformed(evt));
+                "/ucv/codelab/images/RegistrarPa.png");
         configurarMenuItem(menuItemMantenimientoPacientes, menuPacientes, "Mantenimiento de Pacientes",
-                "/ucv/codelab/images/ManteniminetoPa.png",
-                evt -> menuItemMantenimientoPacientesActionPerformed(evt));
+                "/ucv/codelab/images/ManteniminetoPa.png");
         menuBarPrincipal.add(menuPacientes);
 
         // Configuración del menú Doctores
         configurarMenu(menuDoctores, "Doctores", "/ucv/codelab/images/IconoDoctor.png");
         configurarMenuItem(menuItemRegistrarDoctor, menuDoctores, "Registrar Doctor",
-                "/ucv/codelab/images/RegistrarDo.png",
-                evt -> menuItemRegistrarDoctorActionPerformed(evt));
+                "/ucv/codelab/images/RegistrarDo.png");
         configurarMenuItem(menuItemMantenimientoDoctores, menuDoctores, "Mantenimiento de Doctores",
-                "/ucv/codelab/images/ManteniminetoDoc.png",
-                evt -> menuItemMantenimientoDoctoresActionPerformed(evt));
+                "/ucv/codelab/images/ManteniminetoDoc.png");
         menuBarPrincipal.add(menuDoctores);
 
         // Configuración del menú Especialidades
         configurarMenu(menuEspecialidades, "Especialidades", "/ucv/codelab/images/IconoEspecia..png");
         configurarMenuItem(menuItemRegistrarEspecialidad, menuEspecialidades, "Registrar Especialidad",
-                "/ucv/codelab/images/RegistrarEs.png",
-                evt -> menuItemRegistrarEspecialidadActionPerformed(evt));
+                "/ucv/codelab/images/RegistrarEs.png");
         configurarMenuItem(menuItemMantenimientoEspecialidades, menuEspecialidades, "Mantenimiento de Especialidades",
-                "/ucv/codelab/images/ManteniminetoEs.png",
-                evt -> menuItemMantenimientoEspecialidadesActionPerformed(evt));
+                "/ucv/codelab/images/ManteniminetoEs.png");
         menuBarPrincipal.add(menuEspecialidades);
 
         // Configuración del menú Historias Clínicas
         configurarMenu(menuHistoriasClinicas, "Historias Clínicas", "/ucv/codelab/images/IconoHistorialC..png");
         configurarMenuItem(menuItemRegistrarHistoriaClinica, menuHistoriasClinicas, "Registrar Historia C.",
-                "/ucv/codelab/images/RegistrarHistoriaC.png",
-                evt -> menuItemRegistrarHistoriaClinicaActionPerformed(evt));
+                "/ucv/codelab/images/RegistrarHistoriaC.png");
         configurarMenuItem(menuItemBusquedaMantenimientoHistorias, menuHistoriasClinicas, "Búsqueda y Mantenimiento",
-                "/ucv/codelab/images/BuscarMante.png",
-                evt -> menuItemBusquedaMantenimientoHistoriasActionPerformed(evt));
+                "/ucv/codelab/images/BuscarMante.png");
         configurarMenuItem(menuItemAtencionesPorDia, menuHistoriasClinicas, "Atenciones del Día por Médico",
-                "/ucv/codelab/images/AtencionDia.png",
-                evt -> menuItemAtencionesPorDiaActionPerformed(evt));
+                "/ucv/codelab/images/AtencionDia.png");
         configurarMenuItem(menuItemAtencionesPorEspecialidad, menuHistoriasClinicas, "Atenciones por Especialidad",
-                "/ucv/codelab/images/AtencionXespecialidad.png",
-                evt -> menuItemAtencionesPorEspecialidadActionPerformed(evt));
+                "/ucv/codelab/images/AtencionXespecialidad.png");
         menuBarPrincipal.add(menuHistoriasClinicas);
 
         // Configuración del menú Exportar PDF
         configurarMenu(menuExportarPdf, "Exportar PDF", "/ucv/codelab/images/IconoExpo.PDF.png");
         configurarMenuItem(menuItemExportarHistoriaClinica, menuExportarPdf, "Exportar Historia Clínica",
-                "/ucv/codelab/images/ExportarPDF.png",
-                evt -> menuItemExportarHistoriaClinicaActionPerformed(evt));
+                "/ucv/codelab/images/ExportarPDF.png");
         menuBarPrincipal.add(menuExportarPdf);
 
         setJMenuBar(menuBarPrincipal);
@@ -127,85 +114,14 @@ public class FrmMenu extends JFrame {
         menu.setFont(new Font("Dialog", Font.BOLD, 16));
     }
 
-    private void configurarMenuItem(JMenuItem menuItem, JMenu menu, String titulo, String imagePath,
-            ActionListener accion) {
+    private void configurarMenuItem(JMenuItem menuItem, JMenu menu, String titulo, String imagePath) {
         menuItem.setIcon(new ImageIcon(getClass().getResource(imagePath)));
         menuItem.setText(titulo);
-        menuItem.addActionListener(accion);
         menu.add(menuItem);
     }
 
-    private void abrirFormularioEnEscritorio(JPanel formulario) {
-        panelEscritorio.removeAll();
-        panelEscritorio.add(formulario, BorderLayout.CENTER);
-        panelEscritorio.revalidate();
-        panelEscritorio.repaint();
-        this.revalidate();
-        this.repaint();
-    }
-
-    // Event handlers para Pacientes
-    private void menuItemRegistrarPacienteActionPerformed(ActionEvent evt) {
-        FrmRegistroPa frm = new FrmRegistroPa();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemMantenimientoPacientesActionPerformed(ActionEvent evt) {
-        FrmMantenimientoPa frm = new FrmMantenimientoPa();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    // Event handlers para Doctores
-    private void menuItemRegistrarDoctorActionPerformed(ActionEvent evt) {
-        FrmRegistroDoc frm = new FrmRegistroDoc();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemMantenimientoDoctoresActionPerformed(ActionEvent evt) {
-        FrmMantenimientoDoc frm = new FrmMantenimientoDoc();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    // Event handlers para Especialidades
-    private void menuItemRegistrarEspecialidadActionPerformed(ActionEvent evt) {
-        FrmRegistroEsp frm = new FrmRegistroEsp();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemMantenimientoEspecialidadesActionPerformed(ActionEvent evt) {
-        FrmMantenimientoEspe frm = new FrmMantenimientoEspe();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    // Event handlers para Historias Clínicas
-    private void menuItemRegistrarHistoriaClinicaActionPerformed(ActionEvent evt) {
-        FrmRegistroHistoriaC frm = new FrmRegistroHistoriaC();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemBusquedaMantenimientoHistoriasActionPerformed(ActionEvent evt) {
-        FrmBusquedaMante frm = new FrmBusquedaMante();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemAtencionesPorDiaActionPerformed(ActionEvent evt) {
-        FrmAtencionesDia frm = new FrmAtencionesDia();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    private void menuItemAtencionesPorEspecialidadActionPerformed(ActionEvent evt) {
-        FrmAtencionesEsp frm = new FrmAtencionesEsp();
-        abrirFormularioEnEscritorio(frm);
-    }
-
-    // Event handler para Exportar
-    private void menuItemExportarHistoriaClinicaActionPerformed(ActionEvent evt) {
-        FrmExportarHisC frm = new FrmExportarHisC();
-        abrirFormularioEnEscritorio(frm);
-    }
-
     // Variables de componentes con nombres descriptivos y estandarizados
-    private JPanel panelEscritorio;
+    public JPanel panelEscritorio;
     private JMenuBar menuBarPrincipal;
 
     // Menús principales
@@ -216,23 +132,23 @@ public class FrmMenu extends JFrame {
     private JMenu menuExportarPdf;
 
     // MenuItems de Pacientes
-    private JMenuItem menuItemRegistrarPaciente;
-    private JMenuItem menuItemMantenimientoPacientes;
+    public JMenuItem menuItemRegistrarPaciente;
+    public JMenuItem menuItemMantenimientoPacientes;
 
     // MenuItems de Doctores
-    private JMenuItem menuItemRegistrarDoctor;
-    private JMenuItem menuItemMantenimientoDoctores;
+    public JMenuItem menuItemRegistrarDoctor;
+    public JMenuItem menuItemMantenimientoDoctores;
 
     // MenuItems de Especialidades
-    private JMenuItem menuItemRegistrarEspecialidad;
-    private JMenuItem menuItemMantenimientoEspecialidades;
+    public JMenuItem menuItemRegistrarEspecialidad;
+    public JMenuItem menuItemMantenimientoEspecialidades;
 
     // MenuItems de Historias Clínicas
-    private JMenuItem menuItemRegistrarHistoriaClinica;
-    private JMenuItem menuItemBusquedaMantenimientoHistorias;
-    private JMenuItem menuItemAtencionesPorDia;
-    private JMenuItem menuItemAtencionesPorEspecialidad;
+    public JMenuItem menuItemRegistrarHistoriaClinica;
+    public JMenuItem menuItemBusquedaMantenimientoHistorias;
+    public JMenuItem menuItemAtencionesPorDia;
+    public JMenuItem menuItemAtencionesPorEspecialidad;
 
     // MenuItems de Exportar
-    private JMenuItem menuItemExportarHistoriaClinica;
+    public JMenuItem menuItemExportarHistoriaClinica;
 }
