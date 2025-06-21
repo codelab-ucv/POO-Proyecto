@@ -31,7 +31,7 @@ public class MySQLConexion {
             conexion = DriverManager.getConnection(url, user, password);
             return true;
         } catch (SQLException e) {
-            Mensajes.errorConexion("Error al conectar a la base de datos: " + e.getMessage());
+            System.err.println("Error al conectar a la base de datos: " + e.getMessage());
             return false;
         }
     }

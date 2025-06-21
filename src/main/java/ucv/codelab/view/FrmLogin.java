@@ -5,13 +5,13 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
@@ -20,26 +20,24 @@ public class FrmLogin extends JFrame {
 
     public FrmLogin() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     private void initComponents() {
         GridBagConstraints gridBagConstraints;
 
-        jLabel3 = new JLabel();
-        jTextField2 = new JTextField();
-        jTextField1 = new JTextField();
-        jButton1 = new JButton();
-        jLabel4 = new JLabel();
-        jLabel1 = new JLabel();
-        Fondo = new JLabel();
+        lblIconoLogin = new JLabel();
+        txtUser = new JTextField();
+        txtPassword = new JPasswordField();
+        btnAcceder = new JButton();
+        lblPosta = new JLabel();
+        lblNombre = new JLabel();
+        lblFondo = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
-        setBackground(new Color(0, 95, 158));
         getContentPane().setLayout(new GridBagLayout());
+        getContentPane().setBackground(PanelBase.BACKGROUND_COLOR);
 
-        jLabel3.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoLogin.png")));
+        lblIconoLogin.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/IconoLogin.png")));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -48,18 +46,14 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(lblIconoLogin, gridBagConstraints);
 
-        jTextField2.setBackground(new Color(255, 255, 255));
-        jTextField2.setForeground(new Color(0, 0, 0));
-        jTextField2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(41, 43, 45)),
+        txtUser.setBackground(Color.WHITE);
+        txtUser.setForeground(new Color(0, 0, 0));
+        txtUser.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(41, 43, 45)),
                 "USUARIO", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION,
                 new Font("Comic Sans MS", 1, 14), new Color(0, 0, 0)));
-        jTextField2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -69,18 +63,14 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(15, 15, 15, 15);
-        getContentPane().add(jTextField2, gridBagConstraints);
+        getContentPane().add(txtUser, gridBagConstraints);
 
-        jTextField1.setBackground(new Color(255, 255, 255));
-        jTextField1.setForeground(new Color(0, 0, 0));
-        jTextField1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(41, 43, 45)),
+        txtPassword.setBackground(new Color(255, 255, 255));
+        txtPassword.setForeground(new Color(0, 0, 0));
+        txtPassword.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PanelBase.BORDER_COLOR),
                 "CONTRASEÑA", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION,
                 new Font("Comic Sans MS", 1, 14), new Color(0, 0, 0)));
-        jTextField1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -90,11 +80,12 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(15, 15, 15, 15);
-        getContentPane().add(jTextField1, gridBagConstraints);
+        getContentPane().add(txtPassword, gridBagConstraints);
 
-        jButton1.setFont(new Font("Dialog", 1, 18));
-        jButton1.setForeground(new Color(255, 255, 255));
-        jButton1.setText("ACCEDER");
+        btnAcceder.setFont(new Font("Dialog", 1, 18));
+        btnAcceder.setBackground(PanelBase.BUTTON_COLOR);
+        btnAcceder.setForeground(Color.WHITE);
+        btnAcceder.setText("ACCEDER");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -103,11 +94,11 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnAcceder, gridBagConstraints);
 
-        jLabel4.setFont(new Font("Maiandra GD", 1, 55));
-        jLabel4.setForeground(new Color(0, 51, 51));
-        jLabel4.setText("POSTA");
+        lblPosta.setFont(new Font("Maiandra GD", 1, 55));
+        lblPosta.setForeground(new Color(0, 51, 51));
+        lblPosta.setText("POSTA");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -116,11 +107,11 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        getContentPane().add(jLabel4, gridBagConstraints);
+        getContentPane().add(lblPosta, gridBagConstraints);
 
-        jLabel1.setFont(new Font("Maiandra GD", 1, 50));
-        jLabel1.setForeground(new Color(0, 51, 51));
-        jLabel1.setText("JUAN PABLO  ");
+        lblNombre.setFont(new Font("Maiandra GD", 1, 50));
+        lblNombre.setForeground(new Color(0, 51, 51));
+        lblNombre.setText("JUAN PABLO");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -129,9 +120,9 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(lblNombre, gridBagConstraints);
 
-        Fondo.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/FondoLogin.jpg")));
+        lblFondo.setIcon(new ImageIcon(getClass().getResource("/ucv/codelab/images/FondoLogin.jpg")));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -139,25 +130,17 @@ public class FrmLogin extends JFrame {
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new Insets(20, 20, 20, 20);
-        getContentPane().add(Fondo, gridBagConstraints);
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0);
+        getContentPane().add(lblFondo, gridBagConstraints);
 
         pack();
     }
 
-    private void jTextField1ActionPerformed(ActionEvent evt) {
-
-    }
-
-    private void jTextField2ActionPerformed(ActionEvent evt) {
-
-    }
-
-    private JLabel Fondo;
-    private JButton jButton1;
-    private JLabel jLabel1;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JTextField jTextField1;
-    private JTextField jTextField2;
+    private JLabel lblFondo;
+    private JLabel lblNombre;
+    private JLabel lblIconoLogin;
+    private JLabel lblPosta;
+    public JTextField txtUser;
+    public JPasswordField txtPassword;
+    public JButton btnAcceder;
 }

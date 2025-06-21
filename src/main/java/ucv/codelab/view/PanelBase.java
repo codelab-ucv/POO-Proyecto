@@ -23,11 +23,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelBase extends JPanel {
 
-    protected static final Color BACKGROUND_COLOR = new Color(232, 240, 248);
-    protected static final Color BORDER_COLOR = new Color(41, 43, 45);
-    protected static final Color TEXT_COLOR = new Color(51, 51, 51);
-    protected static final Color BUTTON_COLOR = new Color(100, 181, 246);
-    protected static final Color LABEL_COLOR = new Color(0, 51, 102);
+    public static final Color BACKGROUND_COLOR = new Color(232, 240, 248);
+    public static final Color BORDER_COLOR = new Color(41, 43, 45);
+    public static final Color TEXT_COLOR = new Color(51, 51, 51);
+    public static final Color BUTTON_COLOR = new Color(100, 181, 246);
+    public static final Color LABEL_COLOR = new Color(0, 51, 102);
 
     public JTextField createTextField(String title) {
         JTextField textField = new JTextField();

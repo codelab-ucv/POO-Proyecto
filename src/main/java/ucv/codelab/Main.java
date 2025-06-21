@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import ucv.codelab.controller.LoginController;
 import ucv.codelab.util.DatabaseInitializer;
+import ucv.codelab.view.FrmLogin;
 import ucv.codelab.view.FrmMenu;
 
 public class Main {
@@ -27,7 +29,8 @@ public class Main {
         }
 
         EventQueue.invokeLater(() -> {
-            new FrmMenu().setVisible(true);
+            // Carga el login
+            new LoginController(new FrmLogin());
         });
     }
 }
