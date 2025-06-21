@@ -4,9 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
-import ucv.codelab.service.ProcesosMenu;
 import ucv.codelab.view.FrmAtencionesDia;
 import ucv.codelab.view.FrmAtencionesEsp;
 import ucv.codelab.view.FrmBusquedaMante;
@@ -20,55 +21,93 @@ import ucv.codelab.view.FrmRegistroEsp;
 import ucv.codelab.view.FrmRegistroHistoriaC;
 import ucv.codelab.view.FrmRegistroPa;
 
-public class MenuController {
+public class MenuController implements ActionListener {
 
     private FrmMenu view;
 
     public MenuController(FrmMenu view) {
         this.view = view;
-
-        // Muestra la ventana
-        ProcesosMenu.presentacion(view);
-        
-        // Configura los  Menu Items
-        clicMenuItems();
+        configurarVentana();
+        configurarMenuItems();
     }
 
-    private void clicMenuItems() {
+    private void configurarVentana() {
+        view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setTitle("Posta Juan Pablo");
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }
+
+    private void configurarMenuItems() {
         // Event handlers para Pacientes
-        view.menuItemRegistrarPaciente.addActionListener(mostrarPanel(new FrmRegistroPa()));
-        view.menuItemMantenimientoPacientes.addActionListener(mostrarPanel(new FrmMantenimientoPa()));
+        view.menuItemRegistrarPaciente.addActionListener(this);
+        view.menuItemMantenimientoPacientes.addActionListener(this);
 
         // Event handlers para Doctores
-        view.menuItemRegistrarDoctor.addActionListener(mostrarPanel(new FrmRegistroDoc()));
-        view.menuItemMantenimientoDoctores.addActionListener(mostrarPanel(new FrmMantenimientoDoc()));
+        view.menuItemRegistrarDoctor.addActionListener(this);
+        view.menuItemMantenimientoDoctores.addActionListener(this);
 
         // Event handlers para Especialidades
-        view.menuItemRegistrarEspecialidad.addActionListener(mostrarPanel(new FrmRegistroEsp()));
-        view.menuItemMantenimientoEspecialidades.addActionListener(mostrarPanel(new FrmMantenimientoEspe()));
+        view.menuItemRegistrarEspecialidad.addActionListener(this);
+        view.menuItemMantenimientoEspecialidades.addActionListener(this);
 
         // Event handlers para Historias Clínicas
-        view.menuItemRegistrarHistoriaClinica.addActionListener(mostrarPanel(new FrmRegistroHistoriaC()));
-        view.menuItemBusquedaMantenimientoHistorias.addActionListener(mostrarPanel(new FrmBusquedaMante()));
-        view.menuItemAtencionesPorDia.addActionListener(mostrarPanel(new FrmAtencionesDia()));
-        view.menuItemAtencionesPorEspecialidad.addActionListener(mostrarPanel(new FrmAtencionesEsp()));
+        view.menuItemRegistrarHistoriaClinica.addActionListener(this);
+        view.menuItemBusquedaMantenimientoHistorias.addActionListener(this);
+        view.menuItemAtencionesPorDia.addActionListener(this);
+        view.menuItemAtencionesPorEspecialidad.addActionListener(this);
 
         // Event handler para Exportar
-        view.menuItemExportarHistoriaClinica.addActionListener(mostrarPanel(new FrmExportarHisC()));
+        view.menuItemExportarHistoriaClinica.addActionListener(this);
     }
 
-    private ActionListener mostrarPanel(JPanel panel) {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Limpia el panel
-                view.panelEscritorio.removeAll();
-                view.panelEscritorio.add(panel, BorderLayout.CENTER);
-                view.panelEscritorio.revalidate();
-                view.panelEscritorio.repaint();
-                view.revalidate();
-                view.repaint();
-            }
-        };
+    private void mostrarPanel(JPanel panel) {
+        view.panelEscritorio.removeAll();
+        view.panelEscritorio.add(panel, BorderLayout.CENTER);
+        view.panelEscritorio.revalidate();
+        view.panelEscritorio.repaint();
+        view.revalidate();
+        view.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Event handlers para Pacientes
+        if (e.getSource() == view.menuItemRegistrarPaciente) {
+            mostrarPanel(new FrmRegistroPa());
+        } else if (e.getSource() == view.menuItemMantenimientoPacientes) {
+            mostrarPanel(new FrmMantenimientoPa());
+        }
+
+        // Event handlers para Doctores
+        else if (e.getSource() == view.menuItemRegistrarDoctor) {
+            mostrarPanel(new FrmRegistroDoc());
+        } else if (e.getSource() == view.menuItemMantenimientoDoctores) {
+            mostrarPanel(new FrmMantenimientoDoc());
+        }
+
+        // Event handlers para Especialidades
+        else if (e.getSource() == view.menuItemRegistrarEspecialidad) {
+            mostrarPanel(new FrmRegistroEsp());
+        } else if (e.getSource() == view.menuItemMantenimientoEspecialidades) {
+            mostrarPanel(new FrmMantenimientoEspe());
+        }
+
+        // Event handlers para Historias Clínicas
+        else if (e.getSource() == view.menuItemRegistrarHistoriaClinica) {
+            mostrarPanel(new FrmRegistroHistoriaC());
+        } else if (e.getSource() == view.menuItemBusquedaMantenimientoHistorias) {
+            mostrarPanel(new FrmBusquedaMante());
+        } else if (e.getSource() == view.menuItemAtencionesPorDia) {
+            mostrarPanel(new FrmAtencionesDia());
+        } else if (e.getSource() == view.menuItemAtencionesPorEspecialidad) {
+            mostrarPanel(new FrmAtencionesEsp());
+        }
+
+        // Event handler para Exportar
+        else if (e.getSource() == view.menuItemExportarHistoriaClinica) {
+            mostrarPanel(new FrmExportarHisC());
+        }
     }
 }

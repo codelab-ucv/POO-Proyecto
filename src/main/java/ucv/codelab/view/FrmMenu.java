@@ -6,7 +6,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
-import javax.swing.WindowConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +16,6 @@ public class FrmMenu extends JFrame {
 
     public FrmMenu() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
     }
 
     private void initComponents() {
@@ -53,8 +51,6 @@ public class FrmMenu extends JFrame {
 
         // MenuItems de Exportar
         menuItemExportarHistoriaClinica = new JMenuItem();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         panelEscritorio.setBackground(new Color(0, 102, 102));
         panelEscritorio.setLayout(new BorderLayout());
