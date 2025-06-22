@@ -7,10 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import ucv.codelab.enumerados.GradoAcademico;
 import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.model.Medico;
@@ -49,7 +47,7 @@ public class MedicoRepository extends BaseRepository<Medico> {
 
         medico.setSexo(Sexo.fromString(rs.getString("sexo")));
         medico.setColegiatura(rs.getString("colegiatura"));
-        medico.setGradoAcademico(GradoAcademico.valueOf(rs.getString("grado_academico")));
+        medico.setGradoAcademico(GradoAcademico.fromString(rs.getString("grado_academico")));
 
         // Campos opcionales (pueden ser NULL)
         if (rs.getString("telefono") != null) {
@@ -159,47 +157,35 @@ public class MedicoRepository extends BaseRepository<Medico> {
     }
 
     // Métodos adicionales específicos para Medico
-    public Optional<Medico> buscarPorColegiatura(String colegiatura) {
-        String sql = "SELECT * FROM medico WHERE colegiatura = ?";
-        return ejecutarConsultaSoloUnResultado(sql, colegiatura);
-    }
+    public List<Medico> buscarFiltrado(String dni, String nombre, String apellido) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM medico WHERE estado = ?");
 
-    public Optional<Medico> buscarPorDni(String dni) {
-        String sql = "SELECT * FROM medico WHERE dni = ?";
-        return ejecutarConsultaSoloUnResultado(sql, dni);
-    }
+        List<Object> parametros = new ArrayList<>();
 
-    public Optional<Medico> buscarPorEmail(String email) {
-        String sql = "SELECT * FROM medico WHERE email = ?";
-        return ejecutarConsultaSoloUnResultado(sql, email);
-    }
+        parametros.add(true);
 
-    public List<Medico> buscarPorEspecialidad(int idEspecialidad) {
-        String sql = "SELECT * FROM medico WHERE id_especialidad = ?";
-        return ejecutarConsulta(sql, idEspecialidad);
-    }
+        if (dni != null) {
+            sql.append(" AND dni LIKE ?");
+            parametros.add("%" + dni + "%");
+        }
 
-    public List<Medico> buscarPorGradoAcademico(String gradoAcademico) {
-        String sql = "SELECT * FROM medico WHERE grado_academico = ?";
-        return ejecutarConsulta(sql, gradoAcademico);
+        if (nombre != null) {
+            sql.append(" AND nombre LIKE ?");
+            parametros.add("%" + nombre + "%");
+        }
+
+        if (apellido != null) {
+            sql.append(" AND apellido LIKE ?");
+            parametros.add("%" + apellido + "%");
+        }
+
+        return ejecutarConsulta(sql.toString(), parametros.toArray());
     }
 
     public List<Medico> buscarActivos() {
         String sql = "SELECT * FROM medico WHERE estado = true";
         return ejecutarConsulta(sql);
-    }
-
-    public List<Medico> buscarInactivos() {
-        String sql = "SELECT * FROM medico WHERE estado = false";
-        return ejecutarConsulta(sql);
-    }
-
-    public List<Medico> buscarPorRangoEdad(int edadMinima, int edadMaxima) {
-        LocalDate fechaMaxima = LocalDate.now().minusYears(edadMinima);
-        LocalDate fechaMinima = LocalDate.now().minusYears(edadMaxima + 1);
-
-        String sql = "SELECT * FROM medico WHERE fecha_nacimiento BETWEEN ? AND ?";
-        return ejecutarConsulta(sql, fechaMinima, fechaMaxima);
     }
 
     public void desactivar(int id) {

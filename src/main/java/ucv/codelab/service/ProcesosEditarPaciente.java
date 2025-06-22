@@ -97,10 +97,7 @@ public class ProcesosEditarPaciente {
         if (dni == null && nombre == null && apellido == null) {
             return pacientesActivos();
         }
-        System.out.println(dni);
-
-        System.out.println(nombre);
-        System.out.println(apellido);
+        
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             return pacienteRepository.buscarFiltrado(dni, nombre, apellido);

@@ -168,4 +168,13 @@ public class Medico {
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
+
+    public Object[] registro() {
+        Object objetoEspecialidad = idEspecialidad;
+        if (especialidad != null && especialidad.getIdEspecialidad() > 0) {
+            objetoEspecialidad = especialidad.getEspecialidad();
+        }
+        return new Object[] { idMedico, objetoEspecialidad, nombre, apellido, dni, fechaNacimiento, sexo.getValor(),
+                telefono, email, colegiatura, gradoAcademico.getValor() };
+    }
 }
