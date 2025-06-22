@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,23 +115,34 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     }
 
     // Métodos adicionales específicos para Paciente
-    public Optional<Paciente> buscarPorDni(String dni) {
-        String sql = "SELECT * FROM paciente WHERE dni = ?";
-        return ejecutarConsultaSoloUnResultado(sql, dni);
-    }
+    public List<Paciente> buscarFiltrado(String dni, String nombre, String apellido) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM paciente WHERE estado = ?");
 
-    public List<Paciente> buscarPorNombreApellido(String nombre, String apellido) {
-        String sql = "SELECT * FROM paciente WHERE nombre LIKE ? AND apellido LIKE ?";
-        return ejecutarConsulta(sql, "%" + nombre + "%", "%" + apellido + "%");
+        List<Object> parametros = new ArrayList<>();
+
+        parametros.add(true);
+
+        if (dni != null) {
+            sql.append(" AND dni LIKE ?");
+            parametros.add("%" + dni + "%");
+        }
+
+        if (nombre != null) {
+            sql.append(" AND nombre LIKE ?");
+            parametros.add("%" + nombre + "%");
+        }
+
+        if (apellido != null) {
+            sql.append(" AND apellido LIKE ?");
+            parametros.add("%" + apellido + "%");
+        }
+
+        return ejecutarConsulta(sql.toString(), parametros.toArray());
     }
 
     public List<Paciente> buscarActivos() {
         String sql = "SELECT * FROM paciente WHERE estado = true";
-        return ejecutarConsulta(sql);
-    }
-
-    public List<Paciente> buscarInactivos() {
-        String sql = "SELECT * FROM paciente WHERE estado = false";
         return ejecutarConsulta(sql);
     }
 
@@ -146,5 +158,11 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         } catch (SQLException e) {
             Mensajes.errorConexion("Error al eliminar el paciente con ID: " + id + " de " + getTableName());
         }
+    }
+
+    @Override
+    public Optional<Paciente> buscarPorId(int id) {
+        String sql = "SELECT * FROM paciente WHERE id = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
 }

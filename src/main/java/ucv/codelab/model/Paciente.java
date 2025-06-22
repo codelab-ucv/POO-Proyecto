@@ -122,4 +122,9 @@ public class Paciente {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Object[] registro() {
+        return new Object[] { idPaciente, nombre, apellido, dni, fechaNacimiento, sexo.getValor(),
+                direccion, telefono, tipoSangre.getValor() };
+    }
 }

@@ -19,7 +19,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 public class PanelBase extends JPanel {
 
@@ -141,9 +140,6 @@ public class PanelBase extends JPanel {
 
     public JScrollPane initializeTable(JTable tblResultados) {
         tblResultados.setForeground(Color.WHITE);
-        tblResultados.setModel(new DefaultTableModel(
-                new Object[4][4],
-                new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
         return new JScrollPane(tblResultados);
     }
 

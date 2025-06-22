@@ -230,6 +230,8 @@ public abstract class BaseRepository<T> {
                     stmt.setDouble(i + 1, (Double) parameters[i]);
                 } else if (parameters[i] instanceof LocalDate) {
                     stmt.setDate(i + 1, Date.valueOf((LocalDate) parameters[i]));
+                } else if (parameters[i] instanceof Boolean) {
+                    stmt.setBoolean(i + 1, (Boolean) parameters[i]);
                 } else if (parameters[i] == null) {
                     stmt.setNull(i + 1, Types.NULL);
                 } else {

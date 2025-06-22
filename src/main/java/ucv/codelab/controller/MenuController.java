@@ -79,7 +79,9 @@ public class MenuController implements ActionListener {
             new RegistrarPacienteController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoPacientes) {
-            mostrarPanel(new FrmMantenimientoPa());
+            FrmMantenimientoPa frm = new FrmMantenimientoPa();
+            new EditarPacienteController(frm);
+            mostrarPanel(frm);
         }
 
         // Event handlers para Doctores
