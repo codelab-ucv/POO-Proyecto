@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import ucv.codelab.enumerados.GradoAcademico;
 import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.model.Medico;
 import ucv.codelab.util.Mensajes;
@@ -48,7 +49,7 @@ public class MedicoRepository extends BaseRepository<Medico> {
 
         medico.setSexo(Sexo.fromString(rs.getString("sexo")));
         medico.setColegiatura(rs.getString("colegiatura"));
-        medico.setGradoAcademico(rs.getString("grado_academico"));
+        medico.setGradoAcademico(GradoAcademico.valueOf(rs.getString("grado_academico")));
 
         // Campos opcionales (pueden ser NULL)
         if (rs.getString("telefono") != null) {
@@ -106,7 +107,7 @@ public class MedicoRepository extends BaseRepository<Medico> {
         }
 
         stmt.setString(9, entity.getColegiatura());
-        stmt.setString(10, entity.getGradoAcademico());
+        stmt.setString(10, entity.getGradoAcademico().getValor());
         stmt.setBoolean(11, entity.isEstado());
     }
 
@@ -147,7 +148,7 @@ public class MedicoRepository extends BaseRepository<Medico> {
         }
 
         stmt.setString(9, entity.getColegiatura());
-        stmt.setString(10, entity.getGradoAcademico());
+        stmt.setString(10, entity.getGradoAcademico().getValor());
         stmt.setBoolean(11, entity.isEstado());
         stmt.setInt(12, entity.getIdMedico()); // WHERE clause
     }

@@ -21,7 +21,7 @@ CREATE TABLE
         telefono VARCHAR(20),
         email VARCHAR(100),
         colegiatura VARCHAR(50) NOT NULL UNIQUE,
-        grado_academico VARCHAR(50) NOT NULL,
+        grado_academico ENUM ('licenciado', 'magister', 'doctor') NOT NULL,
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         estado BOOLEAN NOT NULL DEFAULT TRUE,
         FOREIGN KEY (id_especialidad) REFERENCES especialidad (id_especialidad) ON DELETE RESTRICT

@@ -3,6 +3,7 @@ package ucv.codelab.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import ucv.codelab.enumerados.GradoAcademico;
 import ucv.codelab.enumerados.Sexo;
 
 public class Medico {
@@ -16,7 +17,7 @@ public class Medico {
     private String telefono;
     private String email;
     private String colegiatura;
-    private String gradoAcademico;
+    private GradoAcademico gradoAcademico;
     private LocalDateTime fechaRegistro;
     private boolean estado;
 
@@ -30,7 +31,7 @@ public class Medico {
     // Constructor esencial (campos NOT NULL)
     public Medico(int idEspecialidad, String nombre, String apellido,
             String dni, LocalDate fechaNacimiento, Sexo sexo,
-            String colegiatura, String gradoAcademico, boolean estado) {
+            String colegiatura, GradoAcademico gradoAcademico, boolean estado) {
         this.idEspecialidad = idEspecialidad;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -46,7 +47,7 @@ public class Medico {
     public Medico(int idMedico, int idEspecialidad, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento,
             Sexo sexo, String telefono, String email, String colegiatura,
-            String gradoAcademico, LocalDateTime fechaRegistro, boolean estado) {
+            GradoAcademico gradoAcademico, LocalDateTime fechaRegistro, boolean estado) {
         this(idEspecialidad, nombre, apellido, dni, fechaNacimiento, sexo,
                 colegiatura, gradoAcademico, estado);
         this.idMedico = idMedico;
@@ -136,11 +137,11 @@ public class Medico {
         this.colegiatura = colegiatura;
     }
 
-    public String getGradoAcademico() {
+    public GradoAcademico getGradoAcademico() {
         return gradoAcademico;
     }
 
-    public void setGradoAcademico(String gradoAcademico) {
+    public void setGradoAcademico(GradoAcademico gradoAcademico) {
         this.gradoAcademico = gradoAcademico;
     }
 
