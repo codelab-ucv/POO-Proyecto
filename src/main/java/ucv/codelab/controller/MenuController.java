@@ -19,7 +19,7 @@ import ucv.codelab.view.FrmMenu;
 import ucv.codelab.view.FrmRegistroDoc;
 import ucv.codelab.view.FrmRegistroEsp;
 import ucv.codelab.view.FrmRegistroHistoriaC;
-import ucv.codelab.view.FrmRegistroPa;
+import ucv.codelab.view.FrmRegistrarPaciente;
 
 public class MenuController implements ActionListener {
 
@@ -75,7 +75,9 @@ public class MenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Event handlers para Pacientes
         if (e.getSource() == view.menuItemRegistrarPaciente) {
-            mostrarPanel(new FrmRegistroPa());
+            FrmRegistrarPaciente frm = new FrmRegistrarPaciente();
+            new RegistrarPacienteController(frm);
+            mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoPacientes) {
             mostrarPanel(new FrmMantenimientoPa());
         }

@@ -43,6 +43,22 @@ public class PanelBase extends JPanel {
         return textField;
     }
 
+    public JToggleButton createButton(String imagePath, String text) {
+        JToggleButton button = new JToggleButton();
+        button.setBackground(BUTTON_COLOR);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("DialogInput", 1, 24));
+        if (imagePath != null && !imagePath.trim().isEmpty()) {
+            ImageIcon icon = loadIcon(imagePath);
+            if (icon != null) {
+                button.setIcon(icon);
+            }
+        }
+        button.setText(text);
+        return button;
+    }
+
+    @Deprecated
     public JToggleButton createButton(String imagePath, String text, ActionListener accion) {
         JToggleButton button = new JToggleButton();
         button.setBackground(BUTTON_COLOR);
