@@ -1,7 +1,6 @@
 package ucv.codelab.view;
 
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,12 +18,11 @@ public class FrmBusquedaMante extends PanelBase {
         txtDni = createTextField("DNI");
         txtNombresApellidos = createTextField("NOMBRES Y APELLIDOS");
 
-        btnBuscar = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR",
-                e -> onBuscarClick(e));
+        btnBuscar = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR");
 
-        btnEditar = createButton("/ucv/codelab/images/EDITAR.png", "EDITAR", null);
-        btnActualizar = createButton("/ucv/codelab/images/ACTUALIZAR.png", "ACTUALIZAR", null);
-        btnEliminar = createButton("/ucv/codelab/images/ELIMINAR.png", "ELIMINAR", null);
+        btnEditar = createButton("/ucv/codelab/images/EDITAR.png", "EDITAR");
+        btnActualizar = createButton("/ucv/codelab/images/ACTUALIZAR.png", "ACTUALIZAR");
+        btnEliminar = createButton("/ucv/codelab/images/ELIMINAR.png", "ELIMINAR");
 
         // Inicializa la tabla de resultados
         tblResultados = new JTable();
@@ -38,9 +36,6 @@ public class FrmBusquedaMante extends PanelBase {
         addComponent(btnEditar, 1, 3, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
         addComponent(btnActualizar, 2, 3, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
         addComponent(btnEliminar, 3, 3, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
-    }
-
-    private void onBuscarClick(ActionEvent evt) {
     }
 
     private JScrollPane scrollResultados;

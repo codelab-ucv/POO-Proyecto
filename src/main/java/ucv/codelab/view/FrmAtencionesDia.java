@@ -1,7 +1,6 @@
 package ucv.codelab.view;
 
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,8 +18,7 @@ public class FrmAtencionesDia extends PanelBase {
         txtApellidoNombre = createTextField("APELLIDOS Y NOMBRES MÉDICO");
         txtFecha = createTextField("FECHA");
 
-        btnBuscar = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR",
-                e -> onBuscarClick(e));
+        btnBuscar = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR");
 
         // Inicializa la tabla de resultados
         tblResultados = new JTable();
@@ -31,9 +29,6 @@ public class FrmAtencionesDia extends PanelBase {
         addComponent(txtFecha, 1, 0, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
         addComponent(btnBuscar, 3, 0, 1, GridBagConstraints.NONE, 32, 0, 0.0, 1.0);
         addComponent(scrollResultados, 0, 1, 4, GridBagConstraints.BOTH, 1000, 500, 1.0, 1.0);
-    }
-
-    private void onBuscarClick(ActionEvent evt) {
     }
 
     private JScrollPane scrollResultados;

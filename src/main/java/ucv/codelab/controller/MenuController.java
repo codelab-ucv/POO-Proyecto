@@ -101,7 +101,9 @@ public class MenuController implements ActionListener {
             new RegistrarEspecialidadController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoEspecialidades) {
-            mostrarPanel(new FrmMantenimientoEspe());
+            FrmMantenimientoEspe frm = new FrmMantenimientoEspe();
+            new EditarEspecialidadController(frm);
+            mostrarPanel(frm);
         }
 
         // Event handlers para Historias Clínicas

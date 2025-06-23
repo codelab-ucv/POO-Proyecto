@@ -37,14 +37,15 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         hc.setAntecedentes(rs.getString("antecedentes"));
         hc.setTiempoEnfermedad(rs.getString("tiempo_enfermedad"));
         hc.setObservaciones(rs.getString("observaciones"));
+        // Nuevo campo estado
+        hc.setEstado(rs.getBoolean("estado"));
         return hc;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO historia_clinica (id_paciente, id_medico, motivo_consulta, antecedentes, tiempo_enfermedad, observaciones) "
-                +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO historia_clinica (id_paciente, id_medico, motivo_consulta, antecedentes, tiempo_enfermedad, observaciones, estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -70,12 +71,14 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         } else {
             stmt.setNull(6, Types.VARCHAR);
         }
+
+        stmt.setBoolean(7, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
         return "UPDATE historia_clinica SET id_paciente = ?, id_medico = ?, motivo_consulta = ?, " +
-                "antecedentes = ?, tiempo_enfermedad = ?, observaciones = ? WHERE id_historia = ?";
+                "antecedentes = ?, tiempo_enfermedad = ?, observaciones = ?, estado = ? WHERE id_historia = ?";
     }
 
     @Override
@@ -102,7 +105,8 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
             stmt.setNull(6, Types.VARCHAR);
         }
 
-        stmt.setInt(7, entity.getIdHistoria());
+        stmt.setBoolean(7, entity.isEstado());
+        stmt.setInt(8, entity.getIdHistoria());
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ProcesosRegistrarEspecialidad {
             return Optional.empty();
         }
 
-        return Optional.of(new Especialidad(nombreEspecialidad));
+        return Optional.of(new Especialidad(nombreEspecialidad, true));
     }
 
     public static boolean guardarEspecialidad(FrmRegistrarEspecialidad view, Especialidad especialidad) {

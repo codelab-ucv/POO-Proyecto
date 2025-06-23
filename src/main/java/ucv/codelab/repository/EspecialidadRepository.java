@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ucv.codelab.model.Especialidad;
+import ucv.codelab.util.Mensajes;
 
 public class EspecialidadRepository extends BaseRepository<Especialidad> {
 
@@ -37,12 +38,14 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
             especialidad.setDescripcion(rs.getString("descripcion"));
         }
 
+        especialidad.setEstado(rs.getBoolean("estado"));
+
         return especialidad;
     }
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO especialidad (especialidad, descripcion) VALUES (?, ?)";
+        return "INSERT INTO especialidad (especialidad, descripcion, estado) VALUES (?, ?, ?)";
     }
 
     @Override
@@ -54,11 +57,12 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
         } else {
             stmt.setNull(2, Types.VARCHAR);
         }
+        stmt.setBoolean(3, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
-        return "UPDATE especialidad SET especialidad = ?, descripcion = ? WHERE id_especialidad = ?";
+        return "UPDATE especialidad SET especialidad = ?, descripcion = ?, estado = ? WHERE id_especialidad = ?";
     }
 
     @Override
@@ -71,7 +75,8 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
             stmt.setNull(2, Types.VARCHAR);
         }
 
-        stmt.setInt(3, entity.getIdEspecialidad());
+        stmt.setBoolean(3, entity.isEstado());
+        stmt.setInt(4, entity.getIdEspecialidad());
     }
 
     @Override
@@ -82,25 +87,26 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
     // Métodos adicionales específicos para Especialidad
 
     /**
-     * Busca una especialidad por su nombre exacto
+     * Busca una especialidad activa por su nombre exacto
      * 
      * @param nombreEspecialidad el nombre de la especialidad a buscar
      * @return Optional con la especialidad encontrada o vacío si no existe
      */
     public Optional<Especialidad> buscarPorNombre(String nombreEspecialidad) {
-        String sql = "SELECT * FROM especialidad WHERE especialidad = ?";
-        return ejecutarConsultaSoloUnResultado(sql, nombreEspecialidad);
+        String sql = "SELECT * FROM especialidad WHERE especialidad = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, nombreEspecialidad, true);
     }
 
     /**
-     * Busca especialidades que contengan el texto especificado en su nombre
+     * Busca especialidades que contengan el texto especificado en su nombre y se
+     * encuentren activas
      * 
      * @param texto el texto a buscar en el nombre de la especialidad
      * @return Lista de especialidades que contienen el texto
      */
     public List<Especialidad> buscarPorNombreParcial(String texto) {
-        String sql = "SELECT * FROM especialidad WHERE especialidad LIKE ? ORDER BY especialidad";
-        return ejecutarConsulta(sql, "%" + texto + "%");
+        String sql = "SELECT * FROM especialidad WHERE especialidad LIKE ? AND estado = ?";
+        return ejecutarConsulta(sql, "%" + texto + "%", true);
     }
 
     /**
@@ -109,7 +115,21 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
      * @return Lista de todas las especialidades ordenadas por nombre
      */
     public List<Especialidad> buscarTodosOrdenados() {
-        String sql = "SELECT * FROM especialidad ORDER BY especialidad";
-        return ejecutarConsulta(sql);
+        String sql = "SELECT * FROM especialidad WHERE estado = ? ORDER BY especialidad";
+        return ejecutarConsulta(sql, true);
+    }
+
+    public void desactivar(int id) {
+        String sql = "UPDATE especialidad SET estado = ? WHERE id_especialidad = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa la especialidad
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Mensajes.errorConexion("Error al eliminar la especialidad con ID: " + id + " de " + getTableName());
+        }
     }
 }

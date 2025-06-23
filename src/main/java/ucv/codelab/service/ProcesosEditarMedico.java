@@ -31,6 +31,21 @@ public class ProcesosEditarMedico {
         personalizarTabla(view);
     }
 
+    private static void cargarDatos(FrmMantenimientoDoc view, List<Medico> medicos) {
+        // Crea el modelo con la edicion deshabilitada
+        DefaultTableModel dtm = new DefaultTableModel(null, titulo) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        view.tblResultados.setModel(dtm);
+
+        for (Medico medico : medicos) {
+            dtm.addRow(medico.registro());
+        }
+    }
+
     private static void personalizarTabla(FrmMantenimientoDoc view) {
         // Personalizar cabecera
         JTableHeader header = view.tblResultados.getTableHeader();
@@ -64,21 +79,6 @@ public class ProcesosEditarMedico {
 
         // Hacer que las columnas no se puedan reordenar
         header.setReorderingAllowed(false);
-    }
-
-    private static void cargarDatos(FrmMantenimientoDoc view, List<Medico> medicos) {
-        // Crea el modelo con la edicion deshabilitada
-        DefaultTableModel dtm = new DefaultTableModel(null, titulo) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        view.tblResultados.setModel(dtm);
-
-        for (Medico medico : medicos) {
-            dtm.addRow(medico.registro());
-        }
     }
 
     public static List<Medico> medicosActivos() {
@@ -135,7 +135,7 @@ public class ProcesosEditarMedico {
         }
     }
 
-    public static void borrarPaciente(FrmMantenimientoDoc view) {
+    public static void borrarMedico(FrmMantenimientoDoc view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del medico a eliminar");
         input = limpiarString(input);
 
@@ -167,11 +167,6 @@ public class ProcesosEditarMedico {
         }
 
         return Optional.empty();
-    }
-
-    public static List<Medico> pacientesFiltrados(FrmMantenimientoDoc view) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pacientesFiltrados'");
     }
 
     private static String limpiarString(String parametro) {

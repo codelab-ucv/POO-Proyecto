@@ -5,7 +5,8 @@ CREATE TABLE
     IF NOT EXISTS especialidad (
         id_especialidad INT PRIMARY KEY AUTO_INCREMENT,
         especialidad VARCHAR(100) NOT NULL,
-        descripcion TEXT
+        descripcion TEXT,
+        estado BOOLEAN NOT NULL DEFAULT TRUE
     );
 
 -- Tabla de Médicos (incluye especialidad)
@@ -55,6 +56,7 @@ CREATE TABLE
         antecedentes TEXT,
         tiempo_enfermedad VARCHAR(100),
         observaciones TEXT,
+        estado BOOLEAN NOT NULL DEFAULT TRUE,
         FOREIGN KEY (id_paciente) REFERENCES paciente (id_paciente) ON DELETE RESTRICT,
         FOREIGN KEY (id_medico) REFERENCES medico (id_medico) ON DELETE RESTRICT,
         INDEX idx_paciente (id_paciente)

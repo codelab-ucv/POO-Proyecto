@@ -45,8 +45,8 @@ public class EditarMedicoController implements ActionListener {
         } else if (e.getSource() == view.btnActualizar) {
             ProcesosEditarMedico.presentacion(view, medicos);
         } else if (e.getSource() == view.btnEliminar) {
-            ProcesosEditarMedico.borrarPaciente(view);
-            medicos = ProcesosEditarMedico.pacientesFiltrados(view);
+            ProcesosEditarMedico.borrarMedico(view);
+            medicos = ProcesosEditarMedico.medicosFiltrados(view);
             ProcesosEditarMedico.presentacion(view, medicos);
         }
     }

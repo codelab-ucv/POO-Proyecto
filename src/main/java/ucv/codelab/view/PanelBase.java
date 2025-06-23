@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -54,23 +53,6 @@ public class PanelBase extends JPanel {
             }
         }
         button.setText(text);
-        return button;
-    }
-
-    @Deprecated
-    public JToggleButton createButton(String imagePath, String text, ActionListener accion) {
-        JToggleButton button = new JToggleButton();
-        button.setBackground(BUTTON_COLOR);
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("DialogInput", 1, 24));
-        if (imagePath != null && !imagePath.trim().isEmpty()) {
-            ImageIcon icon = loadIcon(imagePath);
-            if (icon != null) {
-                button.setIcon(icon);
-            }
-        }
-        button.setText(text);
-        button.addActionListener(accion);
         return button;
     }
 

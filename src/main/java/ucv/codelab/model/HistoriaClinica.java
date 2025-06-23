@@ -12,6 +12,7 @@ public class HistoriaClinica {
     private String antecedentes;
     private String tiempoEnfermedad;
     private String observaciones;
+    private boolean estado;
 
     // Objetos relacionados a la Historia Clínica, si estan vacios se mantienen null
     private List<Diagnostico> diagnostico = null;
@@ -24,19 +25,20 @@ public class HistoriaClinica {
     }
 
     // Constructor esencial (campos NOT NULL)
-    public HistoriaClinica(int idPaciente, int idMedico, String motivoConsulta) {
+    public HistoriaClinica(int idPaciente, int idMedico, String motivoConsulta, boolean estado) {
         this();
         this.idPaciente = idPaciente;
         this.idMedico = idMedico;
         this.motivoConsulta = motivoConsulta;
+        this.estado = estado;
     }
 
     // Constructor completo (todos los campos)
     public HistoriaClinica(int idHistoria, int idPaciente, int idMedico,
             LocalDateTime fechaHora, String motivoConsulta,
             String antecedentes, String tiempoEnfermedad,
-            String observaciones) {
-        this(idPaciente, idMedico, motivoConsulta);
+            String observaciones, boolean estado) {
+        this(idPaciente, idMedico, motivoConsulta, estado);
         this.idHistoria = idHistoria;
         this.fechaHora = fechaHora;
         this.antecedentes = antecedentes;
@@ -106,6 +108,14 @@ public class HistoriaClinica {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public List<Diagnostico> getDiagnostico() {

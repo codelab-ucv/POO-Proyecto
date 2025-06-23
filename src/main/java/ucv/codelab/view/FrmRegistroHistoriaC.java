@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -65,11 +64,8 @@ public class FrmRegistroHistoriaC extends PanelBase {
         txtCodigoCie10 = createTextField("CODIGO_CIE10");
 
         // Crear botones usando createButton de Componentes
-        btnBuscarPaciente = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR",
-                e -> onBuscarPacienteClick(e));
-
-        btnGuardarHistoria = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR",
-                e -> onGuardarHistoriaClick(e));
+        btnBuscarPaciente = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR");
+        btnGuardarHistoria = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR");
 
         // Crear ComboBox para tipo de diagnóstico
         cmbTipoDiagnostico = createComboBox("TIPO");
@@ -170,12 +166,6 @@ public class FrmRegistroHistoriaC extends PanelBase {
         gbc.weighty = weighty;
         gbc.insets = new Insets(5, 5, 5, 5);
         panelContenido.add(comp, gbc);
-    }
-
-    private void onBuscarPacienteClick(ActionEvent evt) {
-    }
-
-    private void onGuardarHistoriaClick(ActionEvent evt) {
     }
 
     // Variables de componentes con nombres descriptivos
