@@ -27,12 +27,12 @@ public class FrmMantenimientoEspe extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtEspecialidad, 0, 0, 1, GridBagConstraints.HORIZONTAL, 298, 30, 1.0, 1.0);
-        addComponent(btnBuscar, 1, 0, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
-        addComponent(scrollResultados, 0, 1, 3, GridBagConstraints.BOTH, 1000, 400, 1.0, 1.0);
-        addComponent(btnEditar, 0, 2, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
-        addComponent(btnActualizar, 1, 2, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
-        addComponent(btnEliminar, 2, 2, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(txtEspecialidad, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 298, 30, 1.0, 1.0);
+        addComponent(btnBuscar, 1, 0, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
+        addComponent(scrollResultados, 0, 1, 3, 1, GridBagConstraints.BOTH, 1000, 400, 1.0, 1.0);
+        addComponent(btnEditar, 0, 2, 1, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
+        addComponent(btnActualizar, 1, 2, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(btnEliminar, 2, 2, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
     }
 
     private JScrollPane scrollResultados;

@@ -36,9 +36,9 @@ public class FrmRegistrarEspecialidad extends PanelBase {
         scrollDescripcion.setViewportView(txtDescripcion);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtNombreEspecialidad, 0, 0, 1, GridBagConstraints.HORIZONTAL, 359, 30, 1.0, 1.0);
-        addComponent(scrollDescripcion, 0, 1, 2, GridBagConstraints.HORIZONTAL, 359, 80, 1.0, 1.0);
-        addComponent(btnGuardar, 0, 2, 2, GridBagConstraints.NONE, 150, 19, 1.0, 1.0);
+        addComponent(txtNombreEspecialidad, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 359, 30, 1.0, 1.0);
+        addComponent(scrollDescripcion, 0, 1, 2, 1, GridBagConstraints.HORIZONTAL, 359, 80, 1.0, 1.0);
+        addComponent(btnGuardar, 0, 2, 2, 1, GridBagConstraints.NONE, 150, 19, 1.0, 1.0);
     }
 
     public JTextField txtNombreEspecialidad;

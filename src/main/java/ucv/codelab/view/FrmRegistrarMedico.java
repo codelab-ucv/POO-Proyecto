@@ -33,24 +33,24 @@ public class FrmRegistrarMedico extends PanelBase {
         lblFormacion = createTitulos("FORMACIÓN Y ESPECIALIZACIÓN");
 
         // Disposición de componentes usando addComponent
-        addComponent(lblDatosPersonales, 0, 0, 2, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
-        addComponent(lblFormacion, 2, 0, 1, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
+        addComponent(lblDatosPersonales, 0, 0, 2, 1, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
+        addComponent(lblFormacion, 2, 0, 1, 1, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
 
-        addComponent(txtNombres, 0, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtApellidos, 1, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(cmbEspecialidad, 2, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
+        addComponent(txtNombres, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtApellidos, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(cmbEspecialidad, 2, 1, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
 
-        addComponent(txtDni, 0, 2, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(cmbSexo, 1, 2, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
-        addComponent(txtColegiatura, 2, 2, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtDni, 0, 2, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(cmbSexo, 1, 2, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
+        addComponent(txtColegiatura, 2, 2, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
 
-        addComponent(txtTelefono, 0, 3, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtFechaNacimiento, 1, 3, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(cmbGradoAcademico, 2, 3, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
+        addComponent(txtTelefono, 0, 3, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtFechaNacimiento, 1, 3, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(cmbGradoAcademico, 2, 3, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
 
-        addComponent(txtCorreo, 0, 4, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtCorreo, 0, 4, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
 
-        addComponent(btnGuardar, 0, 5, 3, GridBagConstraints.NONE, 110, 4, 0, 0);
+        addComponent(btnGuardar, 0, 5, 3, 1, GridBagConstraints.NONE, 110, 4, 0, 0);
     }
 
     public JTextField txtNombres;

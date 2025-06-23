@@ -29,14 +29,14 @@ public class FrmMantenimientoPa extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtDni, 0, 0, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtNombre, 1, 0, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtApellido, 2, 0, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(btnBuscar, 3, 0, 1, GridBagConstraints.NONE, 50, 30, 1.0, 1.0);
-        addComponent(scrollResultados, 0, 1, 4, GridBagConstraints.BOTH, 100, 200, 1.0, 1.0);
-        addComponent(btnEditar, 0, 2, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
-        addComponent(btnActualizar, 1, 2, 2, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
-        addComponent(btnEliminar, 3, 2, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(txtDni, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtNombre, 1, 0, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(txtApellido, 2, 0, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
+        addComponent(btnBuscar, 3, 0, 1, 1, GridBagConstraints.NONE, 50, 30, 1.0, 1.0);
+        addComponent(scrollResultados, 0, 1, 4, 1, GridBagConstraints.BOTH, 100, 200, 1.0, 1.0);
+        addComponent(btnEditar, 0, 2, 1, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
+        addComponent(btnActualizar, 1, 2, 2, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(btnEliminar, 3, 2, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
     }
 
     private JScrollPane scrollResultados;

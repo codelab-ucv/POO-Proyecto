@@ -90,12 +90,13 @@ public class PanelBase extends JPanel {
         setLayout(new GridBagLayout());
     }
 
-    public void addComponent(Component comp, int gridx, int gridy, int gridwidth,
-            int fill, int ipadx, int ipady, double weightx, double weighty) {
+    public void addComponent(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int fill, int ipadx,
+            int ipady, double weightx, double weighty) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
         gbc.fill = fill;
         gbc.ipadx = ipadx;
         gbc.ipady = ipady;

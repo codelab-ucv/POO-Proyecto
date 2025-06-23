@@ -87,43 +87,43 @@ public class FrmRegistroHistoriaC extends PanelBase {
 
         // Disposición de componentes usando addComponent de Componentes
         // Sección: Datos del Paciente
-        addComponent(lblDatosPaciente, 0, 0, 4, GridBagConstraints.NONE, 35, 16, 0, 0);
-        addComponent(txtDniPaciente, 0, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtNombresPaciente, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtApellidosPaciente, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(btnBuscarPaciente, 3, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
+        addComponent(lblDatosPaciente, 0, 0, 4, 1, GridBagConstraints.NONE, 35, 16, 0, 0);
+        addComponent(txtDniPaciente, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtNombresPaciente, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtApellidosPaciente, 2, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(btnBuscarPaciente, 3, 1, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
 
-        addComponent(txtTallaPaciente, 0, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtPesoPaciente, 1, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtHoraAtencion, 2, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtFechaAtencion, 3, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtTallaPaciente, 0, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtPesoPaciente, 1, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtHoraAtencion, 2, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtFechaAtencion, 3, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
 
-        addComponent(txtMedicoTratante, 0, 3, 2, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        addComponent(txtMedicoTratante, 0, 3, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
 
         // Sección: Motivo y Valoración Inicial
-        addComponent(lblMotivoValoracion, 0, 4, 4, GridBagConstraints.NONE, 0, 0, 0, 0);
-        addComponent(txtMotivoConsulta, 0, 5, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtAntecedentesPaciente, 1, 5, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtTiempoEnfermedad, 2, 5, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(lblMotivoValoracion, 0, 4, 4, 1, GridBagConstraints.NONE, 0, 0, 0, 0);
+        addComponent(txtMotivoConsulta, 0, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(txtAntecedentesPaciente, 1, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(txtTiempoEnfermedad, 2, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
 
-        addComponent(scrollObservaciones, 0, 6, 2, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        addComponent(scrollObservaciones, 0, 6, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
 
         // Sección: Diagnóstico y Manejo Médico
-        addComponent(lblDiagnosticoManejo, 0, 7, 4, GridBagConstraints.NONE, 0, 0, 0, 0);
-        addComponent(txtFrecuenciaCardiaca, 0, 8, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtPresionArterial, 1, 8, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtTemperaturaCorporal, 2, 8, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtFrecuenciaRespiratoria, 3, 8, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(lblDiagnosticoManejo, 0, 7, 4, 1, GridBagConstraints.NONE, 0, 0, 0, 0);
+        addComponent(txtFrecuenciaCardiaca, 0, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(txtPresionArterial, 1, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(txtTemperaturaCorporal, 2, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(txtFrecuenciaRespiratoria, 3, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
 
-        addComponent(txtCodigoCie10, 0, 9, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(cmbTipoDiagnostico, 1, 9, 1, GridBagConstraints.HORIZONTAL, 170, 44, 1.0, 1.0);
+        addComponent(txtCodigoCie10, 0, 9, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        addComponent(cmbTipoDiagnostico, 1, 9, 1, 1, GridBagConstraints.HORIZONTAL, 170, 44, 1.0, 1.0);
 
-        addComponent(scrollDescripcionDiagnostico, 0, 10, 2, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
-        addComponent(scrollIndicaciones, 2, 10, 2, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        addComponent(scrollDescripcionDiagnostico, 0, 10, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        addComponent(scrollIndicaciones, 2, 10, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
 
-        addComponent(scrollDescripcionTratamiento, 0, 11, 2, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        addComponent(scrollDescripcionTratamiento, 0, 11, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
 
-        addComponent(btnGuardarHistoria, 0, 12, 4, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
+        addComponent(btnGuardarHistoria, 0, 12, 4, 1, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
 
         // Configurar scroll principal
         scrollPanePrincipal.setViewportView(panelContenido);
@@ -153,12 +153,13 @@ public class FrmRegistroHistoriaC extends PanelBase {
     }
 
     @Override
-    public void addComponent(Component comp, int gridx, int gridy, int gridwidth,
-            int fill, int ipadx, int ipady, double weightx, double weighty) {
+    public void addComponent(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int fill, int ipadx,
+            int ipady, double weightx, double weighty) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
         gbc.fill = fill;
         gbc.ipadx = ipadx;
         gbc.ipady = ipady;

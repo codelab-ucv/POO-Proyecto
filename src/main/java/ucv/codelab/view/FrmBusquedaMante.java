@@ -29,13 +29,13 @@ public class FrmBusquedaMante extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtDni, 1, 0, 1, GridBagConstraints.HORIZONTAL, 250, 35, 0.0, 0.0);
-        addComponent(btnBuscar, 2, 0, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
-        addComponent(txtNombresApellidos, 1, 1, 1, GridBagConstraints.HORIZONTAL, 300, 35, 1.0, 1.0);
-        addComponent(scrollResultados, 1, 2, 3, GridBagConstraints.BOTH, 800, 300, 1.0, 1.0);
-        addComponent(btnEditar, 1, 3, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
-        addComponent(btnActualizar, 2, 3, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
-        addComponent(btnEliminar, 3, 3, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(txtDni, 1, 0, 1, 1, GridBagConstraints.HORIZONTAL, 250, 35, 0.0, 0.0);
+        addComponent(btnBuscar, 2, 0, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
+        addComponent(txtNombresApellidos, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 300, 35, 1.0, 1.0);
+        addComponent(scrollResultados, 1, 2, 3, 1, GridBagConstraints.BOTH, 800, 300, 1.0, 1.0);
+        addComponent(btnEditar, 1, 3, 1, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
+        addComponent(btnActualizar, 2, 3, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponent(btnEliminar, 3, 3, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
     }
 
     private JScrollPane scrollResultados;

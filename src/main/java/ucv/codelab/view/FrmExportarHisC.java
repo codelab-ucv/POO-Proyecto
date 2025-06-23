@@ -21,10 +21,10 @@ public class FrmExportarHisC extends PanelBase {
         btnExportarPdf = createButton("/ucv/codelab/images/IconoExpo.PDF.png", "EXPORTAR PDF");
 
         // Disposición de componentes usando addComponent
-        addComponent(txtDniPaciente, 0, 0, 1, GridBagConstraints.HORIZONTAL, 469, 38, 1.0, 1.0);
-        addComponent(btnBuscar, 1, 0, 1, GridBagConstraints.NONE, 82, 9, 1.0, 1.0);
-        addComponent(txtNombresApellidos, 0, 1, 1, GridBagConstraints.HORIZONTAL, 469, 38, 1.0, 1.0);
-        addComponent(btnExportarPdf, 0, 2, 2, GridBagConstraints.NONE, 25, 24, 1.0, 1.0);
+        addComponent(txtDniPaciente, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 469, 38, 1.0, 1.0);
+        addComponent(btnBuscar, 1, 0, 1, 1, GridBagConstraints.NONE, 82, 9, 1.0, 1.0);
+        addComponent(txtNombresApellidos, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 469, 38, 1.0, 1.0);
+        addComponent(btnExportarPdf, 0, 2, 2, 1, GridBagConstraints.NONE, 25, 24, 1.0, 1.0);
     }
 
     private JTextField txtDniPaciente;
