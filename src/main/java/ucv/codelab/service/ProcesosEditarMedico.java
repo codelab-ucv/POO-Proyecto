@@ -85,7 +85,7 @@ public class ProcesosEditarMedico {
         // Descarga los datos
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
-            List<Medico> medicos = medicoRepository.buscarActivos();
+            List<Medico> medicos = medicoRepository.buscarTodos();
             try {
                 EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
                 for (Medico medico : medicos) {

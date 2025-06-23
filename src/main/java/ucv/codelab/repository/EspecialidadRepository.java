@@ -104,21 +104,27 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
      * @param texto el texto a buscar en el nombre de la especialidad
      * @return Lista de especialidades que contienen el texto
      */
-    public List<Especialidad> buscarPorNombreParcial(String texto) {
+    public List<Especialidad> buscarFiltrado(String texto) {
         String sql = "SELECT * FROM especialidad WHERE especialidad LIKE ? AND estado = ?";
         return ejecutarConsulta(sql, "%" + texto + "%", true);
     }
 
     /**
-     * Obtiene todas las especialidades ordenadas alfabéticamente
+     * Obtiene todas las especialidades activas de la tabla.
      * 
-     * @return Lista de todas las especialidades ordenadas por nombre
+     * @return Lista de todas las especialidades activas
      */
-    public List<Especialidad> buscarTodosOrdenados() {
-        String sql = "SELECT * FROM especialidad WHERE estado = ? ORDER BY especialidad";
+    @Override
+    public List<Especialidad> buscarTodos() {
+        String sql = "SELECT * FROM especialidad WHERE estado = ?";
         return ejecutarConsulta(sql, true);
     }
 
+    /**
+     * Desactiva una especialidad de la tabla.
+     * 
+     * @param id el ID de la especialidad a desactivar
+     */
     public void desactivar(int id) {
         String sql = "UPDATE especialidad SET estado = ? WHERE id_especialidad = ?";
 
@@ -131,5 +137,18 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
         } catch (SQLException e) {
             Mensajes.errorConexion("Error al eliminar la especialidad con ID: " + id + " de " + getTableName());
         }
+    }
+
+    /**
+     * Busca una especialidad activa según su ID.
+     * 
+     * @param id el ID de la especialidad a buscar
+     * @return un Optional que contiene la especialidad si se encuentra , o
+     *         Optional.empty() si no existe
+     */
+    @Override
+    public Optional<Especialidad> buscarPorId(int id) {
+        String sql = "SELECT * FROM especialidad WHERE id_especialidad = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
 }

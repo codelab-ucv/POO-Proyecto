@@ -50,8 +50,7 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     @Override
     protected String buildInsertSQL() {
         return "INSERT INTO paciente (nombre, apellido, dni, fecha_nacimiento, sexo, direccion, telefono, tipo_sangre, estado) "
-                +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -115,6 +114,17 @@ public class PacienteRepository extends BaseRepository<Paciente> {
     }
 
     // Métodos adicionales específicos para Paciente
+
+    /**
+     * Busca pacientes que coincidan con el DNI, nombre y apellido indicados y se
+     * encuentren activos. Debe indicarse por lo menos un filtro, los demás son
+     * opcionales
+     * 
+     * @param dni      el DNI del paciente buscado, si es NUll lo omite
+     * @param nombre   el Nombre del paciente buscado, si es NULL lo omite
+     * @param apellido el Apellido del paciente buscado, si es NULL lo omite
+     * @return Lista con pacientes que coinciden con los filtros
+     */
     public List<Paciente> buscarFiltrado(String dni, String nombre, String apellido) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM paciente WHERE estado = ?");
@@ -141,11 +151,22 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         return ejecutarConsulta(sql.toString(), parametros.toArray());
     }
 
-    public List<Paciente> buscarActivos() {
-        String sql = "SELECT * FROM paciente WHERE estado = true";
-        return ejecutarConsulta(sql);
+    /**
+     * Obtiene todos los pacientes activos de la tabla.
+     * 
+     * @return Lista de todos los pacientes activas
+     */
+    @Override
+    public List<Paciente> buscarTodos() {
+        String sql = "SELECT * FROM paciente WHERE estado = ?";
+        return ejecutarConsulta(sql, true);
     }
 
+    /**
+     * Desactiva un paciente de la tabla.
+     * 
+     * @param id el ID del paciente a desactivar
+     */
     public void desactivar(int id) {
         String sql = "UPDATE paciente SET estado = ? WHERE id_paciente = ?";
 
@@ -160,9 +181,16 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         }
     }
 
+    /**
+     * Busca un paciente activo según su ID.
+     * 
+     * @param id el ID del paciente a buscar
+     * @return un Optional que contiene el paciente si se encuentra , o
+     *         Optional.empty() si no existe
+     */
     @Override
     public Optional<Paciente> buscarPorId(int id) {
-        String sql = "SELECT * FROM paciente WHERE id = ? AND estado = ?";
+        String sql = "SELECT * FROM paciente WHERE id_paciente = ? AND estado = ?";
         return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
 }

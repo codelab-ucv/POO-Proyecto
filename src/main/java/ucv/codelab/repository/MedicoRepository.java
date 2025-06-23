@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import ucv.codelab.enumerados.GradoAcademico;
 import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.model.Medico;
@@ -157,6 +159,17 @@ public class MedicoRepository extends BaseRepository<Medico> {
     }
 
     // Métodos adicionales específicos para Medico
+
+    /**
+     * Busca medicos que coincidan con el DNI, nombre y apellido indicados y se
+     * encuentren activos. Debe indicarse por lo menos un filtro, los demás son
+     * opcionales
+     * 
+     * @param dni      el DNI del medico buscado, si es NUll lo omite
+     * @param nombre   el Nombre del medico buscado, si es NULL lo omite
+     * @param apellido el Apellido del medico buscado, si es NULL lo omite
+     * @return Lista con medicos que coinciden con los filtros
+     */
     public List<Medico> buscarFiltrado(String dni, String nombre, String apellido) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM medico WHERE estado = ?");
@@ -183,11 +196,22 @@ public class MedicoRepository extends BaseRepository<Medico> {
         return ejecutarConsulta(sql.toString(), parametros.toArray());
     }
 
-    public List<Medico> buscarActivos() {
-        String sql = "SELECT * FROM medico WHERE estado = true";
-        return ejecutarConsulta(sql);
+    /**
+     * Obtiene todos los medicos activos de la tabla.
+     * 
+     * @return Lista de todos los medicos activas
+     */
+    @Override
+    public List<Medico> buscarTodos() {
+        String sql = "SELECT * FROM medico WHERE estado = ?";
+        return ejecutarConsulta(sql, true);
     }
 
+    /**
+     * Desactiva un medico de la tabla.
+     * 
+     * @param id el ID del medico a desactivar
+     */
     public void desactivar(int id) {
         String sql = "UPDATE medico SET estado = ? WHERE id_medico = ?";
 
@@ -200,5 +224,18 @@ public class MedicoRepository extends BaseRepository<Medico> {
         } catch (SQLException e) {
             Mensajes.errorConexion("Error al eliminar el medico con ID: " + id + " de " + getTableName());
         }
+    }
+
+    /**
+     * Busca un medico activo según su ID.
+     * 
+     * @param id el ID del medico a buscar
+     * @return un Optional que contiene el medico si se encuentra , o
+     *         Optional.empty() si no existe
+     */
+    @Override
+    public Optional<Medico> buscarPorId(int id) {
+        String sql = "SELECT * FROM medico WHERE id_medico = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
 }

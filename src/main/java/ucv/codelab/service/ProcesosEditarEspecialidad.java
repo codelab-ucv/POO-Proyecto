@@ -75,7 +75,7 @@ public class ProcesosEditarEspecialidad {
         // Descarga los datos
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
-            return especialidadRepository.buscarTodosOrdenados();
+            return especialidadRepository.buscarTodos();
         } catch (Exception e) {
             e.printStackTrace();
             Mensajes.errorConexion();
@@ -92,7 +92,7 @@ public class ProcesosEditarEspecialidad {
 
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
-            return especialidadRepository.buscarPorNombreParcial(nombreEspecialidad);
+            return especialidadRepository.buscarFiltrado(nombreEspecialidad);
         } catch (Exception e) {
             Mensajes.errorConexion();
             return new ArrayList<>();

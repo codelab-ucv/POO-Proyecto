@@ -82,7 +82,7 @@ public class ProcesosEditarPaciente {
         // Descarga los datos
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
-            return pacienteRepository.buscarActivos();
+            return pacienteRepository.buscarTodos();
         } catch (Exception e) {
             Mensajes.errorConexion();
             return new ArrayList<>();
