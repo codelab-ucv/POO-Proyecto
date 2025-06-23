@@ -7,15 +7,15 @@ import java.util.Optional;
 
 import ucv.codelab.model.Medico;
 import ucv.codelab.service.ProcesosEditarMedico;
-import ucv.codelab.view.FrmMantenimientoDoc;
+import ucv.codelab.view.FrmMantenimientoMedico;
 
 public class EditarMedicoController implements ActionListener {
 
-    private FrmMantenimientoDoc view;
+    private FrmMantenimientoMedico view;
 
     private List<Medico> medicos;
 
-    public EditarMedicoController(FrmMantenimientoDoc view) {
+    public EditarMedicoController(FrmMantenimientoMedico view) {
         this.view = view;
 
         medicos = ProcesosEditarMedico.medicosActivos();

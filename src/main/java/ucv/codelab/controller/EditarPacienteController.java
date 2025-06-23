@@ -7,15 +7,15 @@ import java.util.Optional;
 
 import ucv.codelab.model.Paciente;
 import ucv.codelab.service.ProcesosEditarPaciente;
-import ucv.codelab.view.FrmMantenimientoPa;
+import ucv.codelab.view.FrmMantenimientoPaciente;
 
 public class EditarPacienteController implements ActionListener {
 
-    private FrmMantenimientoPa view;
+    private FrmMantenimientoPaciente view;
 
     private List<Paciente> pacientes;
 
-    public EditarPacienteController(FrmMantenimientoPa view) {
+    public EditarPacienteController(FrmMantenimientoPaciente view) {
         this.view = view;
 
         pacientes = ProcesosEditarPaciente.pacientesActivos();

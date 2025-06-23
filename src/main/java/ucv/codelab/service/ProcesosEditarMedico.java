@@ -18,7 +18,7 @@ import ucv.codelab.repository.EspecialidadRepository;
 import ucv.codelab.repository.MedicoRepository;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
-import ucv.codelab.view.FrmMantenimientoDoc;
+import ucv.codelab.view.FrmMantenimientoMedico;
 import ucv.codelab.view.PanelBase;
 
 public class ProcesosEditarMedico {
@@ -26,12 +26,12 @@ public class ProcesosEditarMedico {
     private static String[] titulo = { "CODGIO", "ESPECIALIDAD", "NOMBRE", "APELLIDO", "DNI", "FECHA DE NACIMIENTO",
             "SEXO", "TELEFONO", "EMAIL", "COLEGIATURA", "GRADO ACADEMICO" };
 
-    public static void presentacion(FrmMantenimientoDoc view, List<Medico> medicos) {
+    public static void presentacion(FrmMantenimientoMedico view, List<Medico> medicos) {
         cargarDatos(view, medicos);
         personalizarTabla(view);
     }
 
-    private static void cargarDatos(FrmMantenimientoDoc view, List<Medico> medicos) {
+    private static void cargarDatos(FrmMantenimientoMedico view, List<Medico> medicos) {
         // Crea el modelo con la edicion deshabilitada
         DefaultTableModel dtm = new DefaultTableModel(null, titulo) {
             @Override
@@ -46,7 +46,7 @@ public class ProcesosEditarMedico {
         }
     }
 
-    private static void personalizarTabla(FrmMantenimientoDoc view) {
+    private static void personalizarTabla(FrmMantenimientoMedico view) {
         // Personalizar cabecera
         JTableHeader header = view.tblResultados.getTableHeader();
         header.setBackground(Color.BLUE);
@@ -104,7 +104,7 @@ public class ProcesosEditarMedico {
         }
     }
 
-    public static List<Medico> medicosFiltrados(FrmMantenimientoDoc view) {
+    public static List<Medico> medicosFiltrados(FrmMantenimientoMedico view) {
         String dni = limpiarString(view.txtDni.getText());
         String nombre = limpiarString(view.txtNombre.getText());
         String apellido = limpiarString(view.txtApellido.getText());
@@ -135,7 +135,7 @@ public class ProcesosEditarMedico {
         }
     }
 
-    public static void borrarMedico(FrmMantenimientoDoc view) {
+    public static void borrarMedico(FrmMantenimientoMedico view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del medico a eliminar");
         input = limpiarString(input);
 
@@ -157,7 +157,7 @@ public class ProcesosEditarMedico {
         }
     }
 
-    public static Optional<Medico> seleccionarMedico(FrmMantenimientoDoc view) {
+    public static Optional<Medico> seleccionarMedico(FrmMantenimientoMedico view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del medico a editar");
         input = limpiarString(input);
 

@@ -17,19 +17,19 @@ import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
-import ucv.codelab.view.FrmMantenimientoEspe;
+import ucv.codelab.view.FrmMantenimientoEspecialidad;
 import ucv.codelab.view.PanelBase;
 
 public class ProcesosEditarEspecialidad {
 
     private static String[] titulo = { "CODIGO", "ESPECIALIDAD", "DESCRIPCION" };
 
-    public static void presentacion(FrmMantenimientoEspe view, List<Especialidad> especialidades) {
+    public static void presentacion(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
         cargarDatos(view, especialidades);
         personalizarTabla(view);
     }
 
-    private static void cargarDatos(FrmMantenimientoEspe view, List<Especialidad> especialidades) {
+    private static void cargarDatos(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
         // Crea el modelo con la edicion deshabilitada
         DefaultTableModel dtm = new DefaultTableModel(null, titulo) {
             @Override
@@ -44,7 +44,7 @@ public class ProcesosEditarEspecialidad {
         }
     }
 
-    private static void personalizarTabla(FrmMantenimientoEspe view) {
+    private static void personalizarTabla(FrmMantenimientoEspecialidad view) {
         // Personalizar cabecera
         JTableHeader header = view.tblResultados.getTableHeader();
         header.setBackground(Color.BLUE);
@@ -62,7 +62,7 @@ public class ProcesosEditarEspecialidad {
         // Ajustar ancho de columnas específicas
         columnModel.getColumn(0).setPreferredWidth(80); // CODIGO
         columnModel.getColumn(1).setPreferredWidth(200); // ESPECIALIDAD
-        columnModel.getColumn(2).setPreferredWidth(400); // DESCRIPCION
+        columnModel.getColumn(2).setPreferredWidth(600); // DESCRIPCION
 
         // Personalizar altura de filas
         view.tblResultados.setRowHeight(25);
@@ -83,7 +83,7 @@ public class ProcesosEditarEspecialidad {
         }
     }
 
-    public static List<Especialidad> especialidadesFiltradas(FrmMantenimientoEspe view) {
+    public static List<Especialidad> especialidadesFiltradas(FrmMantenimientoEspecialidad view) {
         String nombreEspecialidad = limpiarString(view.txtEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
@@ -99,7 +99,7 @@ public class ProcesosEditarEspecialidad {
         }
     }
 
-    public static void borrarEspecialidad(FrmMantenimientoEspe view) {
+    public static void borrarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a eliminar");
         input = limpiarString(input);
 
@@ -121,7 +121,7 @@ public class ProcesosEditarEspecialidad {
         }
     }
 
-    public static Optional<Especialidad> seleccionarEspecialidad(FrmMantenimientoEspe view) {
+    public static Optional<Especialidad> seleccionarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a editar");
         input = limpiarString(input);
 

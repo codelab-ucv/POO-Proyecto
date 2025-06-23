@@ -7,15 +7,15 @@ import java.util.Optional;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.service.ProcesosEditarEspecialidad;
-import ucv.codelab.view.FrmMantenimientoEspe;
+import ucv.codelab.view.FrmMantenimientoEspecialidad;
 
 public class EditarEspecialidadController implements ActionListener {
 
-    private FrmMantenimientoEspe view;
+    private FrmMantenimientoEspecialidad view;
 
     private List<Especialidad> especialidades;
 
-    public EditarEspecialidadController(FrmMantenimientoEspe view) {
+    public EditarEspecialidadController(FrmMantenimientoEspecialidad view) {
         this.view = view;
 
         especialidades = ProcesosEditarEspecialidad.especialidadesActivas();

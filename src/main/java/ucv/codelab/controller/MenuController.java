@@ -12,9 +12,9 @@ import ucv.codelab.view.FrmAtencionesDia;
 import ucv.codelab.view.FrmAtencionesEsp;
 import ucv.codelab.view.FrmBusquedaMante;
 import ucv.codelab.view.FrmExportarHisC;
-import ucv.codelab.view.FrmMantenimientoDoc;
-import ucv.codelab.view.FrmMantenimientoEspe;
-import ucv.codelab.view.FrmMantenimientoPa;
+import ucv.codelab.view.FrmMantenimientoMedico;
+import ucv.codelab.view.FrmMantenimientoEspecialidad;
+import ucv.codelab.view.FrmMantenimientoPaciente;
 import ucv.codelab.view.FrmMenu;
 import ucv.codelab.view.FrmRegistrarMedico;
 import ucv.codelab.view.FrmRegistrarEspecialidad;
@@ -79,7 +79,7 @@ public class MenuController implements ActionListener {
             new RegistrarPacienteController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoPacientes) {
-            FrmMantenimientoPa frm = new FrmMantenimientoPa();
+            FrmMantenimientoPaciente frm = new FrmMantenimientoPaciente();
             new EditarPacienteController(frm);
             mostrarPanel(frm);
         }
@@ -90,7 +90,7 @@ public class MenuController implements ActionListener {
             new RegistrarMedicoController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoDoctores) {
-            FrmMantenimientoDoc frm = new FrmMantenimientoDoc();
+            FrmMantenimientoMedico frm = new FrmMantenimientoMedico();
             new EditarMedicoController(frm);
             mostrarPanel(frm);
         }
@@ -101,7 +101,7 @@ public class MenuController implements ActionListener {
             new RegistrarEspecialidadController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoEspecialidades) {
-            FrmMantenimientoEspe frm = new FrmMantenimientoEspe();
+            FrmMantenimientoEspecialidad frm = new FrmMantenimientoEspecialidad();
             new EditarEspecialidadController(frm);
             mostrarPanel(frm);
         }
