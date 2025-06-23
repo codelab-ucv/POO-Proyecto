@@ -17,7 +17,7 @@ import ucv.codelab.view.FrmMantenimientoEspe;
 import ucv.codelab.view.FrmMantenimientoPa;
 import ucv.codelab.view.FrmMenu;
 import ucv.codelab.view.FrmRegistrarMedico;
-import ucv.codelab.view.FrmRegistroEsp;
+import ucv.codelab.view.FrmRegistrarEspecialidad;
 import ucv.codelab.view.FrmRegistroHistoriaC;
 import ucv.codelab.view.FrmRegistrarPaciente;
 
@@ -97,7 +97,9 @@ public class MenuController implements ActionListener {
 
         // Event handlers para Especialidades
         else if (e.getSource() == view.menuItemRegistrarEspecialidad) {
-            mostrarPanel(new FrmRegistroEsp());
+            FrmRegistrarEspecialidad frm = new FrmRegistrarEspecialidad();
+            new RegistrarEspecialidadController(frm);
+            mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemMantenimientoEspecialidades) {
             mostrarPanel(new FrmMantenimientoEspe());
         }

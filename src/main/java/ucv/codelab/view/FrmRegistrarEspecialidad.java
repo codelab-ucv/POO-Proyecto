@@ -3,7 +3,6 @@ package ucv.codelab.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -11,9 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 
-public class FrmRegistroEsp extends PanelBase {
+public class FrmRegistrarEspecialidad extends PanelBase {
 
-    public FrmRegistroEsp() {
+    public FrmRegistrarEspecialidad() {
         initComponents();
     }
 
@@ -22,8 +21,7 @@ public class FrmRegistroEsp extends PanelBase {
 
         txtNombreEspecialidad = createTextField("NOMBRE ESPECIALIDAD");
 
-        btnGuardar = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR",
-                e -> onGuardarClick(e));
+        btnGuardar = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR");
 
         txtDescripcion = new JTextArea();
         txtDescripcion.setBackground(Color.WHITE);
@@ -43,11 +41,8 @@ public class FrmRegistroEsp extends PanelBase {
         addComponent(btnGuardar, 0, 2, 2, GridBagConstraints.NONE, 150, 19, 1.0, 1.0);
     }
 
-    private void onGuardarClick(ActionEvent evt) {
-    }
-
-    private JTextField txtNombreEspecialidad;
-    private JToggleButton btnGuardar;
+    public JTextField txtNombreEspecialidad;
+    public JToggleButton btnGuardar;
     private JScrollPane scrollDescripcion;
-    private JTextArea txtDescripcion;
+    public JTextArea txtDescripcion;
 }

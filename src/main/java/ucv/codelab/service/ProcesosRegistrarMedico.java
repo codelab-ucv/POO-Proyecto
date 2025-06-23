@@ -105,7 +105,6 @@ public class ProcesosRegistrarMedico {
             Mensajes.error("Error al guardar", "Verifique que el medico no se encuentre previamente registrado");
             return false;
         }
-
     }
 
     public static void limpiarEntradas(FrmRegistrarMedico view) {
@@ -119,6 +118,7 @@ public class ProcesosRegistrarMedico {
         view.cmbEspecialidad.setSelectedItem(null);
         view.cmbSexo.setSelectedItem(null);
         view.cmbGradoAcademico.setSelectedItem(null);
+        view.txtNombres.requestFocus();
     }
 
     private static String limpiarString(String parametro) {
