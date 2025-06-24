@@ -48,7 +48,7 @@ public class EditarEspecialidadController implements ActionListener {
                 especialidadEnEdicion = especialidadEditar.get();
                 // Carga los datos segun la especialidad
                 ProcesosEditarEspecialidad.cargarDatos(view, especialidadEnEdicion);
-                // Habilita unicamente los campos editables y el boton de ActualizarF
+                // Habilita unicamente los campos editables y el boton de Actualizar
                 ProcesosEditarEspecialidad.habilitarCamposEditables(view);
             }
         } else if (e.getSource() == view.btnActualizar) {

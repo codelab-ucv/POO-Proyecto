@@ -53,17 +53,17 @@ public class FrmMantenimientoMedico extends PanelBase {
 
         // Añade los componentes al panel de edicion
         addComponentEditor(panelEdicion, txtEditarCodigo, 0, 30);
-        addComponentEditor(panelEdicion, txtEditarNombre, 0, 30);
-        addComponentEditor(panelEdicion, txtEditarApellidos, 1, 30);
-        addComponentEditor(panelEdicion, cmbEditarEspecialidad, 2, 30);
-        addComponentEditor(panelEdicion, txtEditarDni, 3, 30);
-        addComponentEditor(panelEdicion, cmbEditarSexo, 4, 30);
-        addComponentEditor(panelEdicion, txtEditarColegiatura, 5, 30);
-        addComponentEditor(panelEdicion, txtEditarTelefono, 6, 30);
-        addComponentEditor(panelEdicion, txtEditarFechaNacimiento, 7, 30);
-        addComponentEditor(panelEdicion, cmbEditarGradoAcademico, 8, 30);
-        addComponentEditor(panelEdicion, txtEditarCorreo, 9, 30);
-        addComponentEditor(panelEdicion, btnActualizar, 10, 30);
+        addComponentEditor(panelEdicion, txtEditarNombre, 1, 30);
+        addComponentEditor(panelEdicion, txtEditarApellidos, 2, 30);
+        addComponentEditor(panelEdicion, cmbEditarEspecialidad, 3, 30);
+        addComponentEditor(panelEdicion, txtEditarDni, 4, 30);
+        addComponentEditor(panelEdicion, cmbEditarSexo, 5, 30);
+        addComponentEditor(panelEdicion, txtEditarColegiatura, 6, 30);
+        addComponentEditor(panelEdicion, txtEditarTelefono, 7, 30);
+        addComponentEditor(panelEdicion, txtEditarFechaNacimiento, 8, 30);
+        addComponentEditor(panelEdicion, cmbEditarGradoAcademico, 9, 30);
+        addComponentEditor(panelEdicion, txtEditarCorreo, 10, 30);
+        addComponentEditor(panelEdicion, btnActualizar, 11, 30);
 
         // Disposición de componentes usando addComponent
         addComponent(txtDni, 0, 0, 1, 1, GridBagConstraints.BOTH, 250, 30, 1.0, 0);
