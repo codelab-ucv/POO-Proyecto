@@ -97,7 +97,7 @@ public class ProcesosEditarPaciente {
         if (dni == null && nombre == null && apellido == null) {
             return pacientesActivos();
         }
-        
+
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             return pacienteRepository.buscarFiltrado(dni, nombre, apellido);
@@ -138,6 +138,16 @@ public class ProcesosEditarPaciente {
             return Optional.empty();
         }
 
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            int idBuscado = Integer.parseInt(input);
+
+            PacienteRepository pacienteRepository = new PacienteRepository(conn);
+            return pacienteRepository.buscarPorId(idBuscado);
+        } catch (NumberFormatException e) {
+            Mensajes.error("Valor inválido", "Ingrese un número válido");
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+        }
         return Optional.empty();
     }
 

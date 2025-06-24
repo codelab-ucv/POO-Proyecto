@@ -130,6 +130,16 @@ public class ProcesosEditarEspecialidad {
             return Optional.empty();
         }
 
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            int idBuscado = Integer.parseInt(input);
+
+            EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
+            return especialidadRepository.buscarPorId(idBuscado);
+        } catch (NumberFormatException e) {
+            Mensajes.error("Valor inválido", "Ingrese un número válido");
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+        }
         return Optional.empty();
     }
 

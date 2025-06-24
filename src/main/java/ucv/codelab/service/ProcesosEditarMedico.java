@@ -166,6 +166,16 @@ public class ProcesosEditarMedico {
             return Optional.empty();
         }
 
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            int idBuscado = Integer.parseInt(input);
+
+            MedicoRepository medicoRepository = new MedicoRepository(conn);
+            return medicoRepository.buscarPorId(idBuscado);
+        } catch (NumberFormatException e) {
+            Mensajes.error("Valor inválido", "Ingrese un número válido");
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+        }
         return Optional.empty();
     }
 
