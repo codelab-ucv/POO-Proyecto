@@ -6,12 +6,16 @@
 
     <groupId>ucv.codelab</groupId>
     <artifactId>poo</artifactId>
-    <version>0.3.5-SNAPSHOT</version>
+    <version>0.3.6-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <mysql.version>9.3.0</mysql.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
 
 
