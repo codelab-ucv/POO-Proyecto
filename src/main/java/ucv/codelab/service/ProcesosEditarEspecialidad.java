@@ -27,6 +27,14 @@ public class ProcesosEditarEspecialidad {
     public static void presentacion(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
         cargarDatos(view, especialidades);
         personalizarTabla(view);
+        deshabilitarEdicion(view);
+    }
+
+    public static void deshabilitarEdicion(FrmMantenimientoEspecialidad view) {
+        view.txtEditarCodigo.setEnabled(false);
+        view.txtEditarEspecialidad.setEnabled(false);
+        view.txtEditarDescripcion.setEnabled(false);
+        view.btnActualizar.setEnabled(false);
     }
 
     private static void cargarDatos(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
@@ -151,5 +159,46 @@ public class ProcesosEditarEspecialidad {
             }
         }
         return parametro;
+    }
+
+    // Se verifico previamente que contiene datos, no hace falta revalidar
+    public static void cargarDatos(FrmMantenimientoEspecialidad view, Especialidad especialidadEnEdicion) {
+        // Carga los datos en el formulario
+        view.txtEditarCodigo.setText(especialidadEnEdicion.getIdEspecialidad() + "");
+        view.txtEditarEspecialidad.setText(especialidadEnEdicion.getEspecialidad());
+        view.txtEditarDescripcion.setText(especialidadEnEdicion.getDescripcion());
+    }
+
+    // Habilita campos editables
+    public static void habilitarCamposEditables(FrmMantenimientoEspecialidad view) {
+        view.txtEditarEspecialidad.setEnabled(true);
+        view.txtEditarDescripcion.setEnabled(true);
+        view.btnActualizar.setEnabled(true);
+    }
+
+    public static boolean actualizarEspecialidad(FrmMantenimientoEspecialidad view,
+            Especialidad especialidadEnEdicion) {
+        // Primero valida los campos obligatorios
+        String nombreEspecialidad = limpiarString(view.txtEditarEspecialidad.getText());
+
+        if (nombreEspecialidad == null) {
+            return false;
+        }
+
+        // Si no hay problemas limpia los demas campos editables
+        String descripcion = limpiarString(view.txtEditarDescripcion.getText());
+
+        // Actualiza los datos de la cache
+        especialidadEnEdicion.setEspecialidad(nombreEspecialidad);
+        especialidadEnEdicion.setDescripcion(descripcion);
+
+        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
+            especialidadRepository.actualizar(especialidadEnEdicion);
+            return true;
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+            return false;
+        }
     }
 }
