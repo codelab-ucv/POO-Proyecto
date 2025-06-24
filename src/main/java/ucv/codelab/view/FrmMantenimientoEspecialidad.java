@@ -1,7 +1,6 @@
 package ucv.codelab.view;
 
 import java.awt.Component;
-import java.awt.GridBagConstraints;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -47,15 +46,15 @@ public class FrmMantenimientoEspecialidad extends PanelBase {
         addComponentEditor(panelEdicion, btnActualizar, 3, 30);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtEspecialidad, 0, 0, 1, 1, GridBagConstraints.BOTH, 60, 30, 1.0, 0);
-        addComponent(btnBuscar, 1, 0, 1, 1, GridBagConstraints.BOTH, 60, 30, 1.0, 0);
+        addComponentNorth(txtEspecialidad, 0, 0, 1, 1, 60, 30, 1.0);
+        addComponentNorth(btnBuscar, 1, 0, 1, 1, 60, 30, 1.0);
 
-        addComponent(scrollResultados, 0, 1, 3, 1, GridBagConstraints.BOTH, 100, 200, 1.0, 1.0);
+        addComponentCenter(scrollResultados, 0, 1, 3, 1, 100, 200);
 
-        addComponent(btnEditar, 0, 2, 1, 1, GridBagConstraints.BOTH, 60, 30, 1.0, 0);
-        addComponent(btnEliminar, 2, 2, 1, 1, GridBagConstraints.BOTH, 60, 30, 1.0, 0);
+        addComponentSouth(btnEditar, 0, 2, 1, 1, 60, 30, 1.0);
+        addComponentSouth(btnEliminar, 2, 2, 1, 1, 60, 30, 1.0);
 
-        addComponent(scrollPanelEdicion, 3, 0, 1, 3, GridBagConstraints.BOTH, 400, 400, 1.0, 1.0);
+        addComponentNorth(scrollPanelEdicion, 3, 0, 1, 3, 400, 400, 1.0);
     }
 
     private PanelBase panelEditor() {
@@ -65,7 +64,7 @@ public class FrmMantenimientoEspecialidad extends PanelBase {
     }
 
     private void addComponentEditor(PanelBase panelEdicion, Component component, int posicion, int alto) {
-        panelEdicion.addComponent(component, 0, posicion, 1, 1, GridBagConstraints.HORIZONTAL, 50, alto, 1.0, 0);
+        panelEdicion.addComponentNorth(component, 0, posicion, 1, 1, 50, alto, 1.0);
     }
 
     private JScrollPane scrollResultados;

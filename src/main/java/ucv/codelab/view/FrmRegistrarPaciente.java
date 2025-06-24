@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.GridBagConstraints;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
@@ -27,15 +26,15 @@ public class FrmRegistrarPaciente extends PanelBase {
         btnGuardar = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR");
 
         // Disposición de componentes en el layout usando addComponent
-        addComponent(txtNombres, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 0, 30, 1.0, 1.0);
-        addComponent(txtApellidos, 1, 0, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtDni, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtFechaNacimiento, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(cmbSexo, 0, 2, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
-        addComponent(txtTelefono, 1, 2, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(txtDireccion, 0, 3, 1, 1, GridBagConstraints.HORIZONTAL, 289, 30, 1.0, 1.0);
-        addComponent(cmbTipoSangre, 1, 3, 1, 1, GridBagConstraints.HORIZONTAL, 180, 30, 1.0, 1.0);
-        addComponent(btnGuardar, 0, 4, 4, 1, GridBagConstraints.NONE, 50, 30, 1.0, 1.0);
+        addComponentNorth(txtNombres, 0, 0, 1, 1, 0, 30, 1.0);
+        addComponentNorth(txtApellidos, 1, 0, 1, 1, 289, 30, 1.0);
+        addComponentNorth(txtDni, 0, 1, 1, 1, 289, 30, 1.0);
+        addComponentNorth(txtFechaNacimiento, 1, 1, 1, 1, 289, 30, 1.0);
+        addComponentNorth(cmbSexo, 0, 2, 1, 1, 180, 30, 1.0);
+        addComponentNorth(txtTelefono, 1, 2, 1, 1, 289, 30, 1.0);
+        addComponentNorth(txtDireccion, 0, 3, 1, 1, 289, 30, 1.0);
+        addComponentNorth(cmbTipoSangre, 1, 3, 1, 1, 180, 30, 1.0);
+        addComponentFullSouth(btnGuardar, 0, 4, 4, 1, 50, 30);
     }
 
     public JComboBox<String> cmbTipoSangre;

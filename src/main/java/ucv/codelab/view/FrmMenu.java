@@ -19,7 +19,7 @@ public class FrmMenu extends JFrame {
     }
 
     private void initComponents() {
-        setMinimumSize(new Dimension(1280, 720));
+        setMinimumSize(new Dimension(1440, 810));
 
         panelEscritorio = new JPanel();
         menuBarPrincipal = new JMenuBar();

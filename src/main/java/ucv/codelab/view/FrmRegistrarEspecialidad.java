@@ -2,7 +2,6 @@ package ucv.codelab.view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,9 +35,9 @@ public class FrmRegistrarEspecialidad extends PanelBase {
         scrollDescripcion.setViewportView(txtDescripcion);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtNombreEspecialidad, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 359, 30, 1.0, 1.0);
-        addComponent(scrollDescripcion, 0, 1, 2, 1, GridBagConstraints.HORIZONTAL, 359, 80, 1.0, 1.0);
-        addComponent(btnGuardar, 0, 2, 2, 1, GridBagConstraints.NONE, 150, 19, 1.0, 1.0);
+        addComponentNorth(txtNombreEspecialidad, 0, 0, 1, 1, 359, 30, 1.0);
+        addComponentNorth(scrollDescripcion, 0, 1, 2, 1, 359, 300, 1.0);
+        addComponentFullSouth(btnGuardar, 0, 2, 2, 1, 50, 30);
     }
 
     public JTextField txtNombreEspecialidad;

@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -25,10 +24,10 @@ public class FrmAtencionesDia extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtApellidoNombre, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
-        addComponent(txtFecha, 1, 0, 1, 1, GridBagConstraints.HORIZONTAL, 319, 38, 1.0, 1.0);
-        addComponent(btnBuscar, 3, 0, 1, 1, GridBagConstraints.NONE, 32, 0, 0.0, 1.0);
-        addComponent(scrollResultados, 0, 1, 4, 1, GridBagConstraints.BOTH, 1000, 500, 1.0, 1.0);
+        addComponentNorth(txtApellidoNombre, 0, 0, 1, 1, 319, 38, 1.0);
+        addComponentNorth(txtFecha, 1, 0, 1, 1, 319, 38, 1.0);
+        addComponentNorth(btnBuscar, 3, 0, 1, 1, 32, 0, 0.0);
+        addComponentCenter(scrollResultados, 0, 1, 4, 1, 1000, 500);
     }
 
     private JScrollPane scrollResultados;

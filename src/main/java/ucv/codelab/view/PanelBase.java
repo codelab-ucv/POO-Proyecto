@@ -90,19 +90,88 @@ public class PanelBase extends JPanel {
         setLayout(new GridBagLayout());
     }
 
-    public void addComponent(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int fill, int ipadx,
-            int ipady, double weightx, double weighty) {
+    public void addComponentCenter(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int ipadx,
+            int ipady) {
         GridBagConstraints gbc = new GridBagConstraints();
+        // Ubicacion del componente
         gbc.gridx = gridx;
         gbc.gridy = gridy;
+        // Cuadrantes ocupados en ancho y alto
         gbc.gridwidth = gridwidth;
         gbc.gridheight = gridheight;
-        gbc.fill = fill;
+        // Expande en horizontal y vertical
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.ipadx = ipadx;
         gbc.ipady = ipady;
-        gbc.weightx = weightx;
-        gbc.weighty = weighty;
+        // Se expande siempre en X e Y
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(comp, gbc);
+    }
+
+    public void addComponentNorth(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int ipadx,
+            int ipady, double pesoEnX) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        // Ubicacion del componente
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        // Cuadrantes ocupados en ancho y alto
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+        // Expande en horizontal y vertical
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.ipadx = ipadx;
+        gbc.ipady = ipady;
+        // Solo se expande en X
+        gbc.weightx = pesoEnX;
+        gbc.weighty = 0;
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.anchor = GridBagConstraints.NORTH;
+        add(comp, gbc);
+    }
+
+    public void addComponentSouth(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int ipadx,
+            int ipady, double pesoEnX) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        // Ubicacion del componente
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        // Cuadrantes ocupados en ancho y alto
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+        // Expande en horizontal y vertical
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.ipadx = ipadx;
+        gbc.ipady = ipady;
+        // Solo se expande en X
+        gbc.weightx = pesoEnX;
+        gbc.weighty = 0;
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.anchor = GridBagConstraints.NORTH;
+        add(comp, gbc);
+    }
+
+    // Usado UNICAMENTE para botones que completan el espacio Sur
+    public void addComponentFullSouth(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int ipadx,
+            int ipady) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        // Ubicacion del componente
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        // Cuadrantes ocupados en ancho y alto
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+        // No permite la expansion
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.ipadx = ipadx;
+        gbc.ipady = ipady;
+        // Se expande en todas las direcciones
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.SOUTH;
         add(comp, gbc);
     }
 

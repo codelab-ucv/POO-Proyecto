@@ -1,15 +1,7 @@
 package ucv.codelab.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -19,7 +11,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.TitledBorder;
 
 public class FrmRegistroHistoriaC extends PanelBase {
 
@@ -30,7 +21,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
     private void initComponents() {
         // Configuración del panel principal
         scrollPanePrincipal = new JScrollPane();
-        panelContenido = new JPanel();
+        panelContenido = new PanelBase();
 
         setPreferredSize(new Dimension(161, 700));
         setLayout(new BorderLayout());
@@ -38,7 +29,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
         scrollPanePrincipal.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         // Usar setupPanel Sobrescrito para configurar el panel
-        setupPanel("REGISTRO HISTORIA CLINICA");
+        panelContenido.setupPanel("REGISTRO HISTORIA CLINICA");
 
         // Crear labels de sección
         lblDatosPaciente = createTitulos("DATOS DEL PACIENTE");
@@ -87,43 +78,45 @@ public class FrmRegistroHistoriaC extends PanelBase {
 
         // Disposición de componentes usando addComponent de Componentes
         // Sección: Datos del Paciente
-        addComponent(lblDatosPaciente, 0, 0, 4, 1, GridBagConstraints.NONE, 35, 16, 0, 0);
-        addComponent(txtDniPaciente, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtNombresPaciente, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtApellidosPaciente, 2, 1, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(btnBuscarPaciente, 3, 1, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
+        panelContenido.addComponentNorth(lblDatosPaciente, 0, 0, 4, 1, 35, 30, 0);
+        panelContenido.addComponentNorth(txtDniPaciente, 0, 1, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtNombresPaciente, 1, 1, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtApellidosPaciente, 2, 1, 1, 1, 200, 30, 1.0);
 
-        addComponent(txtTallaPaciente, 0, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtPesoPaciente, 1, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtHoraAtencion, 2, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
-        addComponent(txtFechaAtencion, 3, 2, 1, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        panelContenido.addComponentNorth(btnBuscarPaciente, 3, 1, 1, 1, 35, 30, 1.0);
 
-        addComponent(txtMedicoTratante, 0, 3, 2, 1, GridBagConstraints.HORIZONTAL, 283, 28, 1.0, 1.0);
+        panelContenido.addComponentNorth(txtTallaPaciente, 0, 2, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtPesoPaciente, 1, 2, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtHoraAtencion, 2, 2, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtFechaAtencion, 3, 2, 1, 1, 200, 30, 1.0);
+
+        panelContenido.addComponentNorth(txtMedicoTratante, 0, 3, 2, 1, 200, 30, 1.0);
 
         // Sección: Motivo y Valoración Inicial
-        addComponent(lblMotivoValoracion, 0, 4, 4, 1, GridBagConstraints.NONE, 0, 0, 0, 0);
-        addComponent(txtMotivoConsulta, 0, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtAntecedentesPaciente, 1, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtTiempoEnfermedad, 2, 5, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        panelContenido.addComponentNorth(lblMotivoValoracion, 0, 4, 4, 1, 0, 0, 0);
+        panelContenido.addComponentNorth(txtMotivoConsulta, 0, 5, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtAntecedentesPaciente, 1, 5, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtTiempoEnfermedad, 2, 5, 1, 1, 200, 30, 1.0);
 
-        addComponent(scrollObservaciones, 0, 6, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        panelContenido.addComponentNorth(scrollObservaciones, 0, 6, 2, 1, 400, 90, 1.0);
 
         // Sección: Diagnóstico y Manejo Médico
-        addComponent(lblDiagnosticoManejo, 0, 7, 4, 1, GridBagConstraints.NONE, 0, 0, 0, 0);
-        addComponent(txtFrecuenciaCardiaca, 0, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtPresionArterial, 1, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtTemperaturaCorporal, 2, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(txtFrecuenciaRespiratoria, 3, 8, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
+        panelContenido.addComponentNorth(lblDiagnosticoManejo, 0, 7, 4, 1, 0, 0, 0);
+        panelContenido.addComponentNorth(txtFrecuenciaCardiaca, 0, 8, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtPresionArterial, 1, 8, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtTemperaturaCorporal, 2, 8, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtFrecuenciaRespiratoria, 3, 8, 1, 1, 200, 30, 1.0);
 
-        addComponent(txtCodigoCie10, 0, 9, 1, 1, GridBagConstraints.HORIZONTAL, 279, 28, 1.0, 1.0);
-        addComponent(cmbTipoDiagnostico, 1, 9, 1, 1, GridBagConstraints.HORIZONTAL, 170, 44, 1.0, 1.0);
+        panelContenido.addComponentNorth(txtCodigoCie10, 0, 9, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(cmbTipoDiagnostico, 1, 9, 1, 1, 200, 30, 1.0);
 
-        addComponent(scrollDescripcionDiagnostico, 0, 10, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
-        addComponent(scrollIndicaciones, 2, 10, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        panelContenido.addComponentNorth(scrollDescripcionDiagnostico, 0, 10, 2, 1, 350, 90, 1.0);
+        panelContenido.addComponentNorth(scrollIndicaciones, 2, 10, 2, 1, 350, 90, 1.0);
 
-        addComponent(scrollDescripcionTratamiento, 0, 11, 2, 1, GridBagConstraints.HORIZONTAL, 350, 90, 1.0, 1.0);
+        panelContenido.addComponentNorth(scrollDescripcionTratamiento, 0, 11, 2, 1, 350, 90,
+                1.0);
 
-        addComponent(btnGuardarHistoria, 0, 12, 4, 1, GridBagConstraints.NONE, 0, 0, 1.0, 1.0);
+        panelContenido.addComponentFullSouth(btnGuardarHistoria, 0, 12, 4, 1, 60, 30);
 
         // Configurar scroll principal
         scrollPanePrincipal.setViewportView(panelContenido);
@@ -137,44 +130,12 @@ public class FrmRegistroHistoriaC extends PanelBase {
         add(panelFinal, BorderLayout.CENTER);
     }
 
-    // Usa metodos personalizados ya que los componentes se añaden en el panel
-    // interno del scroll
-    @Override
-    public void setupPanel(String titulo) {
-        panelContenido.setBackground(BACKGROUND_COLOR);
-        panelContenido.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(BORDER_COLOR),
-                titulo,
-                TitledBorder.CENTER,
-                TitledBorder.DEFAULT_POSITION,
-                new Font("Dubai", 1, 36),
-                new Color(0, 51, 102)));
-        panelContenido.setLayout(new GridBagLayout());
-    }
-
-    @Override
-    public void addComponent(Component comp, int gridx, int gridy, int gridwidth, int gridheight, int fill, int ipadx,
-            int ipady, double weightx, double weighty) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = gridx;
-        gbc.gridy = gridy;
-        gbc.gridwidth = gridwidth;
-        gbc.gridheight = gridheight;
-        gbc.fill = fill;
-        gbc.ipadx = ipadx;
-        gbc.ipady = ipady;
-        gbc.weightx = weightx;
-        gbc.weighty = weighty;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        panelContenido.add(comp, gbc);
-    }
-
     // Variables de componentes con nombres descriptivos
     private JComboBox<String> cmbTipoDiagnostico;
     private JLabel lblDatosPaciente;
     private JLabel lblDiagnosticoManejo;
     private JLabel lblMotivoValoracion;
-    private JPanel panelContenido;
+    private PanelBase panelContenido;
     private JScrollPane scrollPanePrincipal;
     private JScrollPane scrollDescripcionTratamiento;
     private JScrollPane scrollObservaciones;

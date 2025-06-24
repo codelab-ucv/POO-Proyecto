@@ -1,6 +1,5 @@
 package ucv.codelab.view;
 
-import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -29,13 +28,13 @@ public class FrmBusquedaMante extends PanelBase {
         scrollResultados = initializeTable(tblResultados);
 
         // Disposición de componentes usando addComponent
-        addComponent(txtDni, 1, 0, 1, 1, GridBagConstraints.HORIZONTAL, 250, 35, 0.0, 0.0);
-        addComponent(btnBuscar, 2, 0, 1, 1, GridBagConstraints.NONE, 35, 6, 1.0, 1.0);
-        addComponent(txtNombresApellidos, 1, 1, 1, 1, GridBagConstraints.HORIZONTAL, 300, 35, 1.0, 1.0);
-        addComponent(scrollResultados, 1, 2, 3, 1, GridBagConstraints.BOTH, 800, 300, 1.0, 1.0);
-        addComponent(btnEditar, 1, 3, 1, 1, GridBagConstraints.NONE, 60, 10, 1.0, 1.0);
-        addComponent(btnActualizar, 2, 3, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
-        addComponent(btnEliminar, 3, 3, 1, 1, GridBagConstraints.NONE, 50, 10, 1.0, 1.0);
+        addComponentNorth(txtDni, 1, 0, 1, 1, 250, 35, 0.0);
+        addComponentNorth(btnBuscar, 2, 0, 1, 1, 35, 6, 1.0);
+        addComponentNorth(txtNombresApellidos, 1, 1, 1, 1, 300, 35, 1.0);
+        addComponentCenter(scrollResultados, 1, 2, 3, 1, 800, 300);
+        addComponentSouth(btnEditar, 1, 3, 1, 1, 60, 10, 1.0);
+        addComponentSouth(btnActualizar, 2, 3, 1, 1, 50, 10, 1.0);
+        addComponentSouth(btnEliminar, 3, 3, 1, 1, 50, 10, 1.0);
     }
 
     private JScrollPane scrollResultados;
