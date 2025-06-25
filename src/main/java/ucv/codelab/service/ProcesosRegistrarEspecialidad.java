@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
+import ucv.codelab.util.Datos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmRegistrarEspecialidad;
@@ -13,7 +14,7 @@ import ucv.codelab.view.FrmRegistrarEspecialidad;
 public class ProcesosRegistrarEspecialidad {
 
     public static Optional<Especialidad> validarDatos(FrmRegistrarEspecialidad view) {
-        String nombreEspecialidad = limpiarString(view.txtNombreEspecialidad.getText());
+        String nombreEspecialidad = Datos.limpiarString(view.txtNombreEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return Optional.empty();
@@ -23,7 +24,7 @@ public class ProcesosRegistrarEspecialidad {
     }
 
     public static boolean guardarEspecialidad(FrmRegistrarEspecialidad view, Especialidad especialidad) {
-        String descripcion = limpiarString(view.txtDescripcion.getText());
+        String descripcion = Datos.limpiarString(view.txtDescripcion.getText());
 
         especialidad.setDescripcion(descripcion);
 
@@ -35,16 +36,6 @@ public class ProcesosRegistrarEspecialidad {
             Mensajes.error("Error al guardar", "Verifique que la especialidad no se encuentre previamente registrado");
             return false;
         }
-    }
-
-    private static String limpiarString(String parametro) {
-        if (parametro != null) {
-            parametro = parametro.trim();
-            if (parametro.isEmpty()) {
-                return null;
-            }
-        }
-        return parametro;
     }
 
     public static void limpiarEntradas(FrmRegistrarEspecialidad view) {

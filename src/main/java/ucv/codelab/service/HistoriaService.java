@@ -13,6 +13,7 @@ import ucv.codelab.repository.DiagnosticoRepository;
 import ucv.codelab.repository.ExamenFisicoRepository;
 import ucv.codelab.repository.HistoriaClinicaRepository;
 import ucv.codelab.repository.TratamientoRepository;
+import ucv.codelab.util.Datos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
 
@@ -20,8 +21,8 @@ public class HistoriaService {
 
     public static List<HistoriaClinica> buscarPorDni(String dniPaciente, String dniMedico) {
         // Limpieza de parámetros
-        dniPaciente = limpiarString(dniPaciente);
-        dniMedico = limpiarString(dniMedico);
+        dniPaciente = Datos.limpiarString(dniPaciente);
+        dniMedico = Datos.limpiarString(dniMedico);
 
         if (dniPaciente == null && dniMedico == null) {
             return null;
@@ -39,10 +40,10 @@ public class HistoriaService {
     public static List<HistoriaClinica> buscarPorNombre(String nombrePaciente, String apellidoPaciente,
             String nombreMedico, String apellidoMedico) {
         // Limpieza de parámetros
-        nombrePaciente = limpiarString(nombrePaciente);
-        apellidoPaciente = limpiarString(apellidoPaciente);
-        nombreMedico = limpiarString(nombreMedico);
-        apellidoMedico = limpiarString(apellidoMedico);
+        nombrePaciente = Datos.limpiarString(nombrePaciente);
+        apellidoPaciente = Datos.limpiarString(apellidoPaciente);
+        nombreMedico = Datos.limpiarString(nombreMedico);
+        apellidoMedico = Datos.limpiarString(apellidoMedico);
 
         if (nombrePaciente == null && apellidoPaciente == null &&
                 nombreMedico == null && apellidoMedico == null) {
@@ -56,16 +57,6 @@ public class HistoriaService {
             Mensajes.errorConexion();
             return null;
         }
-    }
-
-    private static String limpiarString(String parametro) {
-        if (parametro != null) {
-            parametro = parametro.trim();
-            if (parametro.isEmpty()) {
-                return null;
-            }
-        }
-        return parametro;
     }
 
     public static void descargarHistoria(HistoriaClinica historia) {

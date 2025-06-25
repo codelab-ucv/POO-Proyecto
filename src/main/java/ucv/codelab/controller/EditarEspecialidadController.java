@@ -39,43 +39,57 @@ public class EditarEspecialidadController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == view.btnBuscar) {
-            especialidades = ProcesosEditarEspecialidad.especialidadesFiltradas(view);
-            ProcesosEditarEspecialidad.presentacion(view, especialidades);
+            clicBuscar();
         } else if (e.getSource() == view.btnEditar) {
-            Optional<Especialidad> especialidadEditar = ProcesosEditarEspecialidad.seleccionarEspecialidad(view);
-            if (especialidadEditar.isPresent()) {
-                // Guarda la variable de la especialidad en edicion
-                especialidadEnEdicion = especialidadEditar.get();
-                // Carga los datos segun la especialidad
-                ProcesosEditarEspecialidad.cargarDatos(view, especialidadEnEdicion);
-                // Habilita unicamente los campos editables y el boton de Actualizar
-                ProcesosEditarEspecialidad.habilitarCamposEditables(view);
-            }
+            clicEditar();
         } else if (e.getSource() == view.btnActualizar) {
-            // Valida que la especialidad a actualizar no sea nula
-            if (especialidadEnEdicion != null) {
-                // LLama al metodo para guardar
-                if (ProcesosEditarEspecialidad.actualizarEspecialidad(view, especialidadEnEdicion)) {
-                    // Si tuvo exito lanza un mensaje de confirmacion
-                    JOptionPane.showMessageDialog(view, "Cambios guardados correctamente", "Cambios realizados",
-                            JOptionPane.PLAIN_MESSAGE);
-                    // Elimina la cache de la especialidad en edicion
-                    especialidadEnEdicion = null;
-                } else {
-                    // Si ocurre un error al guardar retorna sin cambios
-                    return;
-                }
-            }
-            // Deshabilita la edicion
-            ProcesosEditarEspecialidad.deshabilitarEdicion(view);
-
+            clicActualizar();
             // Actualiza el resultado mostrado
-            especialidades = ProcesosEditarEspecialidad.especialidadesFiltradas(view);
-            ProcesosEditarEspecialidad.presentacion(view, especialidades);
+            clicBuscar();
         } else if (e.getSource() == view.btnEliminar) {
-            ProcesosEditarEspecialidad.borrarEspecialidad(view);
-            especialidades = ProcesosEditarEspecialidad.especialidadesFiltradas(view);
-            ProcesosEditarEspecialidad.presentacion(view, especialidades);
+            clicEliminar();
+            // Actualiza el resultado mostrado
+            clicBuscar();
         }
+    }
+
+    private void clicBuscar() {
+        especialidades = ProcesosEditarEspecialidad.especialidadesFiltradas(view);
+        ProcesosEditarEspecialidad.presentacion(view, especialidades);
+    }
+
+    private void clicEditar() {
+        Optional<Especialidad> especialidadEditar = ProcesosEditarEspecialidad.seleccionarEspecialidad(view);
+        if (especialidadEditar.isPresent()) {
+            // Guarda la variable de la especialidad en edicion
+            especialidadEnEdicion = especialidadEditar.get();
+            // Carga los datos segun la especialidad
+            ProcesosEditarEspecialidad.cargarDatosEdicion(view, especialidadEnEdicion);
+            // Habilita unicamente los campos editables y el boton de Actualizar
+            ProcesosEditarEspecialidad.habilitarCamposEditables(view);
+        }
+    }
+
+    private void clicActualizar() {
+        // Valida que la especialidad a actualizar no sea nula
+        if (especialidadEnEdicion != null) {
+            // LLama al metodo para guardar
+            if (ProcesosEditarEspecialidad.actualizarEspecialidad(view, especialidadEnEdicion)) {
+                // Si tuvo exito lanza un mensaje de confirmacion
+                JOptionPane.showMessageDialog(view, "Cambios guardados correctamente", "Cambios realizados",
+                        JOptionPane.PLAIN_MESSAGE);
+                // Elimina la cache de la especialidad en edicion
+                especialidadEnEdicion = null;
+            } else {
+                // Si ocurre un error al guardar retorna sin cambios
+                return;
+            }
+        }
+        // Deshabilita la edicion
+        ProcesosEditarEspecialidad.deshabilitarEdicion(view);
+    }
+
+    private void clicEliminar() {
+        ProcesosEditarEspecialidad.borrarEspecialidad(view);
     }
 }

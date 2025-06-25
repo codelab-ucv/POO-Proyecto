@@ -15,6 +15,7 @@ import javax.swing.table.TableColumnModel;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
+import ucv.codelab.util.Datos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
@@ -28,13 +29,6 @@ public class ProcesosEditarEspecialidad {
         cargarDatos(view, especialidades);
         personalizarTabla(view);
         deshabilitarEdicion(view);
-    }
-
-    public static void deshabilitarEdicion(FrmMantenimientoEspecialidad view) {
-        view.txtEditarCodigo.setEnabled(false);
-        view.txtEditarEspecialidad.setEnabled(false);
-        view.txtEditarDescripcion.setEnabled(false);
-        view.btnActualizar.setEnabled(false);
     }
 
     private static void cargarDatos(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
@@ -79,6 +73,13 @@ public class ProcesosEditarEspecialidad {
         header.setReorderingAllowed(false);
     }
 
+    public static void deshabilitarEdicion(FrmMantenimientoEspecialidad view) {
+        view.txtEditarCodigo.setEnabled(false);
+        view.txtEditarEspecialidad.setEnabled(false);
+        view.txtEditarDescripcion.setEnabled(false);
+        view.btnActualizar.setEnabled(false);
+    }
+
     public static List<Especialidad> especialidadesActivas() {
         // Descarga los datos
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
@@ -92,7 +93,7 @@ public class ProcesosEditarEspecialidad {
     }
 
     public static List<Especialidad> especialidadesFiltradas(FrmMantenimientoEspecialidad view) {
-        String nombreEspecialidad = limpiarString(view.txtEspecialidad.getText());
+        String nombreEspecialidad = Datos.limpiarString(view.txtEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return especialidadesActivas();
@@ -109,7 +110,7 @@ public class ProcesosEditarEspecialidad {
 
     public static void borrarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a eliminar");
-        input = limpiarString(input);
+        input = Datos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -131,7 +132,7 @@ public class ProcesosEditarEspecialidad {
 
     public static Optional<Especialidad> seleccionarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a editar");
-        input = limpiarString(input);
+        input = Datos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -151,18 +152,8 @@ public class ProcesosEditarEspecialidad {
         return Optional.empty();
     }
 
-    private static String limpiarString(String parametro) {
-        if (parametro != null) {
-            parametro = parametro.trim();
-            if (parametro.isEmpty()) {
-                return null;
-            }
-        }
-        return parametro;
-    }
-
     // Se verifico previamente que contiene datos, no hace falta revalidar
-    public static void cargarDatos(FrmMantenimientoEspecialidad view, Especialidad especialidadEnEdicion) {
+    public static void cargarDatosEdicion(FrmMantenimientoEspecialidad view, Especialidad especialidadEnEdicion) {
         // Carga los datos en el formulario
         view.txtEditarCodigo.setText(especialidadEnEdicion.getIdEspecialidad() + "");
         view.txtEditarEspecialidad.setText(especialidadEnEdicion.getEspecialidad());
@@ -179,14 +170,14 @@ public class ProcesosEditarEspecialidad {
     public static boolean actualizarEspecialidad(FrmMantenimientoEspecialidad view,
             Especialidad especialidadEnEdicion) {
         // Primero valida los campos obligatorios
-        String nombreEspecialidad = limpiarString(view.txtEditarEspecialidad.getText());
+        String nombreEspecialidad = Datos.limpiarString(view.txtEditarEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return false;
         }
 
         // Si no hay problemas limpia los demas campos editables
-        String descripcion = limpiarString(view.txtEditarDescripcion.getText());
+        String descripcion = Datos.limpiarString(view.txtEditarDescripcion.getText());
 
         // Actualiza los datos de la cache
         especialidadEnEdicion.setEspecialidad(nombreEspecialidad);

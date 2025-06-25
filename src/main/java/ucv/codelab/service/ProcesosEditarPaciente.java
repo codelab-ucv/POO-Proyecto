@@ -19,6 +19,7 @@ import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.enumerados.TipoSangre;
 import ucv.codelab.model.Paciente;
 import ucv.codelab.repository.PacienteRepository;
+import ucv.codelab.util.Datos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmMantenimientoPaciente;
@@ -33,19 +34,6 @@ public class ProcesosEditarPaciente {
         cargarDatos(view, pacientes);
         personalizarTabla(view);
         deshabilitarEdicion(view);
-    }
-
-    public static void deshabilitarEdicion(FrmMantenimientoPaciente view) {
-        view.txtEditarCodigo.setEnabled(false);
-        view.txtEditarNombres.setEnabled(false);
-        view.txtEditarApellidos.setEnabled(false);
-        view.txtEditarDni.setEnabled(false);
-        view.txtEditarFechaNacimiento.setEnabled(false);
-        view.cmbEditarSexo.setEnabled(false);
-        view.txtEditarDireccion.setEnabled(false);
-        view.txtEditarTelefono.setEnabled(false);
-        view.cmbEditarTipoSangre.setEnabled(false);
-        view.btnActualizar.setEnabled(false);
     }
 
     private static void cargarDatos(FrmMantenimientoPaciente view, List<Paciente> pacientes) {
@@ -108,6 +96,19 @@ public class ProcesosEditarPaciente {
         header.setReorderingAllowed(false);
     }
 
+    public static void deshabilitarEdicion(FrmMantenimientoPaciente view) {
+        view.txtEditarCodigo.setEnabled(false);
+        view.txtEditarNombres.setEnabled(false);
+        view.txtEditarApellidos.setEnabled(false);
+        view.txtEditarDni.setEnabled(false);
+        view.txtEditarFechaNacimiento.setEnabled(false);
+        view.cmbEditarSexo.setEnabled(false);
+        view.txtEditarDireccion.setEnabled(false);
+        view.txtEditarTelefono.setEnabled(false);
+        view.cmbEditarTipoSangre.setEnabled(false);
+        view.btnActualizar.setEnabled(false);
+    }
+
     public static List<Paciente> pacientesActivos() {
         // Descarga los datos
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
@@ -120,9 +121,9 @@ public class ProcesosEditarPaciente {
     }
 
     public static List<Paciente> pacientesFiltrados(FrmMantenimientoPaciente view) {
-        String dni = limpiarString(view.txtDni.getText());
-        String nombre = limpiarString(view.txtNombre.getText());
-        String apellido = limpiarString(view.txtApellido.getText());
+        String dni = Datos.limpiarString(view.txtDni.getText());
+        String nombre = Datos.limpiarString(view.txtNombre.getText());
+        String apellido = Datos.limpiarString(view.txtApellido.getText());
 
         if (dni == null && nombre == null && apellido == null) {
             return pacientesActivos();
@@ -139,7 +140,7 @@ public class ProcesosEditarPaciente {
 
     public static void borrarPaciente(FrmMantenimientoPaciente view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del paciente a eliminar");
-        input = limpiarString(input);
+        input = Datos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -161,7 +162,7 @@ public class ProcesosEditarPaciente {
 
     public static Optional<Paciente> seleccionarPaciente(FrmMantenimientoPaciente view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del paciente a editar");
-        input = limpiarString(input);
+        input = Datos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -179,16 +180,6 @@ public class ProcesosEditarPaciente {
             Mensajes.errorConexion();
         }
         return Optional.empty();
-    }
-
-    private static String limpiarString(String parametro) {
-        if (parametro != null) {
-            parametro = parametro.trim();
-            if (parametro.isEmpty()) {
-                return null;
-            }
-        }
-        return parametro;
     }
 
     // Se verifico previamente que contiene datos, no hace falta revalidar
@@ -236,12 +227,12 @@ public class ProcesosEditarPaciente {
 
     public static boolean actualizarPaciente(FrmMantenimientoPaciente view, Paciente pacienteEnEdicion) {
         // Primero valida los campos obligatorios
-        String nombre = limpiarString(view.txtEditarNombres.getText());
-        String apellido = limpiarString(view.txtEditarApellidos.getText());
-        String dni = limpiarString(view.txtEditarDni.getText());
-        String strFechaNacimiento = limpiarString(view.txtEditarFechaNacimiento.getText());
-        String sexo = limpiarString(view.cmbEditarSexo.getSelectedItem().toString());
-        String tipoSangre = limpiarString(view.cmbEditarTipoSangre.getSelectedItem().toString());
+        String nombre = Datos.limpiarString(view.txtEditarNombres.getText());
+        String apellido = Datos.limpiarString(view.txtEditarApellidos.getText());
+        String dni = Datos.limpiarString(view.txtEditarDni.getText());
+        String strFechaNacimiento = Datos.limpiarString(view.txtEditarFechaNacimiento.getText());
+        String sexo = Datos.limpiarString(view.cmbEditarSexo.getSelectedItem().toString());
+        String tipoSangre = Datos.limpiarString(view.cmbEditarTipoSangre.getSelectedItem().toString());
 
         if (nombre == null || apellido == null || dni == null || strFechaNacimiento == null || sexo == null
                 || tipoSangre == null) {
@@ -249,14 +240,14 @@ public class ProcesosEditarPaciente {
         }
 
         // Verifica que se pueda parsear la fecha
-        LocalDate fechaNacimiento = obtenerFecha(strFechaNacimiento);
+        LocalDate fechaNacimiento = Datos.obtenerFecha(strFechaNacimiento);
         if (fechaNacimiento == null) {
             return false;
         }
 
         // Si no hay problemas limpia los demas campos editables
-        String direccion = limpiarString(view.txtEditarDireccion.getText());
-        String telefono = limpiarString(view.txtEditarTelefono.getText());
+        String direccion = Datos.limpiarString(view.txtEditarDireccion.getText());
+        String telefono = Datos.limpiarString(view.txtEditarTelefono.getText());
 
         // Actualiza los datos de la cache
         pacienteEnEdicion.setNombre(nombre);
@@ -278,16 +269,4 @@ public class ProcesosEditarPaciente {
         }
     }
 
-    private static LocalDate obtenerFecha(String fechaString) {
-        // Obtiene la fecha de un formato dd/mm/yyyy
-        if (fechaString != null) {
-            String[] fechaSeparada = fechaString.split("/");
-            try {
-                return LocalDate.of(Integer.valueOf(fechaSeparada[2]), Integer.valueOf(fechaSeparada[1]),
-                        Integer.valueOf(fechaSeparada[0]));
-            } catch (Exception e) {
-            }
-        }
-        return null;
-    }
-}
+   }
