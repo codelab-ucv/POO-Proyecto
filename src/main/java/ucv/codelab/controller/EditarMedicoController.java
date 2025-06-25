@@ -47,7 +47,7 @@ public class EditarMedicoController implements ActionListener {
                 // Guarda la variable del medico en edicion
                 medicoEnEdicion = medicoEditar.get();
                 // Carga los datos segun el medico
-                ProcesosEditarMedico.cargarDatos(view, medicoEnEdicion);
+                ProcesosEditarMedico.cargarDatosEdicion(view, medicoEnEdicion);
                 // Habilita unicamente los campos editables y el boton de Actualizar
                 ProcesosEditarMedico.habilitarCamposEditables(view);
             }

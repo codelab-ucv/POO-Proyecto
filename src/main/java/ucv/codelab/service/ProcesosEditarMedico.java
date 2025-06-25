@@ -234,7 +234,7 @@ public class ProcesosEditarMedico {
     }
 
     // Se verifico previamente que contiene datos, no hace falta revalidar
-    public static void cargarDatos(FrmMantenimientoMedico view, Medico medicoEnEdicion) {
+    public static void cargarDatosEdicion(FrmMantenimientoMedico view, Medico medicoEnEdicion) {
         // Carga los datos en el formulario
         view.txtEditarCodigo.setText(medicoEnEdicion.getIdMedico() + "");
         view.txtEditarNombre.setText(medicoEnEdicion.getNombre());
@@ -347,6 +347,7 @@ public class ProcesosEditarMedico {
         medicoEnEdicion.setApellido(apellido);
         medicoEnEdicion.setDni(dni);
         medicoEnEdicion.setSexo(Sexo.fromString(sexo));
+        medicoEnEdicion.setFechaNacimiento(fechaNacimiento);
         medicoEnEdicion.setColegiatura(colegiatura);
         medicoEnEdicion.setGradoAcademico(GradoAcademico.fromString(gradoAcademico));
         medicoEnEdicion.setTelefono(telefono);
