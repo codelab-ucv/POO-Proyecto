@@ -108,4 +108,44 @@ CREATE TABLE
         FOREIGN KEY (id_medico) REFERENCES medico (id_medico) ON DELETE CASCADE
     );
 
+INSERT IGNORE INTO especialidad (especialidad, descripcion, estado)
+VALUES
+    (
+        'especialidad1',
+        'Especialidad de prueba para testing',
+        TRUE
+    );
+
+INSERT IGNORE INTO medico (
+    id_especialidad,
+    nombre,
+    apellido,
+    dni,
+    fecha_nacimiento,
+    sexo,
+    telefono,
+    email,
+    colegiatura,
+    grado_academico,
+    estado
+)
+VALUES
+    (
+        1,
+        'Admin',
+        'Administrator',
+        '12345678',
+        '1980-01-01',
+        'masculino',
+        '999999999',
+        'admin@hospital.com',
+        'CMP-001',
+        'doctor',
+        TRUE
+    );
+
+INSERT IGNORE INTO usuario (id_medico, username, password, estado)
+VALUES
+    (1, 'admin', 'admin', TRUE);
+
 COMMIT;
