@@ -1,4 +1,4 @@
-package ucv.codelab;
+package ucv.codelab.main;
 
 import java.awt.EventQueue;
 import java.util.logging.Level;

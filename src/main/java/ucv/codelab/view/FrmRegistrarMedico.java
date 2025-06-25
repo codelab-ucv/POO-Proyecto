@@ -12,7 +12,7 @@ public class FrmRegistrarMedico extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("REGISTRAR DOCTOR");
+        setupPanel("REGISTRAR MEDICO");
 
         txtNombres = createTextField("NOMBRES");
         txtApellidos = createTextField("APELLIDOS");

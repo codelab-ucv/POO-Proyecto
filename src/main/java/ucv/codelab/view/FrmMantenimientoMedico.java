@@ -16,7 +16,7 @@ public class FrmMantenimientoMedico extends PanelBase {
     }
 
     private void initComponents() {
-        setupPanel("MANTENIMIENTO DOCTOR");
+        setupPanel("MANTENIMIENTO DE MEDICOS");
 
         txtDni = createTextField("DNI");
         txtNombre = createTextField("NOMBRES");

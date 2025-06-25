@@ -44,9 +44,9 @@ public class MenuController implements ActionListener {
         view.menuItemRegistrarPaciente.addActionListener(this);
         view.menuItemMantenimientoPacientes.addActionListener(this);
 
-        // Event handlers para Doctores
-        view.menuItemRegistrarDoctor.addActionListener(this);
-        view.menuItemMantenimientoDoctores.addActionListener(this);
+        // Event handlers para Medicos
+        view.menuItemRegistrarMedicos.addActionListener(this);
+        view.menuItemMantenimientoMedicos.addActionListener(this);
 
         // Event handlers para Especialidades
         view.menuItemRegistrarEspecialidad.addActionListener(this);
@@ -84,12 +84,12 @@ public class MenuController implements ActionListener {
             mostrarPanel(frm);
         }
 
-        // Event handlers para Doctores
-        else if (e.getSource() == view.menuItemRegistrarDoctor) {
+        // Event handlers para Medicos
+        else if (e.getSource() == view.menuItemRegistrarMedicos) {
             FrmRegistrarMedico frm = new FrmRegistrarMedico();
             new RegistrarMedicoController(frm);
             mostrarPanel(frm);
-        } else if (e.getSource() == view.menuItemMantenimientoDoctores) {
+        } else if (e.getSource() == view.menuItemMantenimientoMedicos) {
             FrmMantenimientoMedico frm = new FrmMantenimientoMedico();
             new EditarMedicoController(frm);
             mostrarPanel(frm);

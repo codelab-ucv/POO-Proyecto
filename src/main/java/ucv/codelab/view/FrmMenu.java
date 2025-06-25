@@ -26,7 +26,7 @@ public class FrmMenu extends JFrame {
 
         // Menús principales
         menuPacientes = new JMenu();
-        menuDoctores = new JMenu();
+        menuMedicos = new JMenu();
         menuEspecialidades = new JMenu();
         menuHistoriasClinicas = new JMenu();
         menuExportarPdf = new JMenu();
@@ -35,9 +35,9 @@ public class FrmMenu extends JFrame {
         menuItemRegistrarPaciente = new JMenuItem();
         menuItemMantenimientoPacientes = new JMenuItem();
 
-        // MenuItems de Doctores
-        menuItemRegistrarDoctor = new JMenuItem();
-        menuItemMantenimientoDoctores = new JMenuItem();
+        // MenuItems de Medico
+        menuItemRegistrarMedicos = new JMenuItem();
+        menuItemMantenimientoMedicos = new JMenuItem();
 
         // MenuItems de Especialidades
         menuItemRegistrarEspecialidad = new JMenuItem();
@@ -63,13 +63,13 @@ public class FrmMenu extends JFrame {
                 "/ucv/codelab/images/ManteniminetoPa.png");
         menuBarPrincipal.add(menuPacientes);
 
-        // Configuración del menú Doctores
-        configurarMenu(menuDoctores, "Doctores", "/ucv/codelab/images/IconoDoctor.png");
-        configurarMenuItem(menuItemRegistrarDoctor, menuDoctores, "Registrar Doctor",
+        // Configuración del menú Medicos
+        configurarMenu(menuMedicos, "Medicos", "/ucv/codelab/images/IconoMedico.png");
+        configurarMenuItem(menuItemRegistrarMedicos, menuMedicos, "Registrar Médico",
                 "/ucv/codelab/images/RegistrarDo.png");
-        configurarMenuItem(menuItemMantenimientoDoctores, menuDoctores, "Mantenimiento de Doctores",
+        configurarMenuItem(menuItemMantenimientoMedicos, menuMedicos, "Mantenimiento de Médico",
                 "/ucv/codelab/images/ManteniminetoDoc.png");
-        menuBarPrincipal.add(menuDoctores);
+        menuBarPrincipal.add(menuMedicos);
 
         // Configuración del menú Especialidades
         configurarMenu(menuEspecialidades, "Especialidades", "/ucv/codelab/images/IconoEspecia..png");
@@ -122,7 +122,7 @@ public class FrmMenu extends JFrame {
 
     // Menús principales
     private JMenu menuPacientes;
-    private JMenu menuDoctores;
+    private JMenu menuMedicos;
     private JMenu menuEspecialidades;
     private JMenu menuHistoriasClinicas;
     private JMenu menuExportarPdf;
@@ -131,9 +131,9 @@ public class FrmMenu extends JFrame {
     public JMenuItem menuItemRegistrarPaciente;
     public JMenuItem menuItemMantenimientoPacientes;
 
-    // MenuItems de Doctores
-    public JMenuItem menuItemRegistrarDoctor;
-    public JMenuItem menuItemMantenimientoDoctores;
+    // MenuItems de Medico
+    public JMenuItem menuItemRegistrarMedicos;
+    public JMenuItem menuItemMantenimientoMedicos;
 
     // MenuItems de Especialidades
     public JMenuItem menuItemRegistrarEspecialidad;

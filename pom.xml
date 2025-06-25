@@ -6,7 +6,7 @@
 
     <groupId>ucv.codelab</groupId>
     <artifactId>poo</artifactId>
-    <version>0.3.10-SNAPSHOT</version>
+    <version>0.3.11-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -46,7 +46,7 @@
                             <transformers>
                                 <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ucv.codelab.Main</mainClass>
+                                    <mainClass>ucv.codelab.main.Main</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
