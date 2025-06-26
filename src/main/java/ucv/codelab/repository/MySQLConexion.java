@@ -1,4 +1,4 @@
-package ucv.codelab.util;
+package ucv.codelab.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -15,9 +15,9 @@ import javax.swing.table.TableColumnModel;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
 import ucv.codelab.view.PanelBase;
 
@@ -93,7 +93,7 @@ public class ProcesosEditarEspecialidad {
     }
 
     public static List<Especialidad> especialidadesFiltradas(FrmMantenimientoEspecialidad view) {
-        String nombreEspecialidad = Datos.limpiarString(view.txtEspecialidad.getText());
+        String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return especialidadesActivas();
@@ -110,7 +110,7 @@ public class ProcesosEditarEspecialidad {
 
     public static void borrarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a eliminar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -132,7 +132,7 @@ public class ProcesosEditarEspecialidad {
 
     public static Optional<Especialidad> seleccionarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a editar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -170,14 +170,14 @@ public class ProcesosEditarEspecialidad {
     public static boolean actualizarEspecialidad(FrmMantenimientoEspecialidad view,
             Especialidad especialidadEnEdicion) {
         // Primero valida los campos obligatorios
-        String nombreEspecialidad = Datos.limpiarString(view.txtEditarEspecialidad.getText());
+        String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtEditarEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return false;
         }
 
         // Si no hay problemas limpia los demas campos editables
-        String descripcion = Datos.limpiarString(view.txtEditarDescripcion.getText());
+        String descripcion = ComprobarDatos.limpiarString(view.txtEditarDescripcion.getText());
 
         // Actualiza los datos de la cache
         especialidadEnEdicion.setEspecialidad(nombreEspecialidad);

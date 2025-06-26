@@ -5,17 +5,17 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import ucv.codelab.model.Usuario;
+import ucv.codelab.repository.MySQLConexion;
 import ucv.codelab.repository.UsuarioRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 
 public class MedicoService {
 
     public static Usuario validarDatos(String user, String password) {
         // Limpieza de parámetros
-        user = Datos.limpiarString(user);
-        password = Datos.limpiarString(password);
+        user = ComprobarDatos.limpiarString(user);
+        password = ComprobarDatos.limpiarString(password);
 
         if (user == null || password == null) {
             return null;

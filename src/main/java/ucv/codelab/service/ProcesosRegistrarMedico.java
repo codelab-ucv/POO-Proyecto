@@ -12,9 +12,9 @@ import ucv.codelab.model.Especialidad;
 import ucv.codelab.model.Medico;
 import ucv.codelab.repository.EspecialidadRepository;
 import ucv.codelab.repository.MedicoRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmRegistrarMedico;
 
 public class ProcesosRegistrarMedico {
@@ -53,17 +53,17 @@ public class ProcesosRegistrarMedico {
             return Optional.empty();
         }
 
-        String nombre = Datos.limpiarString(view.txtNombres.getText());
-        String apellido = Datos.limpiarString(view.txtApellidos.getText());
-        String dni = Datos.limpiarString(view.txtDni.getText());
-        String colegiatura = Datos.limpiarString(view.txtColegiatura.getText());
-        String fechaNacimiento = Datos.limpiarString(view.txtFechaNacimiento.getText());
-        String sexo = Datos.limpiarString(view.cmbSexo.getSelectedItem().toString());
-        String gradoAcademico = Datos.limpiarString(view.cmbGradoAcademico.getSelectedItem().toString());
-        String especialidadString = Datos.limpiarString(view.cmbEspecialidad.getSelectedItem().toString());
+        String nombre = ComprobarDatos.limpiarString(view.txtNombres.getText());
+        String apellido = ComprobarDatos.limpiarString(view.txtApellidos.getText());
+        String dni = ComprobarDatos.limpiarString(view.txtDni.getText());
+        String colegiatura = ComprobarDatos.limpiarString(view.txtColegiatura.getText());
+        String fechaNacimiento = ComprobarDatos.limpiarString(view.txtFechaNacimiento.getText());
+        String sexo = ComprobarDatos.limpiarString(view.cmbSexo.getSelectedItem().toString());
+        String gradoAcademico = ComprobarDatos.limpiarString(view.cmbGradoAcademico.getSelectedItem().toString());
+        String especialidadString = ComprobarDatos.limpiarString(view.cmbEspecialidad.getSelectedItem().toString());
 
         // Verifica que se pueda parsear la fecha
-        LocalDate fecha = Datos.obtenerFecha(fechaNacimiento);
+        LocalDate fecha = ComprobarDatos.obtenerFecha(fechaNacimiento);
 
         // Si algun campo obligatorio no esta lleno
         if (nombre == null || apellido == null || dni == null || colegiatura == null || fecha == null || sexo == null
@@ -92,8 +92,8 @@ public class ProcesosRegistrarMedico {
     }
 
     public static boolean guardarMedico(FrmRegistrarMedico view, Medico medico) {
-        String telefono = Datos.limpiarString(view.txtTelefono.getText());
-        String email = Datos.limpiarString(view.txtCorreo.getText());
+        String telefono = ComprobarDatos.limpiarString(view.txtTelefono.getText());
+        String email = ComprobarDatos.limpiarString(view.txtCorreo.getText());
 
         medico.setTelefono(telefono);
         medico.setEmail(email);

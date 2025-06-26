@@ -6,15 +6,15 @@ import java.util.Optional;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmRegistrarEspecialidad;
 
 public class ProcesosRegistrarEspecialidad {
 
     public static Optional<Especialidad> validarDatos(FrmRegistrarEspecialidad view) {
-        String nombreEspecialidad = Datos.limpiarString(view.txtNombreEspecialidad.getText());
+        String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtNombreEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return Optional.empty();
@@ -24,7 +24,7 @@ public class ProcesosRegistrarEspecialidad {
     }
 
     public static boolean guardarEspecialidad(FrmRegistrarEspecialidad view, Especialidad especialidad) {
-        String descripcion = Datos.limpiarString(view.txtDescripcion.getText());
+        String descripcion = ComprobarDatos.limpiarString(view.txtDescripcion.getText());
 
         especialidad.setDescripcion(descripcion);
 

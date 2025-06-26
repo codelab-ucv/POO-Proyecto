@@ -12,17 +12,17 @@ import ucv.codelab.model.Tratamiento;
 import ucv.codelab.repository.DiagnosticoRepository;
 import ucv.codelab.repository.ExamenFisicoRepository;
 import ucv.codelab.repository.HistoriaClinicaRepository;
+import ucv.codelab.repository.MySQLConexion;
 import ucv.codelab.repository.TratamientoRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 
 public class HistoriaService {
 
     public static List<HistoriaClinica> buscarPorDni(String dniPaciente, String dniMedico) {
         // Limpieza de parámetros
-        dniPaciente = Datos.limpiarString(dniPaciente);
-        dniMedico = Datos.limpiarString(dniMedico);
+        dniPaciente = ComprobarDatos.limpiarString(dniPaciente);
+        dniMedico = ComprobarDatos.limpiarString(dniMedico);
 
         if (dniPaciente == null && dniMedico == null) {
             return null;
@@ -40,10 +40,10 @@ public class HistoriaService {
     public static List<HistoriaClinica> buscarPorNombre(String nombrePaciente, String apellidoPaciente,
             String nombreMedico, String apellidoMedico) {
         // Limpieza de parámetros
-        nombrePaciente = Datos.limpiarString(nombrePaciente);
-        apellidoPaciente = Datos.limpiarString(apellidoPaciente);
-        nombreMedico = Datos.limpiarString(nombreMedico);
-        apellidoMedico = Datos.limpiarString(apellidoMedico);
+        nombrePaciente = ComprobarDatos.limpiarString(nombrePaciente);
+        apellidoPaciente = ComprobarDatos.limpiarString(apellidoPaciente);
+        nombreMedico = ComprobarDatos.limpiarString(nombreMedico);
+        apellidoMedico = ComprobarDatos.limpiarString(apellidoMedico);
 
         if (nombrePaciente == null && apellidoPaciente == null &&
                 nombreMedico == null && apellidoMedico == null) {

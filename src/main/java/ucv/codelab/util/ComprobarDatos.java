@@ -2,7 +2,7 @@ package ucv.codelab.util;
 
 import java.time.LocalDate;
 
-public class Datos {
+public class ComprobarDatos {
 
     public static String limpiarString(String parametro) {
         if (parametro != null) {
