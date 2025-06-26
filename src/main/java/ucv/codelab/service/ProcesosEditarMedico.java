@@ -29,7 +29,7 @@ import ucv.codelab.view.PanelBase;
 
 public class ProcesosEditarMedico {
 
-    private static String[] titulo = { "CODGIO", "ESPECIALIDAD", "NOMBRE", "APELLIDO", "DNI", "FECHA DE NACIMIENTO",
+    private static String[] titulo = { "CODIGO", "ESPECIALIDAD", "NOMBRE", "APELLIDO", "DNI", "FECHA DE NACIMIENTO",
             "SEXO", "TELEFONO", "EMAIL", "COLEGIATURA", "GRADO ACADEMICO" };
 
     public static void presentacion(FrmMantenimientoMedico view, List<Medico> medicos) {

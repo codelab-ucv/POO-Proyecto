@@ -2,7 +2,7 @@ package ucv.codelab.enumerados;
 
 public enum GradoAcademico {
     LICENCIADO("licenciado"),
-    FEMENINO("magister"),
+    MAGISTER("magister"),
     DOCTOR("doctor");
 
     private final String valor;
