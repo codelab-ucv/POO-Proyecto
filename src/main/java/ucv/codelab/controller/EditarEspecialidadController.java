@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.service.ProcesosEditarEspecialidad;
+import ucv.codelab.util.Mensajes;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
 
 public class EditarEspecialidadController implements ActionListener {
@@ -44,8 +45,6 @@ public class EditarEspecialidadController implements ActionListener {
             clicEditar();
         } else if (e.getSource() == view.btnActualizar) {
             clicActualizar();
-            // Actualiza el resultado mostrado
-            clicBuscar();
         } else if (e.getSource() == view.btnEliminar) {
             clicEliminar();
             // Actualiza el resultado mostrado
@@ -82,11 +81,14 @@ public class EditarEspecialidadController implements ActionListener {
                 especialidadEnEdicion = null;
             } else {
                 // Si ocurre un error al guardar retorna sin cambios
+                Mensajes.error("Error al guardar", "Verifique que los campos esten correctamente ingresados");
                 return;
             }
         }
         // Deshabilita la edicion
         ProcesosEditarEspecialidad.deshabilitarEdicion(view);
+        // Actualiza el resultado mostrado
+        clicBuscar();
     }
 
     private void clicEliminar() {

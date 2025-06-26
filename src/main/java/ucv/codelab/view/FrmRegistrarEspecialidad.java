@@ -19,6 +19,9 @@ public class FrmRegistrarEspecialidad extends PanelBase {
         setupPanel("REGISTRAR ESPECIALIDAD");
 
         txtNombreEspecialidad = createTextField("NOMBRE ESPECIALIDAD");
+        txtConsultoriosAginados = createTextField("CONSULTORIOS ASIGNADOS");
+        txtRequisitosEspeciales = createTextField("REQUISITOS ESPECIALES");
+        txtCostoConsulta = createTextField("COSTO DE CONSULTA");
 
         btnGuardar = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR");
 
@@ -35,13 +38,22 @@ public class FrmRegistrarEspecialidad extends PanelBase {
         scrollDescripcion.setViewportView(txtDescripcion);
 
         // Disposición de componentes usando addComponent
-        addComponentNorth(txtNombreEspecialidad, 0, 0, 1, 1, 359, 30, 1.0);
+        addComponentNorth(txtNombreEspecialidad, 0, 0, 1, 1, 50, 30, 1.0);
+        addComponentNorth(txtCostoConsulta, 1, 0, 1, 1, 50, 30, 1.0);
+
         addComponentNorth(scrollDescripcion, 0, 1, 2, 1, 359, 300, 1.0);
-        addComponentFullSouth(btnGuardar, 0, 2, 2, 1, 50, 30);
+
+        addComponentNorth(txtConsultoriosAginados, 0, 2, 1, 1, 50, 30, 1.0);
+        addComponentNorth(txtRequisitosEspeciales, 1, 2, 1, 1, 50, 30, 1.0);
+
+        addComponentFullSouth(btnGuardar, 0, 3, 2, 1, 50, 30);
     }
 
-    public JTextField txtNombreEspecialidad;
     public JToggleButton btnGuardar;
     private JScrollPane scrollDescripcion;
+    public JTextField txtNombreEspecialidad;
     public JTextArea txtDescripcion;
+    public JTextField txtConsultoriosAginados;
+    public JTextField txtRequisitosEspeciales;
+    public JTextField txtCostoConsulta;
 }

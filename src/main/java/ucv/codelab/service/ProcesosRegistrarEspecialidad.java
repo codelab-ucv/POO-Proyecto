@@ -15,18 +15,27 @@ public class ProcesosRegistrarEspecialidad {
 
     public static Optional<Especialidad> validarDatos(FrmRegistrarEspecialidad view) {
         String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtNombreEspecialidad.getText());
+        String strCostoConsulta = ComprobarDatos.limpiarString(view.txtCostoConsulta.getText());
+        String strConsultoriosAsignados = ComprobarDatos.limpiarString(view.txtConsultoriosAginados.getText());
 
-        if (nombreEspecialidad == null) {
+        // Verifica los numeros
+        Double costoConsulta = ComprobarDatos.validarDecimal(strCostoConsulta);
+        Integer consultoriosAsignados = ComprobarDatos.validarEntero(strConsultoriosAsignados);
+
+        // Si algun campo obligatorio no esta lleno
+        if (nombreEspecialidad == null || costoConsulta == null || consultoriosAsignados == null) {
             return Optional.empty();
         }
 
-        return Optional.of(new Especialidad(nombreEspecialidad, true));
+        return Optional.of(new Especialidad(nombreEspecialidad, costoConsulta, consultoriosAsignados, true));
     }
 
     public static boolean guardarEspecialidad(FrmRegistrarEspecialidad view, Especialidad especialidad) {
         String descripcion = ComprobarDatos.limpiarString(view.txtDescripcion.getText());
+        String requisitosEspeciales = ComprobarDatos.limpiarString(view.txtRequisitosEspeciales.getText());
 
         especialidad.setDescripcion(descripcion);
+        especialidad.setRequisitosEspeciales(requisitosEspeciales);
 
         try (Connection conn = MySQLConexion.getInstance().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);

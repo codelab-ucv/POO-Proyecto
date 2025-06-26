@@ -27,4 +27,23 @@ public class ComprobarDatos {
         return null;
     }
 
+    public static Integer validarEntero(String strEntero) {
+        if (strEntero != null) {
+            try {
+                return Integer.parseInt(strEntero);
+            } catch (NumberFormatException e) {
+            }
+        }
+        return null;
+    }
+
+    public static Double validarDecimal(String strDecimal) {
+        if (strDecimal != null) {
+            try {
+                return Double.parseDouble(strDecimal);
+            } catch (NumberFormatException e) {
+            }
+        }
+        return null;
+    }
 }
