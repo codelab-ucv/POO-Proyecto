@@ -8,14 +8,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import ucv.codelab.controller.LoginController;
-import ucv.codelab.util.DatabaseInitializer;
 import ucv.codelab.view.FrmLogin;
 import ucv.codelab.view.FrmMenu;
 
 public class Main {
     public static void main(String[] args) {
-        DatabaseInitializer.initializeDatabase();
-
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

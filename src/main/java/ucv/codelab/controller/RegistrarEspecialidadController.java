@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.service.ProcesosRegistrarEspecialidad;
 import ucv.codelab.util.Mensajes;
@@ -29,6 +31,7 @@ public class RegistrarEspecialidadController implements ActionListener {
             if (especialidad.isPresent()) {
                 if (ProcesosRegistrarEspecialidad.guardarEspecialidad(view, especialidad.get())) {
                     ProcesosRegistrarEspecialidad.limpiarEntradas(view);
+                    JOptionPane.showMessageDialog(null, "Especialidad guardada con exito");
                 }
             } else {
                 Mensajes.error("Error al guardar", "Verifique que los campos esten correctamente ingresados");

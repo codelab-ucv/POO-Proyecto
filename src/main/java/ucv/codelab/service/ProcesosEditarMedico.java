@@ -21,15 +21,15 @@ import ucv.codelab.model.Especialidad;
 import ucv.codelab.model.Medico;
 import ucv.codelab.repository.EspecialidadRepository;
 import ucv.codelab.repository.MedicoRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmMantenimientoMedico;
 import ucv.codelab.view.PanelBase;
 
 public class ProcesosEditarMedico {
 
-    private static String[] titulo = { "CODGIO", "ESPECIALIDAD", "NOMBRE", "APELLIDO", "DNI", "FECHA DE NACIMIENTO",
+    private static String[] titulo = { "CODIGO", "ESPECIALIDAD", "NOMBRE", "APELLIDO", "DNI", "FECHA DE NACIMIENTO",
             "SEXO", "TELEFONO", "EMAIL", "COLEGIATURA", "GRADO ACADEMICO" };
 
     public static void presentacion(FrmMantenimientoMedico view, List<Medico> medicos) {
@@ -64,7 +64,7 @@ public class ProcesosEditarMedico {
         }
         view.cmbEditarGradoAcademico.setSelectedItem(null);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             List<Especialidad> especialidades = especialidadRepository.buscarTodos();
             for (Especialidad especialidad : especialidades) {
@@ -128,7 +128,7 @@ public class ProcesosEditarMedico {
 
     public static List<Medico> medicosActivos() {
         // Descarga los datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
             List<Medico> medicos = medicoRepository.buscarTodos();
             try {
@@ -150,15 +150,15 @@ public class ProcesosEditarMedico {
     }
 
     public static List<Medico> medicosFiltrados(FrmMantenimientoMedico view) {
-        String dni = Datos.limpiarString(view.txtDni.getText());
-        String nombre = Datos.limpiarString(view.txtNombre.getText());
-        String apellido = Datos.limpiarString(view.txtApellido.getText());
+        String dni = ComprobarDatos.limpiarString(view.txtDni.getText());
+        String nombre = ComprobarDatos.limpiarString(view.txtNombre.getText());
+        String apellido = ComprobarDatos.limpiarString(view.txtApellido.getText());
 
         if (dni == null && nombre == null && apellido == null) {
             return medicosActivos();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
             // Actualiza el nombre de especialidades
             List<Medico> medicos = medicoRepository.buscarFiltrado(dni, nombre, apellido);
@@ -182,7 +182,7 @@ public class ProcesosEditarMedico {
 
     public static void borrarMedico(FrmMantenimientoMedico view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del medico a eliminar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -191,7 +191,7 @@ public class ProcesosEditarMedico {
 
         try {
             int idMedico = Integer.valueOf(input);
-            try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            try (Connection conn = new MySQLConexion().getConexion()) {
                 MedicoRepository medicoRepository = new MedicoRepository(conn);
                 medicoRepository.desactivar(idMedico);
             }
@@ -204,14 +204,13 @@ public class ProcesosEditarMedico {
 
     public static Optional<Medico> seleccionarMedico(FrmMantenimientoMedico view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID del medico a editar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
             return Optional.empty();
         }
-
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             int idBuscado = Integer.parseInt(input);
 
             MedicoRepository medicoRepository = new MedicoRepository(conn);
@@ -242,7 +241,7 @@ public class ProcesosEditarMedico {
         String especialidadStr = null;
 
         // Carga los datos ca
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository repo = new EspecialidadRepository(conn);
             especialidadStr = repo.buscarPorId(medicoEnEdicion.getIdEspecialidad()).get().getEspecialidad();
         } catch (Exception e) {
@@ -294,14 +293,14 @@ public class ProcesosEditarMedico {
     public static boolean actualizarMedico(FrmMantenimientoMedico view,
             Medico medicoEnEdicion) {
         // Primero valida los campos obligatorios
-        String strEspecialidad = Datos.limpiarString(view.cmbEditarEspecialidad.getSelectedItem().toString());
-        String nombre = Datos.limpiarString(view.txtEditarNombre.getText());
-        String apellido = Datos.limpiarString(view.txtEditarApellidos.getText());
-        String dni = Datos.limpiarString(view.txtEditarDni.getText());
-        String strFechaNacimiento = Datos.limpiarString(view.txtEditarFechaNacimiento.getText());
-        String sexo = Datos.limpiarString(view.cmbEditarSexo.getSelectedItem().toString());
-        String colegiatura = Datos.limpiarString(view.txtEditarColegiatura.getText());
-        String gradoAcademico = Datos.limpiarString(view.cmbEditarGradoAcademico.getSelectedItem().toString());
+        String strEspecialidad = ComprobarDatos.limpiarString(view.cmbEditarEspecialidad.getSelectedItem().toString());
+        String nombre = ComprobarDatos.limpiarString(view.txtEditarNombre.getText());
+        String apellido = ComprobarDatos.limpiarString(view.txtEditarApellidos.getText());
+        String dni = ComprobarDatos.limpiarString(view.txtEditarDni.getText());
+        String strFechaNacimiento = ComprobarDatos.limpiarString(view.txtEditarFechaNacimiento.getText());
+        String sexo = ComprobarDatos.limpiarString(view.cmbEditarSexo.getSelectedItem().toString());
+        String colegiatura = ComprobarDatos.limpiarString(view.txtEditarColegiatura.getText());
+        String gradoAcademico = ComprobarDatos.limpiarString(view.cmbEditarGradoAcademico.getSelectedItem().toString());
 
         if (strEspecialidad == null || nombre == null || apellido == null || dni == null || strFechaNacimiento == null
                 || sexo == null || colegiatura == null || gradoAcademico == null) {
@@ -309,13 +308,13 @@ public class ProcesosEditarMedico {
         }
 
         // Verifica que se pueda parsear la fecha
-        LocalDate fechaNacimiento = Datos.obtenerFecha(strFechaNacimiento);
+        LocalDate fechaNacimiento = ComprobarDatos.obtenerFecha(strFechaNacimiento);
         if (fechaNacimiento == null) {
             return false;
         }
 
         // Verifica que se pueda obtener la especialidad
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository repo = new EspecialidadRepository(conn);
             Optional<Especialidad> especialidadEncontrada = repo.buscarPorNombre(strEspecialidad);
             // Si por alguna razon no encuentra la especialidad retorna
@@ -330,8 +329,8 @@ public class ProcesosEditarMedico {
         }
 
         // Si no hay problemas limpia los demas campos editables
-        String telefono = Datos.limpiarString(view.txtEditarTelefono.getText());
-        String correo = Datos.limpiarString(view.txtEditarCorreo.getText());
+        String telefono = ComprobarDatos.limpiarString(view.txtEditarTelefono.getText());
+        String correo = ComprobarDatos.limpiarString(view.txtEditarCorreo.getText());
 
         // Actualiza los datos de la cache
         medicoEnEdicion.setNombre(nombre);
@@ -344,7 +343,7 @@ public class ProcesosEditarMedico {
         medicoEnEdicion.setTelefono(telefono);
         medicoEnEdicion.setEmail(correo);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository repo = new MedicoRepository(conn);
             repo.actualizar(medicoEnEdicion);
             return true;

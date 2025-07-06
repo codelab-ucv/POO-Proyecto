@@ -36,17 +36,24 @@ public class FrmMantenimientoEspecialidad extends PanelBase {
         // Configura los componentes del panel de edicion
         txtEditarCodigo = createTextField("CODIGO");
         txtEditarEspecialidad = createTextField("ESPECIALIDAD");
+        txtEditarCostoConsulta = createTextField("COSTO DE CONSULTA");
         txtEditarDescripcion = createTextField("DESCRIPCION");
+        txtEditarConsultoriosAginados = createTextField("CONSULTORIOS ASIGNADOS");
+        txtEditarRequisitosEspeciales = createTextField("REQUISITOS ESPECIALES");
         btnActualizar = createButton("/ucv/codelab/images/ACTUALIZAR.png", "ACTUALIZAR");
 
         // Añade los componentes al panel de edicion
         addComponentEditor(panelEdicion, txtEditarCodigo, 0, 30);
         addComponentEditor(panelEdicion, txtEditarEspecialidad, 1, 30);
-        addComponentEditor(panelEdicion, txtEditarDescripcion, 2, 200);
-        addComponentEditor(panelEdicion, btnActualizar, 3, 30);
+        addComponentEditor(panelEdicion, txtEditarCostoConsulta, 2, 30);
+        addComponentEditor(panelEdicion, txtEditarDescripcion, 3, 200);
+        addComponentEditor(panelEdicion, txtEditarConsultoriosAginados, 4, 30);
+        addComponentEditor(panelEdicion, txtEditarRequisitosEspeciales, 5, 30);
+        addComponentEditor(panelEdicion, btnActualizar, 6, 30);
 
         // Disposición de componentes usando addComponent
         addComponentNorth(txtEspecialidad, 0, 0, 1, 1, 60, 30, 1.0);
+        addComponentNorth(scrollPanelEdicion, PROPERTIES, FRAMEBITS, WIDTH, HEIGHT, ERROR, ALLBITS, ABORT);
         addComponentNorth(btnBuscar, 1, 0, 1, 1, 60, 30, 1.0);
 
         addComponentCenter(scrollResultados, 0, 1, 3, 1, 100, 200);
@@ -77,6 +84,9 @@ public class FrmMantenimientoEspecialidad extends PanelBase {
     // Componentes del panel de edicion
     public JTextField txtEditarCodigo;
     public JTextField txtEditarEspecialidad;
+    public JTextField txtEditarCostoConsulta;
     public JTextField txtEditarDescripcion;
+    public JTextField txtEditarConsultoriosAginados;
+    public JTextField txtEditarRequisitosEspeciales;
     public JToggleButton btnActualizar;
 }

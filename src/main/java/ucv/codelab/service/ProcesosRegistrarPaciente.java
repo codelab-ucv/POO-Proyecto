@@ -7,10 +7,10 @@ import java.util.Optional;
 import ucv.codelab.enumerados.Sexo;
 import ucv.codelab.enumerados.TipoSangre;
 import ucv.codelab.model.Paciente;
+import ucv.codelab.repository.MySQLConexion;
 import ucv.codelab.repository.PacienteRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmRegistrarPaciente;
 
 public class ProcesosRegistrarPaciente {
@@ -35,15 +35,15 @@ public class ProcesosRegistrarPaciente {
             return Optional.empty();
         }
 
-        String nombre = Datos.limpiarString(view.txtNombres.getText());
-        String apellido = Datos.limpiarString(view.txtApellidos.getText());
-        String dni = Datos.limpiarString(view.txtDni.getText());
-        String fechaNacimiento = Datos.limpiarString(view.txtFechaNacimiento.getText());
-        String sexo = Datos.limpiarString(view.cmbSexo.getSelectedItem().toString());
-        String tipoSangre = Datos.limpiarString(view.cmbTipoSangre.getSelectedItem().toString());
+        String nombre = ComprobarDatos.limpiarString(view.txtNombres.getText());
+        String apellido = ComprobarDatos.limpiarString(view.txtApellidos.getText());
+        String dni = ComprobarDatos.limpiarString(view.txtDni.getText());
+        String fechaNacimiento = ComprobarDatos.limpiarString(view.txtFechaNacimiento.getText());
+        String sexo = ComprobarDatos.limpiarString(view.cmbSexo.getSelectedItem().toString());
+        String tipoSangre = ComprobarDatos.limpiarString(view.cmbTipoSangre.getSelectedItem().toString());
 
         // Verifica que se pueda parsear la fecha
-        LocalDate fecha = Datos.obtenerFecha(fechaNacimiento);
+        LocalDate fecha = ComprobarDatos.obtenerFecha(fechaNacimiento);
 
         // No hay mas datos que requieran validacion ya que los demas campos opcionales
         // son Strings que acetan cualquier dato
@@ -63,13 +63,13 @@ public class ProcesosRegistrarPaciente {
     }
 
     public static boolean guardarPaciente(FrmRegistrarPaciente view, Paciente paciente) {
-        String telefono = Datos.limpiarString(view.txtTelefono.getText());
-        String direccion = Datos.limpiarString(view.txtDireccion.getText());
+        String telefono = ComprobarDatos.limpiarString(view.txtTelefono.getText());
+        String direccion = ComprobarDatos.limpiarString(view.txtDireccion.getText());
 
         paciente.setTelefono(telefono);
         paciente.setDireccion(direccion);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             pacienteRepository.crear(paciente);
             return true;

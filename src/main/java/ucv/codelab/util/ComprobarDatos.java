@@ -2,7 +2,7 @@ package ucv.codelab.util;
 
 import java.time.LocalDate;
 
-public class Datos {
+public class ComprobarDatos {
 
     public static String limpiarString(String parametro) {
         if (parametro != null) {
@@ -19,6 +19,10 @@ public class Datos {
         if (fechaString != null) {
             String[] fechaSeparada = fechaString.split("/");
             try {
+                // Si la fecha es menor que 1900
+                if (Integer.parseInt(fechaSeparada[2]) < 1900) {
+                    return null;
+                }
                 return LocalDate.of(Integer.valueOf(fechaSeparada[2]), Integer.valueOf(fechaSeparada[1]),
                         Integer.valueOf(fechaSeparada[0]));
             } catch (Exception e) {
@@ -27,4 +31,23 @@ public class Datos {
         return null;
     }
 
+    public static Integer validarEntero(String strEntero) {
+        if (strEntero != null) {
+            try {
+                return Integer.parseInt(strEntero);
+            } catch (NumberFormatException e) {
+            }
+        }
+        return null;
+    }
+
+    public static Double validarDecimal(String strDecimal) {
+        if (strDecimal != null) {
+            try {
+                return Double.parseDouble(strDecimal);
+            } catch (NumberFormatException e) {
+            }
+        }
+        return null;
+    }
 }

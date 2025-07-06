@@ -15,15 +15,16 @@ import javax.swing.table.TableColumnModel;
 
 import ucv.codelab.model.Especialidad;
 import ucv.codelab.repository.EspecialidadRepository;
-import ucv.codelab.util.Datos;
+import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
-import ucv.codelab.util.MySQLConexion;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
 import ucv.codelab.view.PanelBase;
 
 public class ProcesosEditarEspecialidad {
 
-    private static String[] titulo = { "CODIGO", "ESPECIALIDAD", "DESCRIPCION" };
+    private static String[] titulo = { "CODIGO", "ESPECIALIDAD", "COSTO CONSULTA", "DESCRIPCION",
+            "CONSULTORIOS ASIGNADOS", "REQUISITOS ESPECIALES" };
 
     public static void presentacion(FrmMantenimientoEspecialidad view, List<Especialidad> especialidades) {
         cargarDatos(view, especialidades);
@@ -62,9 +63,12 @@ public class ProcesosEditarEspecialidad {
         TableColumnModel columnModel = view.tblResultados.getColumnModel();
 
         // Ajustar ancho de columnas específicas
-        columnModel.getColumn(0).setPreferredWidth(80); // CODIGO
-        columnModel.getColumn(1).setPreferredWidth(200); // ESPECIALIDAD
-        columnModel.getColumn(2).setPreferredWidth(600); // DESCRIPCION
+        columnModel.getColumn(0).setPreferredWidth(40); // CODIGO
+        columnModel.getColumn(1).setPreferredWidth(80); // ESPECIALIDAD
+        columnModel.getColumn(2).setPreferredWidth(50); // COSTO CONSULTA
+        columnModel.getColumn(3).setPreferredWidth(200); // DESCRIPCION
+        columnModel.getColumn(4).setPreferredWidth(80); // CONSULTORIOS ASIGNADOS
+        columnModel.getColumn(5).setPreferredWidth(100); // REQUISITOS ESPECIALES
 
         // Personalizar altura de filas
         view.tblResultados.setRowHeight(25);
@@ -76,30 +80,32 @@ public class ProcesosEditarEspecialidad {
     public static void deshabilitarEdicion(FrmMantenimientoEspecialidad view) {
         view.txtEditarCodigo.setEnabled(false);
         view.txtEditarEspecialidad.setEnabled(false);
+        view.txtEditarCostoConsulta.setEnabled(false);
         view.txtEditarDescripcion.setEnabled(false);
+        view.txtEditarConsultoriosAginados.setEnabled(false);
+        view.txtEditarRequisitosEspeciales.setEnabled(false);
         view.btnActualizar.setEnabled(false);
     }
 
     public static List<Especialidad> especialidadesActivas() {
         // Descarga los datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             return especialidadRepository.buscarTodos();
         } catch (Exception e) {
-            e.printStackTrace();
             Mensajes.errorConexion();
             return new ArrayList<>();
         }
     }
 
     public static List<Especialidad> especialidadesFiltradas(FrmMantenimientoEspecialidad view) {
-        String nombreEspecialidad = Datos.limpiarString(view.txtEspecialidad.getText());
+        String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtEspecialidad.getText());
 
         if (nombreEspecialidad == null) {
             return especialidadesActivas();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             return especialidadRepository.buscarFiltrado(nombreEspecialidad);
         } catch (Exception e) {
@@ -110,7 +116,7 @@ public class ProcesosEditarEspecialidad {
 
     public static void borrarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a eliminar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
@@ -119,7 +125,7 @@ public class ProcesosEditarEspecialidad {
 
         try {
             int idEspecialidad = Integer.valueOf(input);
-            try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            try (Connection conn = new MySQLConexion().getConexion()) {
                 EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
                 especialidadRepository.desactivar(idEspecialidad);
             }
@@ -132,14 +138,14 @@ public class ProcesosEditarEspecialidad {
 
     public static Optional<Especialidad> seleccionarEspecialidad(FrmMantenimientoEspecialidad view) {
         String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la especialidad a editar");
-        input = Datos.limpiarString(input);
+        input = ComprobarDatos.limpiarString(input);
 
         // Si se cancela la eliminacion o esta vacio
         if (input == null) {
             return Optional.empty();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             int idBuscado = Integer.parseInt(input);
 
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
@@ -157,33 +163,50 @@ public class ProcesosEditarEspecialidad {
         // Carga los datos en el formulario
         view.txtEditarCodigo.setText(especialidadEnEdicion.getIdEspecialidad() + "");
         view.txtEditarEspecialidad.setText(especialidadEnEdicion.getEspecialidad());
+        view.txtEditarCostoConsulta.setText(especialidadEnEdicion.getCostoConsulta() + "");
         view.txtEditarDescripcion.setText(especialidadEnEdicion.getDescripcion());
+        view.txtEditarConsultoriosAginados.setText(especialidadEnEdicion.getConsultoriosAsignados() + "");
+        view.txtEditarRequisitosEspeciales.setText(especialidadEnEdicion.getRequisitosEspeciales());
     }
 
     // Habilita campos editables
     public static void habilitarCamposEditables(FrmMantenimientoEspecialidad view) {
         view.txtEditarEspecialidad.setEnabled(true);
+        view.txtEditarCostoConsulta.setEnabled(true);
         view.txtEditarDescripcion.setEnabled(true);
+        view.txtEditarConsultoriosAginados.setEnabled(true);
+        view.txtEditarRequisitosEspeciales.setEnabled(true);
         view.btnActualizar.setEnabled(true);
     }
 
     public static boolean actualizarEspecialidad(FrmMantenimientoEspecialidad view,
             Especialidad especialidadEnEdicion) {
         // Primero valida los campos obligatorios
-        String nombreEspecialidad = Datos.limpiarString(view.txtEditarEspecialidad.getText());
+        String nombreEspecialidad = ComprobarDatos.limpiarString(view.txtEditarEspecialidad.getText());
+        String strCostoConsulta = ComprobarDatos.limpiarString(view.txtEditarCostoConsulta.getText());
+        String strConsultoriosAsignados = ComprobarDatos.limpiarString(view.txtEditarConsultoriosAginados.getText());
 
-        if (nombreEspecialidad == null) {
+        // Verifica los numeros
+        Double costoConsulta = ComprobarDatos.validarDecimal(strCostoConsulta);
+        Integer consultoriosAsignados = ComprobarDatos.validarEntero(strConsultoriosAsignados);
+
+        // Si algun campo obligatorio no esta lleno
+        if (nombreEspecialidad == null || costoConsulta == null || consultoriosAsignados == null) {
             return false;
         }
 
         // Si no hay problemas limpia los demas campos editables
-        String descripcion = Datos.limpiarString(view.txtEditarDescripcion.getText());
+        String descripcion = ComprobarDatos.limpiarString(view.txtEditarDescripcion.getText());
+        String requisitosEspeciales = ComprobarDatos.limpiarString(view.txtEditarRequisitosEspeciales.getText());
 
         // Actualiza los datos de la cache
         especialidadEnEdicion.setEspecialidad(nombreEspecialidad);
+        especialidadEnEdicion.setCostoConsulta(costoConsulta);
+        especialidadEnEdicion.setConsultoriosAsignados(consultoriosAsignados);
         especialidadEnEdicion.setDescripcion(descripcion);
+        especialidadEnEdicion.setRequisitosEspeciales(requisitosEspeciales);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             especialidadRepository.actualizar(especialidadEnEdicion);
             return true;

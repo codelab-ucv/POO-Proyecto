@@ -32,10 +32,16 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
         Especialidad especialidad = new Especialidad();
         especialidad.setIdEspecialidad(rs.getInt("id_especialidad"));
         especialidad.setEspecialidad(rs.getString("especialidad"));
+        especialidad.setCostoConsulta(rs.getDouble("costo_consulta"));
+        especialidad.setConsultoriosAsignados(rs.getInt("consultorios_asignados"));
 
-        // El campo descripcion puede ser NULL
+        // Los campos descripcion y requisitosEspeciales pueden ser NULL
         if (rs.getString("descripcion") != null) {
             especialidad.setDescripcion(rs.getString("descripcion"));
+        }
+        
+        if (rs.getString("requisitosEspeciales") != null) {
+            especialidad.setRequisitosEspeciales(rs.getString("requisitosEspeciales"));
         }
 
         especialidad.setEstado(rs.getBoolean("estado"));
@@ -45,38 +51,57 @@ public class EspecialidadRepository extends BaseRepository<Especialidad> {
 
     @Override
     protected String buildInsertSQL() {
-        return "INSERT INTO especialidad (especialidad, descripcion, estado) VALUES (?, ?, ?)";
+        return "INSERT INTO especialidad (especialidad, costo_consulta, descripcion, consultorios_asignados, requisitosEspeciales, estado) VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     @Override
     protected void establecerParametrosInsertar(PreparedStatement stmt, Especialidad entity) throws SQLException {
         stmt.setString(1, entity.getEspecialidad());
-
+        stmt.setDouble(2, entity.getCostoConsulta());
+        
         if (entity.getDescripcion() != null) {
-            stmt.setString(2, entity.getDescripcion());
+            stmt.setString(3, entity.getDescripcion());
         } else {
-            stmt.setNull(2, Types.VARCHAR);
+            stmt.setNull(3, Types.VARCHAR);
         }
-        stmt.setBoolean(3, entity.isEstado());
+        
+        stmt.setInt(4, entity.getConsultoriosAsignados());
+        
+        if (entity.getRequisitosEspeciales() != null) {
+            stmt.setString(5, entity.getRequisitosEspeciales());
+        } else {
+            stmt.setNull(5, Types.VARCHAR);
+        }
+        
+        stmt.setBoolean(6, entity.isEstado());
     }
 
     @Override
     protected String buildUpdateSQL() {
-        return "UPDATE especialidad SET especialidad = ?, descripcion = ?, estado = ? WHERE id_especialidad = ?";
+        return "UPDATE especialidad SET especialidad = ?, costo_consulta = ?, descripcion = ?, consultorios_asignados = ?, requisitosEspeciales = ?, estado = ? WHERE id_especialidad = ?";
     }
 
     @Override
     protected void establecerParametrosActualizar(PreparedStatement stmt, Especialidad entity) throws SQLException {
         stmt.setString(1, entity.getEspecialidad());
+        stmt.setDouble(2, entity.getCostoConsulta());
 
         if (entity.getDescripcion() != null) {
-            stmt.setString(2, entity.getDescripcion());
+            stmt.setString(3, entity.getDescripcion());
         } else {
-            stmt.setNull(2, Types.VARCHAR);
+            stmt.setNull(3, Types.VARCHAR);
+        }
+        
+        stmt.setInt(4, entity.getConsultoriosAsignados());
+        
+        if (entity.getRequisitosEspeciales() != null) {
+            stmt.setString(5, entity.getRequisitosEspeciales());
+        } else {
+            stmt.setNull(5, Types.VARCHAR);
         }
 
-        stmt.setBoolean(3, entity.isEstado());
-        stmt.setInt(4, entity.getIdEspecialidad());
+        stmt.setBoolean(6, entity.isEstado());
+        stmt.setInt(7, entity.getIdEspecialidad());
     }
 
     @Override
