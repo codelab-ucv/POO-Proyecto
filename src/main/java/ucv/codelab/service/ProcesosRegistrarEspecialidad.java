@@ -37,7 +37,7 @@ public class ProcesosRegistrarEspecialidad {
         especialidad.setDescripcion(descripcion);
         especialidad.setRequisitosEspeciales(requisitosEspeciales);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             especialidadRepository.crear(especialidad);
             return true;

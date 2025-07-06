@@ -19,6 +19,10 @@ public class ComprobarDatos {
         if (fechaString != null) {
             String[] fechaSeparada = fechaString.split("/");
             try {
+                // Si la fecha es menor que 1900
+                if (Integer.parseInt(fechaSeparada[2]) < 1900) {
+                    return null;
+                }
                 return LocalDate.of(Integer.valueOf(fechaSeparada[2]), Integer.valueOf(fechaSeparada[1]),
                         Integer.valueOf(fechaSeparada[0]));
             } catch (Exception e) {

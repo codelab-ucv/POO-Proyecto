@@ -21,7 +21,7 @@ public class MedicoService {
             return null;
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             UsuarioRepository usuarioRepository = new UsuarioRepository(conn);
 
             Optional<Usuario> usuario = usuarioRepository.validarUsuario(user, password);

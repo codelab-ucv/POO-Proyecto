@@ -89,7 +89,7 @@ public class ProcesosEditarEspecialidad {
 
     public static List<Especialidad> especialidadesActivas() {
         // Descarga los datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             return especialidadRepository.buscarTodos();
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class ProcesosEditarEspecialidad {
             return especialidadesActivas();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             return especialidadRepository.buscarFiltrado(nombreEspecialidad);
         } catch (Exception e) {
@@ -125,7 +125,7 @@ public class ProcesosEditarEspecialidad {
 
         try {
             int idEspecialidad = Integer.valueOf(input);
-            try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            try (Connection conn = new MySQLConexion().getConexion()) {
                 EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
                 especialidadRepository.desactivar(idEspecialidad);
             }
@@ -145,7 +145,7 @@ public class ProcesosEditarEspecialidad {
             return Optional.empty();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             int idBuscado = Integer.parseInt(input);
 
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
@@ -206,7 +206,7 @@ public class ProcesosEditarEspecialidad {
         especialidadEnEdicion.setDescripcion(descripcion);
         especialidadEnEdicion.setRequisitosEspeciales(requisitosEspeciales);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             especialidadRepository.actualizar(especialidadEnEdicion);
             return true;

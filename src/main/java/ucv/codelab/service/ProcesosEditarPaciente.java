@@ -111,7 +111,7 @@ public class ProcesosEditarPaciente {
 
     public static List<Paciente> pacientesActivos() {
         // Descarga los datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             return pacienteRepository.buscarTodos();
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class ProcesosEditarPaciente {
             return pacientesActivos();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             return pacienteRepository.buscarFiltrado(dni, nombre, apellido);
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class ProcesosEditarPaciente {
 
         try {
             int idPaciente = Integer.valueOf(input);
-            try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            try (Connection conn = new MySQLConexion().getConexion()) {
                 PacienteRepository pacienteRepository = new PacienteRepository(conn);
                 pacienteRepository.desactivar(idPaciente);
             }
@@ -169,7 +169,7 @@ public class ProcesosEditarPaciente {
             return Optional.empty();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             int idBuscado = Integer.parseInt(input);
 
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
@@ -259,7 +259,7 @@ public class ProcesosEditarPaciente {
         pacienteEnEdicion.setTelefono(telefono);
         pacienteEnEdicion.setTipoSangre(TipoSangre.fromString(tipoSangre));
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             PacienteRepository repo = new PacienteRepository(conn);
             repo.actualizar(pacienteEnEdicion);
             return true;
@@ -269,4 +269,4 @@ public class ProcesosEditarPaciente {
         }
     }
 
-   }
+}

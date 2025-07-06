@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import ucv.codelab.model.Paciente;
 import ucv.codelab.service.ProcesosRegistrarPaciente;
 import ucv.codelab.util.Mensajes;
@@ -29,6 +31,7 @@ public class RegistrarPacienteController implements ActionListener {
             if (paciente.isPresent()) {
                 if (ProcesosRegistrarPaciente.guardarPaciente(view, paciente.get())) {
                     ProcesosRegistrarPaciente.limpiarEntradas(view);
+                    JOptionPane.showMessageDialog(null, "Paciente guardado con exito");
                 }
             } else {
                 Mensajes.error("Error al guardar", "Verifique que los campos esten correctamente ingresados");

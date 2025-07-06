@@ -69,7 +69,7 @@ public class ProcesosRegistrarPaciente {
         paciente.setTelefono(telefono);
         paciente.setDireccion(direccion);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             PacienteRepository pacienteRepository = new PacienteRepository(conn);
             pacienteRepository.crear(paciente);
             return true;

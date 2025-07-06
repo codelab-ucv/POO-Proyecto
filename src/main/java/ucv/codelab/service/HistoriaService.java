@@ -28,7 +28,7 @@ public class HistoriaService {
             return null;
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             HistoriaClinicaRepository repo = new HistoriaClinicaRepository(conn);
             return repo.buscarPorDni(dniPaciente, dniMedico);
         } catch (SQLException e) {
@@ -50,7 +50,7 @@ public class HistoriaService {
             return null;
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             HistoriaClinicaRepository repo = new HistoriaClinicaRepository(conn);
             return repo.buscarPorNombre(nombrePaciente, apellidoPaciente, nombreMedico, apellidoMedico);
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class HistoriaService {
     }
 
     public static void descargarHistoria(HistoriaClinica historia) {
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             DiagnosticoRepository diagnosticoRepository = new DiagnosticoRepository(conn);
             List<Diagnostico> diagnostico = diagnosticoRepository.buscarPorHistoria(historia.getIdHistoria());
             if (!diagnostico.isEmpty()) {

@@ -6,18 +6,12 @@ import java.sql.SQLException;
 
 public class MySQLConexion {
 
-    private static MySQLConexion instancia;
-
     private Connection conexion;
 
-    private MySQLConexion() {
-    }
-
-    public static synchronized MySQLConexion getInstance() {
-        if (instancia == null) {
-            instancia = new MySQLConexion();
+    public MySQLConexion() throws SQLException {
+        if (!conectar()) {
+            throw new SQLException("No se pudo establecer la conexión a la base de datos");
         }
-        return instancia;
     }
 
     private boolean conectar() {

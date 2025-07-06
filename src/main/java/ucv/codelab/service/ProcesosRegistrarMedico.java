@@ -32,7 +32,7 @@ public class ProcesosRegistrarMedico {
         }
         view.cmbGradoAcademico.setSelectedItem(null);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             List<Especialidad> especialidades = especialidadRepository.buscarTodos();
             for (Especialidad especialidad : especialidades) {
@@ -77,7 +77,7 @@ public class ProcesosRegistrarMedico {
         }
 
         // Obtiene el ID de la especialidad de la base de datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             Optional<Especialidad> especialidad = especialidadRepository.buscarPorNombre(especialidadString);
             if (especialidad.isPresent()) {
@@ -98,7 +98,7 @@ public class ProcesosRegistrarMedico {
         medico.setTelefono(telefono);
         medico.setEmail(email);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
             medicoRepository.crear(medico);
             return true;

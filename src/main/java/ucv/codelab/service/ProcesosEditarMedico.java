@@ -64,7 +64,7 @@ public class ProcesosEditarMedico {
         }
         view.cmbEditarGradoAcademico.setSelectedItem(null);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository especialidadRepository = new EspecialidadRepository(conn);
             List<Especialidad> especialidades = especialidadRepository.buscarTodos();
             for (Especialidad especialidad : especialidades) {
@@ -128,7 +128,7 @@ public class ProcesosEditarMedico {
 
     public static List<Medico> medicosActivos() {
         // Descarga los datos
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
             List<Medico> medicos = medicoRepository.buscarTodos();
             try {
@@ -158,7 +158,7 @@ public class ProcesosEditarMedico {
             return medicosActivos();
         }
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository medicoRepository = new MedicoRepository(conn);
             // Actualiza el nombre de especialidades
             List<Medico> medicos = medicoRepository.buscarFiltrado(dni, nombre, apellido);
@@ -191,7 +191,7 @@ public class ProcesosEditarMedico {
 
         try {
             int idMedico = Integer.valueOf(input);
-            try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+            try (Connection conn = new MySQLConexion().getConexion()) {
                 MedicoRepository medicoRepository = new MedicoRepository(conn);
                 medicoRepository.desactivar(idMedico);
             }
@@ -210,8 +210,7 @@ public class ProcesosEditarMedico {
         if (input == null) {
             return Optional.empty();
         }
-
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             int idBuscado = Integer.parseInt(input);
 
             MedicoRepository medicoRepository = new MedicoRepository(conn);
@@ -242,7 +241,7 @@ public class ProcesosEditarMedico {
         String especialidadStr = null;
 
         // Carga los datos ca
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository repo = new EspecialidadRepository(conn);
             especialidadStr = repo.buscarPorId(medicoEnEdicion.getIdEspecialidad()).get().getEspecialidad();
         } catch (Exception e) {
@@ -315,7 +314,7 @@ public class ProcesosEditarMedico {
         }
 
         // Verifica que se pueda obtener la especialidad
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             EspecialidadRepository repo = new EspecialidadRepository(conn);
             Optional<Especialidad> especialidadEncontrada = repo.buscarPorNombre(strEspecialidad);
             // Si por alguna razon no encuentra la especialidad retorna
@@ -344,7 +343,7 @@ public class ProcesosEditarMedico {
         medicoEnEdicion.setTelefono(telefono);
         medicoEnEdicion.setEmail(correo);
 
-        try (Connection conn = MySQLConexion.getInstance().getConexion()) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             MedicoRepository repo = new MedicoRepository(conn);
             repo.actualizar(medicoEnEdicion);
             return true;
