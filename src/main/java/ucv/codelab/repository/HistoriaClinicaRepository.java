@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +123,11 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
     public List<HistoriaClinica> buscarPorMedico(int idMedico) {
         String sql = "SELECT * FROM historia_clinica WHERE id_medico = ?";
         return ejecutarConsulta(sql, idMedico);
+    }
+
+    public List<HistoriaClinica> buscarPorMedicoYFecha(int idMedico, LocalDate date) {
+        String sql = "SELECT * FROM historia_clinica WHERE id_medico = ? AND DATE(fecha_hora) = ?";
+        return ejecutarConsulta(sql, idMedico, date);
     }
 
     public List<HistoriaClinica> buscarPorDni(String dniPaciente, String dniMedico) {

@@ -112,7 +112,9 @@ public class MenuController implements ActionListener {
         } else if (e.getSource() == view.menuItemBusquedaMantenimientoHistorias) {
             mostrarPanel(new FrmBusquedaMante());
         } else if (e.getSource() == view.menuItemAtencionesPorDia) {
-            mostrarPanel(new FrmAtencionesDia());
+            FrmAtencionesDia frm = new FrmAtencionesDia();
+            new AtencionesDiaController(frm);
+            mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemAtencionesPorEspecialidad) {
             mostrarPanel(new FrmAtencionesEsp());
         }
