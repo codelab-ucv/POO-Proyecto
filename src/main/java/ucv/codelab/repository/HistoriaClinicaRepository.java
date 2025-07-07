@@ -1,6 +1,7 @@
 package ucv.codelab.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -230,5 +231,54 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         sql.append(" ORDER BY hc.fecha_hora DESC");
 
         return ejecutarConsulta(sql.toString(), parametros.toArray());
+    }
+
+    public List<Object[]> atencionesPorFecha(LocalDate fechaInicio, LocalDate fechaFin, String especialidad) {
+        if (fechaInicio == null || fechaFin == null) {
+            return new ArrayList<>();
+        }
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT e.especialidad, ");
+        sql.append("DATE(hc.fecha_hora) as fecha_atencion, ");
+        sql.append("COUNT(hc.id_historia) as cantidad_atenciones ");
+        sql.append("FROM historia_clinica hc ");
+        sql.append("JOIN medico m ON hc.id_medico = m.id_medico ");
+        sql.append("JOIN especialidad e ON m.id_especialidad = e.id_especialidad ");
+        sql.append("WHERE DATE(hc.fecha_hora) BETWEEN ? AND ? "); // Entre fecha Inicio y Fin
+        sql.append(" AND hc.estado = TRUE AND m.estado = TRUE AND e.estado = TRUE ");
+
+        if (especialidad != null) {
+            sql.append(" AND e.especialidad = ? "); // Añade la condicional para la especialidad
+        }
+
+        sql.append("GROUP BY DATE(hc.fecha_hora), e.id_especialidad, e.especialidad ");
+        sql.append("ORDER BY especialidad ASC, fecha_atencion ASC, cantidad_atenciones DESC");
+
+        List<Object[]> resultados = new ArrayList<>();
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql.toString())) {
+            // Establecer parámetros
+            pstmt.setDate(1, Date.valueOf(fechaInicio));
+            pstmt.setDate(2, Date.valueOf(fechaFin));
+
+            // Si hay especialidad, establecer el tercer parámetro
+            if (especialidad != null) {
+                pstmt.setString(3, especialidad);
+            }
+
+            // Ejecutar consulta
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Object[] fila = new Object[3];
+                    fila[0] = rs.getString("especialidad");
+                    fila[1] = rs.getDate("fecha_atencion");
+                    fila[2] = rs.getInt("cantidad_atenciones");
+                    resultados.add(fila);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return resultados;
     }
 }

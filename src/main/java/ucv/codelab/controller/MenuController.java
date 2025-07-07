@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import ucv.codelab.view.FrmAtencionesDia;
-import ucv.codelab.view.FrmAtencionesEsp;
+import ucv.codelab.view.FrmAtencionesEspecialidad;
 import ucv.codelab.view.FrmBusquedaMante;
 import ucv.codelab.view.FrmExportarHisC;
 import ucv.codelab.view.FrmMantenimientoMedico;
@@ -116,7 +116,9 @@ public class MenuController implements ActionListener {
             new AtencionesDiaController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemAtencionesPorEspecialidad) {
-            mostrarPanel(new FrmAtencionesEsp());
+            FrmAtencionesEspecialidad frm = new FrmAtencionesEspecialidad();
+            new AtencionesEspecialidadController(frm);
+            mostrarPanel(frm);
         }
 
         // Event handler para Exportar
