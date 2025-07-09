@@ -6,10 +6,12 @@ import java.util.Optional;
 import ucv.codelab.model.HistoriaClinica;
 import ucv.codelab.model.Medico;
 import ucv.codelab.model.Paciente;
+import ucv.codelab.repository.HistoriaClinicaRepository;
 import ucv.codelab.repository.MedicoRepository;
 import ucv.codelab.repository.MySQLConexion;
 import ucv.codelab.repository.PacienteRepository;
 import ucv.codelab.util.ComprobarDatos;
+import ucv.codelab.util.Mensajes;
 import ucv.codelab.view.FrmRegistroHistoriaC;
 
 public class ProcesosRegistrarHistoria {
@@ -51,13 +53,24 @@ public class ProcesosRegistrarHistoria {
     }
 
     public static boolean guardarHistoria(FrmRegistroHistoriaC view, HistoriaClinica historiaClinica) {
-        try (Connection conn = new MySQLConexion().getConexion()) {
+        String antecedentes = ComprobarDatos.limpiarString(view.txtAntecedentesPaciente.getText());
+        String tiempoEnfermedad = ComprobarDatos.limpiarString(view.txtTiempoEnfermedad.getText());
+        String observaciones = ComprobarDatos.limpiarString(view.txtAreaObservaciones.getText());
 
+        historiaClinica.setAntecedentes(antecedentes);
+        historiaClinica.setTiempoEnfermedad(tiempoEnfermedad);
+        historiaClinica.setObservaciones(observaciones);
+
+        // TODO pendiente cargar los datos de examen fisico, diagnostico y tratamiento
+
+        try (Connection conn = new MySQLConexion().getConexion()) {
+            HistoriaClinicaRepository repo = new HistoriaClinicaRepository(conn);
+            repo.crear(historiaClinica);
+            return true;
         } catch (Exception e) {
-            // TODO: handle exception
+            Mensajes.error("Error al guardar", "Verifique los datos ingresados");
+            return false;
         }
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardarHistoria'");
     }
 
     public static void limpiarEntradas(FrmRegistroHistoriaC view) {
