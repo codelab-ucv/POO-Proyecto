@@ -32,12 +32,16 @@ public class FrmRegistroHistoriaC extends PanelBase {
         panelContenido.setupPanel("REGISTRO HISTORIA CLINICA");
 
         // Crear labels de sección
+        lblDatosMedico = createTitulos("DATOS DEL MEDICO");
         lblDatosPaciente = createTitulos("DATOS DEL PACIENTE");
         lblMotivoValoracion = createTitulos("MOTIVO Y VALORACIÓN INICAL");
         lblDiagnostico = createTitulos("DIAGNÓSTICO MÉDICO");
         lblTratamiento = createTitulos("TRATAMIENTO");
 
         // Crear campos de texto usando createTextField de Componentes
+        txtDniMedico = createTextField("DNI");
+        txtNombresMedico = createTextField("NOMBRES");
+        txtApellidosMedico = createTextField("APELLIDOS");
         txtDniPaciente = createTextField("DNI");
         txtNombresPaciente = createTextField("NOMBRES");
         txtApellidosPaciente = createTextField("APELLIDOS");
@@ -53,6 +57,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
         txtCodigoCie10 = createTextField("CODIGO_CIE10");
 
         // Crear botones usando createButton de Componentes
+        btnBuscarMedico = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR");
         btnBuscarPaciente = createButton("/ucv/codelab/images/BUSCAR.png", "BUSCAR");
         btnGuardarHistoria = createButton("/ucv/codelab/images/GUARDAR.png", "GUARDAR");
 
@@ -74,60 +79,74 @@ public class FrmRegistroHistoriaC extends PanelBase {
         txtAreaDescripcionTratamiento = new JTextArea();
         scrollDescripcionTratamiento = configureTextArea(txtAreaDescripcionTratamiento, "DESCRIPCIÓN DEL TRATAMIENTO");
 
+        txtNombresMedico.setEnabled(false);
+        txtApellidosMedico.setEnabled(false);
+
         txtNombresPaciente.setEnabled(false);
         txtApellidosPaciente.setEnabled(false);
 
         // Disposición de componentes usando addComponent de Componentes
+
+        /*
+         * Datos para busqueda del medico: DNI, nombre y apellido. Solo permite editar
+         * el DNI
+         */
+        panelContenido.addComponentNorth(lblDatosMedico, 0, 0, 4, 1, 35, 30, 0);
+        panelContenido.addComponentNorth(txtDniMedico, 0, 1, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtNombresMedico, 1, 1, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtApellidosMedico, 2, 1, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(btnBuscarMedico, 3, 1, 1, 1, 35, 30, 1.0);
+
         /*
          * Datos para busqueda del paciente: DNI, nombre y apellido. Solo permite editar
          * el DNI
          */
-        panelContenido.addComponentNorth(lblDatosPaciente, 0, 0, 4, 1, 35, 30, 0);
-        panelContenido.addComponentNorth(txtDniPaciente, 0, 1, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtNombresPaciente, 1, 1, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtApellidosPaciente, 2, 1, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(btnBuscarPaciente, 3, 1, 1, 1, 35, 30, 1.0);
+        panelContenido.addComponentNorth(lblDatosPaciente, 0, 2, 4, 1, 35, 30, 0);
+        panelContenido.addComponentNorth(txtDniPaciente, 0, 3, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtNombresPaciente, 1, 3, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtApellidosPaciente, 2, 3, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(btnBuscarPaciente, 3, 3, 1, 1, 35, 30, 1.0);
 
         /*
          * Examen fisico tiene: Talla, peso, presion arterial, temperatura, frecuencia
          * cardiaca, frecuencia respiratoria
          */
-        panelContenido.addComponentNorth(txtTallaPaciente, 0, 2, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtPesoPaciente, 1, 2, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtPresionArterial, 2, 2, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtTemperaturaCorporal, 3, 2, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtFrecuenciaCardiaca, 0, 3, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtFrecuenciaRespiratoria, 1, 3, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtTallaPaciente, 0, 4, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtPesoPaciente, 1, 4, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtPresionArterial, 2, 4, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtTemperaturaCorporal, 3, 4, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtFrecuenciaCardiaca, 0, 5, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtFrecuenciaRespiratoria, 1, 5, 1, 1, 200, 30, 1.0);
 
         /*
          * Historia clinica tiene: motivo_consulta, antecedentes, tiempo_enfermedad,
          * observaciones
          */
-        panelContenido.addComponentNorth(lblMotivoValoracion, 0, 4, 4, 1, 0, 0, 0);
-        panelContenido.addComponentNorth(txtMotivoConsulta, 0, 5, 2, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtAntecedentesPaciente, 2, 5, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtTiempoEnfermedad, 3, 5, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(scrollObservaciones, 0, 6, 4, 1, 400, 90, 1.0);
+        panelContenido.addComponentNorth(lblMotivoValoracion, 0, 6, 4, 1, 0, 0, 0);
+        panelContenido.addComponentNorth(txtMotivoConsulta, 0, 7, 2, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtAntecedentesPaciente, 2, 7, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtTiempoEnfermedad, 3, 7, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(scrollObservaciones, 0, 8, 4, 1, 400, 90, 1.0);
 
         /*
          * Diagnostico tiene: tipo, codigo_cie10, descripcion
          */
-        panelContenido.addComponentNorth(lblDiagnostico, 0, 7, 4, 1, 0, 0, 0);
-        panelContenido.addComponentNorth(cmbTipoDiagnostico, 0, 8, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(txtCodigoCie10, 2, 8, 1, 1, 200, 30, 1.0);
-        panelContenido.addComponentNorth(scrollDescripcionDiagnostico, 0, 9, 4, 1, 350, 90, 1.0);
+        panelContenido.addComponentNorth(lblDiagnostico, 0, 9, 4, 1, 0, 0, 0);
+        panelContenido.addComponentNorth(cmbTipoDiagnostico, 0, 10, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(txtCodigoCie10, 2, 10, 1, 1, 200, 30, 1.0);
+        panelContenido.addComponentNorth(scrollDescripcionDiagnostico, 0, 11, 4, 1, 350, 90, 1.0);
 
         /*
          * Tratamiento tiene: descripcion, indicaciones
          */
-        panelContenido.addComponentNorth(lblTratamiento, 0, 10, 4, 1, 0, 0, 0);
-        panelContenido.addComponentNorth(scrollDescripcionTratamiento, 0, 11, 2, 1, 350, 90, 1.0);
-        panelContenido.addComponentNorth(scrollIndicaciones, 2, 11, 2, 1, 350, 90, 1.0);
+        panelContenido.addComponentNorth(lblTratamiento, 0, 12, 4, 1, 0, 0, 0);
+        panelContenido.addComponentNorth(scrollDescripcionTratamiento, 0, 13, 2, 1, 350, 90, 1.0);
+        panelContenido.addComponentNorth(scrollIndicaciones, 2, 13, 2, 1, 350, 90, 1.0);
 
         /*
          * Boton de guardar
          */
-        panelContenido.addComponentFullSouth(btnGuardarHistoria, 0, 12, 4, 1, 60, 30);
+        panelContenido.addComponentFullSouth(btnGuardarHistoria, 0, 14, 4, 1, 60, 30);
 
         // Configurar scroll principal
         scrollPanePrincipal.setViewportView(panelContenido);
@@ -142,6 +161,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
     }
 
     // Variables de componentes con nombres descriptivos
+    private JLabel lblDatosMedico;
     private JLabel lblDatosPaciente;
     private JLabel lblDiagnostico;
     private JLabel lblMotivoValoracion;
@@ -157,6 +177,11 @@ public class FrmRegistroHistoriaC extends PanelBase {
     public JTextField txtDniPaciente;
     public JTextField txtNombresPaciente;
     public JTextField txtApellidosPaciente;
+
+    // Datos paciente
+    public JTextField txtDniMedico;
+    public JTextField txtNombresMedico;
+    public JTextField txtApellidosMedico;
 
     // Examen fisico
     public JTextField txtTallaPaciente;
@@ -183,5 +208,6 @@ public class FrmRegistroHistoriaC extends PanelBase {
 
     // Botones
     public JToggleButton btnBuscarPaciente;
+    public JToggleButton btnBuscarMedico;
     public JToggleButton btnGuardarHistoria;
 }

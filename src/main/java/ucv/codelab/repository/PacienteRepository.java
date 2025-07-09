@@ -193,4 +193,9 @@ public class PacienteRepository extends BaseRepository<Paciente> {
         String sql = "SELECT * FROM paciente WHERE id_paciente = ? AND estado = ?";
         return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
+
+    public Optional<Paciente> buscarPorDni(String dni) {
+        String sql = "SELECT * FROM paciente WHERE dni = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, dni, true);
+    }
 }
