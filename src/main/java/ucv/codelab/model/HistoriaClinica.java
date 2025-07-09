@@ -141,4 +141,8 @@ public class HistoriaClinica {
     public void setTratamiento(List<Tratamiento> tratamiento) {
         this.tratamiento = tratamiento;
     }
+
+    public Object[] registro() {
+        return new Object[] { idHistoria, fechaHora.toString(), motivoConsulta };
+    }
 }

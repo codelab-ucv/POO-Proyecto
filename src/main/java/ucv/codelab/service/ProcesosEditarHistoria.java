@@ -40,6 +40,10 @@ public class ProcesosEditarHistoria {
             }
         };
         view.tblResultados.setModel(dtm);
+
+        for (HistoriaClinica historia : historias) {
+            dtm.addRow(historia.registro());
+        }
     }
 
     private static void personalizarTabla(FrmMantenimientoHistoria view) { // Personalizar cabecera
@@ -97,7 +101,21 @@ public class ProcesosEditarHistoria {
     }
 
     public static List<HistoriaClinica> historiasFiltradas(FrmMantenimientoHistoria view) {
-        // TODO Auto-generated method stub
+        // Si el DNI no está vacio primero intenta buscarlo por DNI
+        String dniFiltrado = ComprobarDatos.limpiarString(view.txtDniBusqueda.getText());
+        if (dniFiltrado != null) {
+            return HistoriaService.buscarPorDni(dniFiltrado, null);
+        }
+
+        // De lo contrario intenta buscar por lo menos por nombre o apellido
+        String nombreFiltrado = ComprobarDatos.limpiarString(view.txtNombreBusqueda.getText());
+        String apellidoFiltrado = ComprobarDatos.limpiarString(view.txtApellidoBusqueda.getText());
+        if (nombreFiltrado != null || apellidoFiltrado != null) {
+            return HistoriaService.buscarPorNombre(nombreFiltrado, apellidoFiltrado, null, null);
+        }
+
+        // De lo contrario devuelve una lista vacia
+        Mensajes.error("Error de busqueda", "Debe especificarse por lo menos un filtro para buscar");
         return new ArrayList<>();
     }
 
@@ -124,7 +142,25 @@ public class ProcesosEditarHistoria {
     }
 
     public static Optional<HistoriaClinica> seleccionarHistoria(FrmMantenimientoHistoria view) {
-        // TODO Auto-generated method stub
+        String input = JOptionPane.showInputDialog(view, "Ingrese el ID de la historia clínica a editar");
+        input = ComprobarDatos.limpiarString(input);
+
+        // Si se cancela la eliminacion o esta vacio
+        if (input == null) {
+            return Optional.empty();
+        }
+
+        try (Connection conn = new MySQLConexion().getConexion()) {
+            int idBuscado = Integer.parseInt(input);
+
+            HistoriaClinicaRepository historiaClinicaRepository = new HistoriaClinicaRepository(conn);
+            return historiaClinicaRepository.buscarPorId(idBuscado);
+        } catch (NumberFormatException e) {
+            Mensajes.error("Valor inválido", "Ingrese un número válido");
+        } catch (SQLException e) {
+            Mensajes.errorConexion();
+        }
+
         return Optional.empty();
     }
 
