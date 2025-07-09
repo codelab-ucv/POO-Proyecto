@@ -10,7 +10,7 @@ import javax.swing.WindowConstants;
 
 import ucv.codelab.view.FrmAtencionesDia;
 import ucv.codelab.view.FrmAtencionesEspecialidad;
-import ucv.codelab.view.FrmBusquedaMante;
+import ucv.codelab.view.FrmMantenimientoHistoria;
 import ucv.codelab.view.FrmExportarHisC;
 import ucv.codelab.view.FrmMantenimientoMedico;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
@@ -112,7 +112,9 @@ public class MenuController implements ActionListener {
             new RegistrarHistoriaController(frm);
             mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemBusquedaMantenimientoHistorias) {
-            mostrarPanel(new FrmBusquedaMante());
+            FrmMantenimientoHistoria frm = new FrmMantenimientoHistoria();
+            new EditarHistoriaController(frm);
+            mostrarPanel(frm);
         } else if (e.getSource() == view.menuItemAtencionesPorDia) {
             FrmAtencionesDia frm = new FrmAtencionesDia();
             new AtencionesDiaController(frm);
