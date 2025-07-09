@@ -93,7 +93,7 @@ public class DiagnosticoRepository extends BaseRepository<Diagnostico> {
     }
 
     public List<Diagnostico> buscarPorHistoria(int idHistoria) {
-        String sql = "SELECT * FROM diagnostico WHERE id_historia = ?";
+        String sql = "SELECT * FROM diagnostico WHERE id_historia = ? ORDER BY id_diagnostico DESC";
         return ejecutarConsulta(sql, idHistoria);
     }
 

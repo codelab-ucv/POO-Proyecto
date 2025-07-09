@@ -13,7 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
+import ucv.codelab.model.Diagnostico;
+import ucv.codelab.model.ExamenFisico;
 import ucv.codelab.model.HistoriaClinica;
+import ucv.codelab.model.Tratamiento;
 import ucv.codelab.repository.HistoriaClinicaRepository;
 import ucv.codelab.repository.MySQLConexion;
 import ucv.codelab.util.ComprobarDatos;
@@ -165,7 +168,48 @@ public class ProcesosEditarHistoria {
     }
 
     public static void cargarDatosEdicion(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion) {
-        // TODO Auto-generated method stub
+        // Descarga toda la informacion de la historia
+        HistoriaService.descargarHistoria(historiaEnEdicion);
+
+        // Carga los datos en el formulario
+        view.txtIdMedico.setText(historiaEnEdicion.getIdMedico() + "");
+        view.txtIdPaciente.setText(historiaEnEdicion.getIdPaciente() + "");
+
+        // Historia clinica
+        view.txtMotivoConsulta.setText(historiaEnEdicion.getMotivoConsulta());
+        view.txtAntecedentesPaciente.setText(historiaEnEdicion.getAntecedentes());
+        view.txtTiempoEnfermedad.setText(historiaEnEdicion.getTiempoEnfermedad());
+        view.txtAreaObservaciones.setText(historiaEnEdicion.getObservaciones());
+
+        // Examen Fisico
+        ExamenFisico examenFisico = historiaEnEdicion.getExamenFisico();
+        if (examenFisico != null) {
+            view.txtTallaPaciente.setText(examenFisico.getTalla() + "");
+            view.txtPesoPaciente.setText(examenFisico.getPeso() + "");
+            view.txtPresionArterial.setText(examenFisico.getPresionArterial() + "");
+            view.txtTemperaturaCorporal.setText(examenFisico.getTemperatura() + "");
+            view.txtFrecuenciaCardiaca.setText(examenFisico.getFrecuenciaCardiaca() + "");
+            view.txtFrecuenciaRespiratoria.setText(examenFisico.getFrecuenciaRespiratoria() + "");
+        }
+
+        // Diagnostico
+        List<Diagnostico> diagnosticos = historiaEnEdicion.getDiagnostico();
+        if (diagnosticos != null && !diagnosticos.isEmpty()) {
+            // Usa el ultimo diagnostico registrado (ordenado descendente)
+            String tipoDiagnostico = diagnosticos.get(0).getTipo().toString();
+
+            view.cmbTipoDiagnostico.setSelectedItem(tipoDiagnostico);
+            view.txtCodigoCie10.setText(diagnosticos.get(0).getCodigoCIE10());
+            view.txtAreaDescripcionDiagnostico.setText(diagnosticos.get(0).getDescripcion());
+        }
+
+        // Tratamiento
+        List<Tratamiento> tratamientos = historiaEnEdicion.getTratamiento();
+        if (tratamientos != null && !tratamientos.isEmpty()) {
+            // Usa el ultimo tratamiento registrado (ordenado descendente)
+            view.txtAreaDescripcionTratamiento.setText(tratamientos.get(0).getDescripcion());
+            view.txtAreaIndicaciones.setText(tratamientos.get(0).getIndicaciones());
+        }
     }
 
     public static void habilitarCamposEditables(FrmMantenimientoHistoria view) {
@@ -200,5 +244,4 @@ public class ProcesosEditarHistoria {
         // TODO Auto-generated method stub
         return false;
     }
-
 }
