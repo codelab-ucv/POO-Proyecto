@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ucv.codelab.model.HistoriaClinica;
+import ucv.codelab.util.Mensajes;
 
 public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
 
@@ -281,4 +282,24 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         }
         return resultados;
     }
+
+    /**
+     * Desactiva una historia clinica de la tabla.
+     * 
+     * @param id el ID de la historia clinica a desactivar
+     */
+    public void desactivar(int id) {
+        String sql = "UPDATE historia_clinica SET estado = ? WHERE id_historia = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa la especialidad
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Mensajes.errorConexion("Error al eliminar la historia clínica con ID: " + id + " de " + getTableName());
+        }
+    }
+
 }
