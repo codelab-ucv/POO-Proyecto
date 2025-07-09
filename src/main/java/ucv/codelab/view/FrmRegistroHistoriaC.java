@@ -142,7 +142,6 @@ public class FrmRegistroHistoriaC extends PanelBase {
     }
 
     // Variables de componentes con nombres descriptivos
-    private JComboBox<String> cmbTipoDiagnostico;
     private JLabel lblDatosPaciente;
     private JLabel lblDiagnostico;
     private JLabel lblMotivoValoracion;
@@ -153,23 +152,36 @@ public class FrmRegistroHistoriaC extends PanelBase {
     private JScrollPane scrollObservaciones;
     private JScrollPane scrollDescripcionDiagnostico;
     private JScrollPane scrollIndicaciones;
-    private JTextArea txtAreaDescripcionTratamiento;
-    private JTextArea txtAreaObservaciones;
-    private JTextArea txtAreaDescripcionDiagnostico;
-    private JTextArea txtAreaIndicaciones;
-    private JTextField txtAntecedentesPaciente;
-    private JTextField txtTiempoEnfermedad;
-    private JTextField txtCodigoCie10;
-    private JTextField txtPesoPaciente;
-    private JTextField txtFrecuenciaRespiratoria;
-    private JTextField txtPresionArterial;
-    private JTextField txtTallaPaciente;
-    private JTextField txtNombresPaciente;
-    private JTextField txtTemperaturaCorporal;
-    private JTextField txtFrecuenciaCardiaca;
-    private JTextField txtMotivoConsulta;
-    private JTextField txtDniPaciente;
-    private JTextField txtApellidosPaciente;
-    private JToggleButton btnBuscarPaciente;
-    private JToggleButton btnGuardarHistoria;
+
+    // Datos paciente
+    public JTextField txtDniPaciente;
+    public JTextField txtNombresPaciente;
+    public JTextField txtApellidosPaciente;
+
+    // Examen fisico
+    public JTextField txtTallaPaciente;
+    public JTextField txtPesoPaciente;
+    public JTextField txtPresionArterial;
+    public JTextField txtTemperaturaCorporal;
+    public JTextField txtFrecuenciaCardiaca;
+    public JTextField txtFrecuenciaRespiratoria;
+
+    // Historia clinica
+    public JTextField txtMotivoConsulta;
+    public JTextField txtAntecedentesPaciente;
+    public JTextField txtTiempoEnfermedad;
+    public JTextArea txtAreaObservaciones;
+
+    // Diagnostico
+    public JComboBox<String> cmbTipoDiagnostico;
+    public JTextField txtCodigoCie10;
+    public JTextArea txtAreaDescripcionDiagnostico;
+
+    // Tratamiento
+    public JTextArea txtAreaDescripcionTratamiento;
+    public JTextArea txtAreaIndicaciones;
+
+    // Botones
+    public JToggleButton btnBuscarPaciente;
+    public JToggleButton btnGuardarHistoria;
 }
