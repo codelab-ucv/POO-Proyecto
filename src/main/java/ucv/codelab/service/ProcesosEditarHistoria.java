@@ -13,12 +13,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
+import ucv.codelab.enumerados.TipoDiagnostico;
 import ucv.codelab.model.Diagnostico;
 import ucv.codelab.model.ExamenFisico;
 import ucv.codelab.model.HistoriaClinica;
 import ucv.codelab.model.Tratamiento;
+import ucv.codelab.repository.DiagnosticoRepository;
+import ucv.codelab.repository.ExamenFisicoRepository;
 import ucv.codelab.repository.HistoriaClinicaRepository;
 import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.repository.TratamientoRepository;
 import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.view.FrmMantenimientoHistoria;
@@ -241,7 +245,205 @@ public class ProcesosEditarHistoria {
     }
 
     public static boolean actualizarHistoria(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion) {
-        // TODO Auto-generated method stub
+        Connection conn = null;
+        try {
+            conn = new MySQLConexion().getConexion();
+            conn.setAutoCommit(false);
+            // Retorna true al actualizar todo correctamente
+            if (upsertHistoriaClinica(view, historiaEnEdicion, conn)
+                    && upsertExamenFisico(view, historiaEnEdicion, conn)
+                    && upsertDiagnostico(view, historiaEnEdicion, conn)
+                    && upsertTratamiento(view, historiaEnEdicion, conn)) {
+                // Si todo esta bien confirma los cambios
+                conn.commit();
+                return true;
+            }
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
         return false;
+    }
+
+    private static boolean upsertHistoriaClinica(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion,
+            Connection conn) {
+        HistoriaClinicaRepository historiaClinicaRepository = new HistoriaClinicaRepository(conn);
+        // ========== Actualiza la Historia Clinica ========== //
+
+        // Parametros obligatorios para historia clinica
+        String motivoConsulta = ComprobarDatos.limpiarString(view.txtMotivoConsulta.getText());
+
+        // Si algun campo obligatorio no esta lleno
+        if (motivoConsulta == null) {
+            return false;
+        }
+
+        String antecedentes = ComprobarDatos.limpiarString(view.txtAntecedentesPaciente.getText());
+        String tiempoEnfermedad = ComprobarDatos.limpiarString(view.txtTiempoEnfermedad.getText());
+        String observaciones = ComprobarDatos.limpiarString(view.txtAreaObservaciones.getText());
+
+        historiaEnEdicion.setMotivoConsulta(motivoConsulta);
+        historiaEnEdicion.setAntecedentes(antecedentes);
+        historiaEnEdicion.setTiempoEnfermedad(tiempoEnfermedad);
+        historiaEnEdicion.setObservaciones(observaciones);
+
+        historiaClinicaRepository.actualizar(historiaEnEdicion);
+        return true;
+    }
+
+    private static boolean upsertExamenFisico(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion,
+            Connection conn) {
+        ExamenFisicoRepository examenFisicoRepository = new ExamenFisicoRepository(conn);
+
+        // Carga los nuevos datos
+        ExamenFisico examenFisico = loadExamenFisico(view);
+        examenFisico.setIdHistoria(historiaEnEdicion.getIdHistoria());
+
+        // Si existe un examen fisico actualiza el objeto creado
+        if (historiaEnEdicion.getExamenFisico() != null) {
+            examenFisico.setIdExamen(historiaEnEdicion.getExamenFisico().getIdExamen());
+        }
+        // Actualiza el examen fisico
+        historiaEnEdicion.setExamenFisico(examenFisico);
+        // Si el id es menor que 1 es un caso nuevo, corresponde insert
+        if (historiaEnEdicion.getExamenFisico().getIdExamen() < 1) {
+            examenFisicoRepository.crear(examenFisico);
+        }
+        // De lo contrario actualiza
+        else {
+            examenFisicoRepository.actualizar(examenFisico);
+        }
+        return true;
+    }
+
+    private static ExamenFisico loadExamenFisico(FrmMantenimientoHistoria view) {
+        Double peso = ComprobarDatos.validarDecimal(view.txtPesoPaciente.getText());
+        Double talla = ComprobarDatos.validarDecimal(view.txtTallaPaciente.getText());
+        String presionArterial = ComprobarDatos.limpiarString(view.txtPresionArterial.getText());
+        Double temperatura = ComprobarDatos.validarDecimal(view.txtTemperaturaCorporal.getText());
+        Integer frecuenciaCardiaca = ComprobarDatos.validarEntero(view.txtFrecuenciaCardiaca.getText());
+        Integer frecuenciaRespiratoria = ComprobarDatos.validarEntero(view.txtFrecuenciaRespiratoria.getText());
+
+        // Si por lo menos uno de los datos existe retorna el objeto
+        if (peso != null || talla != null || presionArterial != null || temperatura != null
+                || frecuenciaCardiaca != null || frecuenciaRespiratoria != null) {
+            ExamenFisico examenFisico = new ExamenFisico();
+            examenFisico.setPeso(peso);
+            examenFisico.setTalla(talla);
+            examenFisico.setPresionArterial(presionArterial);
+            examenFisico.setTemperatura(temperatura);
+            examenFisico.setFrecuenciaCardiaca(frecuenciaCardiaca);
+            examenFisico.setFrecuenciaRespiratoria(frecuenciaRespiratoria);
+            return examenFisico;
+        }
+        return null;
+    }
+
+    private static boolean upsertDiagnostico(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion,
+            Connection conn) {
+        DiagnosticoRepository diagnosticoRepository = new DiagnosticoRepository(conn);
+
+        // Carga el nuevo diagnostivo
+        Diagnostico diagnosticoNuevo = loadDiagnostico(view);
+        diagnosticoNuevo.setIdHistoria(historiaEnEdicion.getIdHistoria());
+
+        // Si no hay diagnosticos previos inserta directamente
+        if (historiaEnEdicion.getDiagnostico().size() < 1) {
+            diagnosticoRepository.crear(diagnosticoNuevo);
+            return true;
+        }
+
+        // En caso se tengan registros previos compara
+        Diagnostico diagnosticoActual = historiaEnEdicion.getDiagnostico().get(0);
+
+        // Si hay un cambio en el tipo de diagnostico o codigo inserta uno nuevo
+        if (diagnosticoActual.getTipo() != diagnosticoNuevo.getTipo()
+                || !diagnosticoActual.getCodigoCIE10().equals(diagnosticoNuevo.getCodigoCIE10())) {
+            diagnosticoRepository.crear(diagnosticoNuevo);
+        }
+        // De lo contrario se trata del mismo, cambia el ID y actualiza
+        else {
+            diagnosticoNuevo.setIdDiagnostico(diagnosticoActual.getIdDiagnostico());
+            diagnosticoRepository.actualizar(diagnosticoNuevo);
+        }
+        return true;
+    }
+
+    private static Diagnostico loadDiagnostico(FrmMantenimientoHistoria view) {
+        // Verifica primero los ComboBox
+        if (view.cmbTipoDiagnostico.getSelectedItem() == null) {
+            return null;
+        }
+
+        String tipoDiagnostico = ComprobarDatos.limpiarString(view.cmbTipoDiagnostico.getSelectedItem().toString());
+        String descripcion = ComprobarDatos.limpiarString(view.txtAreaDescripcionDiagnostico.getText());
+        String codigoCie = ComprobarDatos.limpiarString(view.txtCodigoCie10.getText());
+
+        // Si el tipo de diagnostico no es nulo ni el codigo CIE10 retorna el objeto
+        if (tipoDiagnostico != null && codigoCie != null) {
+            Diagnostico diagnostico = new Diagnostico();
+            diagnostico.setTipo(TipoDiagnostico.fromString(tipoDiagnostico));
+            diagnostico.setCodigoCIE10(codigoCie);
+            diagnostico.setDescripcion(descripcion);
+            return diagnostico;
+        }
+        return null;
+    }
+
+    private static boolean upsertTratamiento(FrmMantenimientoHistoria view, HistoriaClinica historiaEnEdicion,
+            Connection conn) {
+        TratamientoRepository tratamientoRepository = new TratamientoRepository(conn);
+
+        // Carga el nuevo diagnostivo
+        Tratamiento tratamientoNuevo = loadTratamiento(view);
+        tratamientoNuevo.setIdHistoria(historiaEnEdicion.getIdHistoria());
+
+        // Si no hay tratamientos previos inserta directamente
+        if (historiaEnEdicion.getTratamiento().size() < 1) {
+            tratamientoRepository.crear(tratamientoNuevo);
+            return true;
+        }
+
+        // En caso no se tengan registros previos compara
+        Tratamiento tratamientoActual = historiaEnEdicion.getTratamiento().get(0);
+
+        // Si hay un cambio en el tipo de diagnostico o codigo inserta uno nuevo
+        if (!tratamientoActual.getDescripcion().equals(tratamientoNuevo.getDescripcion())
+                || !tratamientoActual.getIndicaciones().equals(tratamientoNuevo.getIndicaciones())) {
+            tratamientoRepository.crear(tratamientoNuevo);
+        }
+        // De lo contrario se trata del mismo, cambia el ID y actualiza
+        else {
+            tratamientoNuevo.setIdTratamiento(tratamientoActual.getIdTratamiento());
+            tratamientoRepository.actualizar(tratamientoNuevo);
+        }
+
+        return true;
+    }
+
+    private static Tratamiento loadTratamiento(FrmMantenimientoHistoria view) {
+        String descripcion = ComprobarDatos.limpiarString(view.txtAreaDescripcionTratamiento.getText());
+        String indicaciones = ComprobarDatos.limpiarString(view.txtAreaIndicaciones.getText());
+
+        // Si por lo menos uno de los datos existe retorna el objeto
+        if (descripcion != null || indicaciones != null) {
+            Tratamiento tratamiento = new Tratamiento();
+            tratamiento.setDescripcion(descripcion);
+            tratamiento.setIndicaciones(indicaciones);
+            return tratamiento;
+        }
+        return null;
     }
 }

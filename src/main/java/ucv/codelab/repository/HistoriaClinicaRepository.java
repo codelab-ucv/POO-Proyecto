@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import ucv.codelab.model.HistoriaClinica;
 import ucv.codelab.util.Mensajes;
@@ -308,4 +309,9 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         }
     }
 
+    @Override
+    public Optional<HistoriaClinica> buscarPorId(int id) {
+        String sql = "SELECT * FROM historia_clinica WHERE id_historia = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, id, true);
+    }
 }
