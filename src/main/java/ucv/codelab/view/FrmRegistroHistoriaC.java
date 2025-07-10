@@ -64,7 +64,7 @@ public class FrmRegistroHistoriaC extends PanelBase {
         // Crear ComboBox para tipo de diagnóstico
         cmbTipoDiagnostico = createComboBox("TIPO");
         cmbTipoDiagnostico.setModel(new DefaultComboBoxModel<>(
-                new String[] { "- SELECCIONA -", "Presuntivo", "Definitivo", "Diferencial" }));
+                new String[] { "Presuntivo", "Definitivo", "Diferencial" }));
 
         // Crear áreas de texto con scroll
         txtAreaObservaciones = new JTextArea();

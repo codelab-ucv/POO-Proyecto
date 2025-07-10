@@ -9,8 +9,10 @@ import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import ucv.codelab.model.HistoriaClinica;
+import ucv.codelab.util.Mensajes;
 
 public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
 
@@ -164,6 +166,9 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
             parametros.add(dniMedico);
         }
 
+        if (!primeraCondicion) {
+            sql.append(" AND hc.estado = 1");
+        }
         sql.append(" ORDER BY hc.fecha_hora DESC");
 
         return ejecutarConsulta(sql.toString(), parametros.toArray());
@@ -228,6 +233,9 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
             }
         }
 
+        if (!primeraCondicion) {
+            sql.append(" AND hc.estado = 1");
+        }
         sql.append(" ORDER BY hc.fecha_hora DESC");
 
         return ejecutarConsulta(sql.toString(), parametros.toArray());
@@ -280,5 +288,30 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
         } catch (Exception e) {
         }
         return resultados;
+    }
+
+    /**
+     * Desactiva una historia clinica de la tabla.
+     * 
+     * @param id el ID de la historia clinica a desactivar
+     */
+    public void desactivar(int id) {
+        String sql = "UPDATE historia_clinica SET estado = ? WHERE id_historia = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Desativa la especialidad
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Mensajes.errorConexion("Error al eliminar la historia clínica con ID: " + id + " de " + getTableName());
+        }
+    }
+
+    @Override
+    public Optional<HistoriaClinica> buscarPorId(int id) {
+        String sql = "SELECT * FROM historia_clinica WHERE id_historia = ? AND estado = ?";
+        return ejecutarConsultaSoloUnResultado(sql, id, true);
     }
 }

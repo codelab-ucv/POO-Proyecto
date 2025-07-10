@@ -79,7 +79,7 @@ public class TratamientoRepository extends BaseRepository<Tratamiento> {
     }
 
     public List<Tratamiento> buscarPorHistoria(int idHistoria) {
-        String sql = "SELECT * FROM tratamiento WHERE id_historia = ?";
+        String sql = "SELECT * FROM tratamiento WHERE id_historia = ? ORDER BY id_tratamiento DESC";
         return ejecutarConsulta(sql, idHistoria);
     }
 }
