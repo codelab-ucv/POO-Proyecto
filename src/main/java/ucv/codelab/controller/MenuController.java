@@ -11,7 +11,7 @@ import javax.swing.WindowConstants;
 import ucv.codelab.view.FrmAtencionesDia;
 import ucv.codelab.view.FrmAtencionesEspecialidad;
 import ucv.codelab.view.FrmMantenimientoHistoria;
-import ucv.codelab.view.FrmExportarHisC;
+import ucv.codelab.view.FrmExportarHistoria;
 import ucv.codelab.view.FrmMantenimientoMedico;
 import ucv.codelab.view.FrmMantenimientoEspecialidad;
 import ucv.codelab.view.FrmMantenimientoPaciente;
@@ -127,7 +127,9 @@ public class MenuController implements ActionListener {
 
         // Event handler para Exportar
         else if (e.getSource() == view.menuItemExportarHistoriaClinica) {
-            mostrarPanel(new FrmExportarHisC());
+            FrmExportarHistoria frm = new FrmExportarHistoria();
+            new ExportarHistoriaController(frm);
+            mostrarPanel(frm);
         }
     }
 }
