@@ -165,6 +165,9 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
             parametros.add(dniMedico);
         }
 
+        if (!primeraCondicion) {
+            sql.append(" AND hc.estado = 1");
+        }
         sql.append(" ORDER BY hc.fecha_hora DESC");
 
         return ejecutarConsulta(sql.toString(), parametros.toArray());
@@ -229,6 +232,9 @@ public class HistoriaClinicaRepository extends BaseRepository<HistoriaClinica> {
             }
         }
 
+        if (!primeraCondicion) {
+            sql.append(" AND hc.estado = 1");
+        }
         sql.append(" ORDER BY hc.fecha_hora DESC");
 
         return ejecutarConsulta(sql.toString(), parametros.toArray());
