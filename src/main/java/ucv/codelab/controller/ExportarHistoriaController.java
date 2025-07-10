@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import ucv.codelab.model.HistoriaClinica;
 import ucv.codelab.service.ProcesosExportarHistoria;
 import ucv.codelab.view.FrmExportarHistoria;
@@ -42,7 +44,9 @@ public class ExportarHistoriaController implements ActionListener {
     private void clicExportar() {
         HistoriaClinica historiaExportar = ProcesosExportarHistoria.descargarHistoria(view);
         if (historiaExportar != null) {
-            ProcesosExportarHistoria.exportar(historiaExportar);
+            if(ProcesosExportarHistoria.exportar(historiaExportar)){
+                JOptionPane.showMessageDialog(null, "PDF exportado con exito a la carpeta Documents");
+            }
         }
     }
 }

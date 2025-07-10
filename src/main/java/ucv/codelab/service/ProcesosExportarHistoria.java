@@ -17,7 +17,9 @@ import javax.swing.table.TableColumnModel;
 
 import ucv.codelab.model.HistoriaClinica;
 import ucv.codelab.repository.HistoriaClinicaRepository;
+import ucv.codelab.repository.MedicoRepository;
 import ucv.codelab.repository.MySQLConexion;
+import ucv.codelab.repository.PacienteRepository;
 import ucv.codelab.util.ComprobarDatos;
 import ucv.codelab.util.Mensajes;
 import ucv.codelab.view.FrmExportarHistoria;
@@ -123,17 +125,24 @@ public class ProcesosExportarHistoria {
 
     }
 
-    public static void exportar(HistoriaClinica historiaExportar) {
-        try {
+    public static boolean exportar(HistoriaClinica historiaExportar) {
+        try (Connection conn = new MySQLConexion().getConexion()) {
             String userHome = System.getProperty("user.home");
             File initialDirectory = new File(userHome, "Documents");
 
             String fileName = "historia_" + historiaExportar.getIdHistoria() + ".pdf";
             File ubicacionArchivo = new File(initialDirectory, fileName);
-            MakePdf.make(ubicacionArchivo, historiaExportar);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+
+            PacienteRepository pacienteRepository = new PacienteRepository(conn);
+            MedicoRepository medicoRepository = new MedicoRepository(conn);
+
+            MakePdf.make(ubicacionArchivo, historiaExportar,
+                    pacienteRepository.buscarPorId(historiaExportar.getIdPaciente()).get(),
+                    medicoRepository.buscarPorId(historiaExportar.getIdMedico()).get());
+            return true;
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
